@@ -2,7 +2,7 @@
     <wb-module deploy-name="jsp-team-project">
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
-        <property name="context-root" value="jsp-team-project"/>
         <property name="java-output-path" value="/jsp-team-project/build/classes"/>
+        <property name="context-root" value="shop.com"/>
     </wb-module>
 </project-modules>
