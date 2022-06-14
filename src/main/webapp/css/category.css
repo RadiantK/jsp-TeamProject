@@ -1,0 +1,134 @@
+/* 공통 */
+.cell{
+	float: left;
+}
+/* productList.html */
+.product-list {
+	background-color: rgb(255, 255, 255);
+	letter-spacing: -0.5px;
+}
+.product-list ul {
+	margin-bottom: 0;
+	padding-left: 0;
+}
+.cg-banner{
+	/* background-color: #35C5F0; */
+	text-align: center;
+	height: 300px;
+	line-height: 300px;
+	font-weight: bold;
+	/* background-image: url('../images/banner01.jpg'); */
+	background: url('../images/product/banner_furniture.jpg') no-repeat 50% 0;
+}
+.cg-banner p{
+	font-size: 100px;
+	color: white;
+}
+.cg-contents{
+	width: 1000px;
+	margin: 0 auto;
+}
+.cg-menu{
+	margin-top: 10px;
+}
+.cg-menu-title{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #000;
+    margin-top: 50px;
+}
+.cg-menu-title > .list-txt{
+	margin-bottom: 10px;
+}
+.cg-menu-title > .choice{
+	margin-bottom: 10px;
+	font-size: 0.8em;
+}
+.cg-menu-title > .choice > .tune{
+	width: 100px;
+	padding: 3px;
+	border-color: rgb(192, 192, 192);
+}
+.cg-menu-title span{
+	font-size: 30px;
+}
+.cg-menu-list{
+	display: flex;
+	margin-top: 10px;
+}
+.cg-menu-list li{
+	position: relative;
+	display: block;
+	float: left;
+	outline: 1px dotted white;
+	margin-right: 20px;
+	font-size: 0.9em;
+	color: rgb(170, 170, 170);
+}
+.cg-menu-list li a{
+	color: rgb(170, 170, 170);
+}
+.cg-menu-list li a.select{
+	color: #35C5F0;
+	font-weight: bold;
+}
+.cg-menu-list li:hover,
+.cg-menu-list a:hover{
+	color: #35C5F0;
+}
+.cg-item{
+	width: 1000px;
+	margin: 0 auto;
+}
+.cg-item > .box{
+	width: calc( (100% - 30px) / 4 );
+	/* height: 370px; */
+	padding: 10px;
+	margin-right: 10px;
+	margin-top: 10px;
+}
+/* 4배수번째 box만 margin 0으로 */
+.cg-item > .box:nth-child(4n){
+	margin-right: 0px;
+}
+/* 제품사진 */
+.cg-item > .box > .img-box img{
+	width: 100%;
+}
+.cg-item > .box > .txt-box{
+	color: black;
+	text-align: center;
+	margin-top: 10px;
+}
+.cg-item > .box > .txt-box span{
+	margin-bottom: 0;
+}
+/* 제품명 */
+.prdName{
+	color: black;
+	font-weight: bold;
+}
+/* 제품설명 */
+.shotDesc{
+	color: rgb(170, 170, 170);
+	font-size: 0.8em;
+}
+/* 가격 */
+.price{
+	color: black;
+	margin-top: 10px;
+}
+/* 페이징 */
+.board-paging{
+	margin-top: 30px;
+	text-align: center;
+}
+.board-paging li{
+	display: inline-block;
+	margin-right: 20px;
+	font-size: 0.9em;
+}
+.board-paging a{
+	color: black;
+}
