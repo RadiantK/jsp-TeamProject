@@ -1,0 +1,163 @@
+@charset "UTF-8";
+
+/* interior */
+
+/* .interior {
+  
+} */
+.interior .inner {
+  padding-top: 10px;
+  width: 1100px;
+}
+/* .interior .swiper{
+
+} */
+.interior .swiper img {
+  width: 1100px;
+  height: 550px;
+  border-radius: 10px;
+}
+.interior .swiper-slide {
+  position: relative;
+}
+.interior .swiper-slide .text{
+  position: absolute;
+  font-size: 30px;
+  font-family: 'Jua', sans-serif;
+  color: #fff;
+  bottom: 50px;
+  left: 50px;
+}
+.interior .swiper-slide .button {
+  position: absolute;
+  bottom: 50px;
+  right: 50px;
+}
+.interior .swiper-pagination {
+  bottom: 40px;
+  left: 0;
+  right: 0;
+}
+.interior .swiper-pagination .swiper-pagination-bullet {
+  width: 11px;
+  height: 11px;
+  margin-right: 10px;
+  outline: none;
+  background-color: #fff;
+}
+.interior .swiper-pagination .swiper-pagination-bullet:last-child {
+  margin-right: 0;
+}
+
+
+
+
+
+/*
+ Quick-menu 
+ */
+.quick {
+  padding: 50px 0;
+}
+/* .quick .inner {
+
+} */
+.quick .inner .quick-menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 0;
+}
+.quick .inner .quick-menu .item {
+  width:140px;
+}
+/* .quick .inner .quick-menu .item a {
+  
+} */
+.quick .inner .quick-menu .item a:hover {
+  color: #333;
+}
+.quick .inner .quick-menu .item a img {
+  width: 70px;
+  height: 70px;
+  margin: auto;
+  opacity: .7;
+  transition: .5s;
+}
+.quick .inner .quick-menu .item a img:hover {
+  opacity: 1;
+}
+.quick .inner .quick-menu .item a div {
+  font-weight: 700;
+  padding-top: 15px;
+  display: flex;
+  justify-content: center;
+}
+
+
+
+
+
+/* 
+  sns
+*/
+/* .sns {
+
+}
+.sns .inner {
+
+} */
+.sns .inner > p {
+  font-size: 30px;
+  font-family: 'Jua', sans-serif;
+}
+.sns .inner .sns-menu {
+  padding-left: 0;
+  display: flex;
+  justify-content: center;
+}
+.sns .inner .sns-menu .item {
+  margin-right: 100px;
+}
+.sns .inner .sns-menu .item:last-child {
+  margin-right: 0;
+}
+.sns .inner .sns-menu .item a {
+  position: relative;
+}
+.sns .inner .sns-menu .item a:hover {
+  color: #333;
+}
+.sns .inner .sns-menu .item a img {
+  width: 300px;
+  height: 220px;
+  border-radius: 20px;
+  opacity: .8;
+  transition: .5s;
+}
+.sns .inner .sns-menu .item a img:hover {
+  opacity: 1;
+}
+.sns .inner .sns-menu .item a div {
+  font-weight: 700;
+}
+.sns .inner .sns-menu .item a p {
+  margin-left: 15px;
+}
+.sns .inner .sns-menu .item a p::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  background-color: rgb(169, 70, 235);
+  position: absolute;
+  bottom: 7px;
+  left: 0;
+}
+.sns .event {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+.sns .event img{
+  width: 1100px;
+}
