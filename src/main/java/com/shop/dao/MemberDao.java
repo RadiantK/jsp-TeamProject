@@ -138,4 +138,23 @@ public class MemberDao {
 		}
 	}
 
+	public int join() {
+		String sql = "INSERT INTO member(member_num, email, password,"
+				+ " name, nickname, phone, address, gender) "
+				+ "VALUES(seq_member.nextval,?,?,?,?,?,?,?)";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = DBPool.getConnection();
+			pstmt = con.prepareStatement(sql);
+			
+			int n = pstmt.executeUpdate();
+			
+			return n;
+		}catch(SQLException e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
 }
