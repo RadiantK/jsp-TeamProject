@@ -1,0 +1,152 @@
+*{
+	margin:0;
+	padding:0;
+}
+.pageWrap{ /* 전체 페이지 wrap */
+    display:inline-block;
+    width: 80%;
+    margin-left: 10%;
+}
+
+.orderTitle{
+    font-weight: bold;
+    text-align: center;
+    margin: 8% 0 8% 0;
+}
+
+.orderDiv{
+    margin-bottom: 50px;
+    border: 1px dotted gray;
+    padding: 20px;
+}
+
+.orderDiv2{
+    margin-bottom: 50px;
+    border: 1px dotted gray;
+    padding: 20px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.orderLabels {
+    display: inline-block;
+    width:100px;
+    text-align: left;
+    margin: 10px;
+    color:darkgrey;
+}
+
+#orderForm .inputText{
+    border: 1px solid lightgray;
+    width: 300px;
+    height: 30px;
+}
+
+.itemTable{
+    text-align: center;
+    width: 80%;
+}
+.itemTable thead {
+    font-size: 15px;
+    color: darkgray;
+}
+
+.itemImg {
+    width: 100px;
+    height: 100px;
+    border: 1px dotted lightgray;
+    margin:20px;
+    float:left;
+}
+
+.itemTable .itemName{
+    width:250px;
+    margin-top:55px;
+    float:left;
+    text-align: left;
+}
+
+.itemPrice{
+    background-color:aliceblue;
+    text-align: center;
+    padding: 10px;
+}
+
+.shippingTable .checkAddr {
+    margin-left: 30px;
+}
+
+#kakaoBtn {
+    width: 80px;
+    height: 35px;
+    border: 1px solid #35C5F0;
+    border-radius:3px;
+    color:#35C5F0;
+    background-color: white;
+    margin:3px;
+}
+
+#kakaoZonecode{
+    border: 1px solid lightgray;
+    width: 210px;
+    height: 30px;
+}
+
+#kakaoAddr{
+    border: 1px solid lightgray;
+    width: 300px;
+    height: 30px;
+}
+
+.payOption{
+    margin-left: 65px;
+}
+
+#payBtn{
+    background-color:#35C5F0;
+    color:white;
+    width: 200px;
+    height:50px;
+    border: 2px solid #35C5F0;
+    border-radius: 4px;
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+    cursor: pointer;
+    box-sizing: border-box;
+    display: block;
+    transition: .4s;
+}
+
+#checkDiv{
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+/* orderlistAdmin */
+#adminTable{
+    text-align: center;
+    width: 100%;
+    margin-bottom: 50px;
+}
+
+#adminTable thead {
+    font-size: 18px;
+    color: gray;
+    border-bottom: 1px solid darkgray;
+}
+
+#adminTable tr {
+    height: 50px;
+    border-bottom: 1px dotted lightgray;
+}
+
+.nullDiv{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5%;
+}
+
