@@ -1,0 +1,111 @@
+@charset "UTF-8";
+*{
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+}
+a {
+  text-decoration: none;
+  color: #000;
+}
+.inner {
+  width: 1100px;
+  margin: 0 auto;
+  position: relative;
+}
+
+
+
+
+.login .inner {
+  width: 100%;
+  top: 150px;
+}
+.login .inner > div {
+  display: flex;
+  justify-content: center;
+}
+.login .inner > div a{
+  display: flex;
+  justify-content: center;
+}
+.login .inner > div a:hover {
+  color: #000;
+}
+.login div .logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+}
+.login div .title {
+  font-size: 30px;
+  font-family: 'Jua', sans-serif;
+  margin-left: 10px;
+  margin-top: 5px;
+}
+.login #formTag .email,
+.login #formTag .pwd,
+.login #formTag .smt {
+  margin: auto;
+}
+.login #formTag .smt {
+  display: flex;
+  justify-content: center;
+}
+.login #formTag .smt .submit {
+  width: 240px;
+  color: #fff;
+}
+.login .search {
+  font-size: 12px;
+  font-weight: bold;
+}
+.login .search a {
+  margin-right: 10px;
+}
+.login .search a:last-child {
+  margin-right: 0;
+}
+.login .search a:hover {
+  color: #35C5F0;
+}
+.login .sns {
+  font-size: 12px;
+  margin-top: 15px;
+  color: #777575;
+}
+.login .kakao{
+  margin-top: 5px;
+}
+.login .kakao img {
+  width: 200px;
+}
+.login .choose {
+  margin: 40px 0 20px 0;
+}
+.login .choose > input{
+  font-size: 14px;
+  color: #777575;
+  border: none;
+}
+.login .choose > input:hover {
+  color: #35C5F0;
+}
+
+.login #noneFormTag .email,
+.login #noneFormTag .pwd,
+.login #noneFormTag .smt {
+  margin: auto;
+}
+.login #noneFormTag .smt {
+  display: flex;
+  justify-content: center;
+}
+.login #noneFormTag .smt .submit {
+  width: 240px;
+  color: #fff;
+}
+
