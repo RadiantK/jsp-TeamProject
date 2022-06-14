@@ -1,0 +1,42 @@
+.detail_itemTable{
+    width:100%;
+    text-align:center;
+    border-top: 1px solid gray;
+    border-bottom: 1px dotted lightgray;
+    margin-bottom: 80px;
+}
+
+.detail_itemTable .itemName{
+    text-align: left;
+    padding-top: 50px;
+}
+
+.detail_itemTable thead{
+    color: gray;
+    border-bottom: 1px dotted lightgray;
+}
+
+.detail_itemTable thead tr{
+    height:50px;
+}
+
+.detailTable{
+    width:100%;
+    border-top: 1px solid gray;
+    border-bottom: 1px dotted lightgray;
+    margin-bottom: 80px;
+}
+
+.detailTable td{
+    width:80%;
+}
+
+.btnCancle {
+    width: 80px;
+    height: 35px;
+    border: 1px solid darkslateblue;
+    border-radius:3px;
+    color:darkslateblue;
+    background-color: white;
+    margin:3px;
+}

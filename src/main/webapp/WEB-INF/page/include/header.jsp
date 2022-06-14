@@ -68,7 +68,7 @@
         </form>
         <ul class="menu">
           <li>
-            <a href="">
+            <a href="${cp}/orders/cart">
               <span class="material-symbols-outlined">
               shopping_cart
               </span>

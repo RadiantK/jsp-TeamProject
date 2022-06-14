@@ -1,0 +1,55 @@
+#imgDiv{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    padding-top:10%;
+}
+
+#msgDiv{
+    text-align:center;
+    padding:5%;
+}
+#msgTitle{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.btnDiv{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 35px;
+}
+.btnWhite{
+    width:200px;
+    height:75px;
+    border: 1px solid #35C5F0;
+    border-radius:3px;
+    color:#35C5F0;
+    background-color: white;
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: .4s;
+    margin: 5px;
+    padding-top:25px;
+}
+
+.btnBlue{
+    width: 200px;
+    height:75px;
+    border: 1px solid #35C5F0;
+    border-radius: 4px;
+    color:white;
+    background-color:#35C5F0;
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: .4s;
+    margin:5px;
+    padding-top:25px;
+}
