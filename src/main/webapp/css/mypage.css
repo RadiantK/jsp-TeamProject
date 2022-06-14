@@ -1,0 +1,92 @@
+@charset "UTF-8";
+header .main-menu .item:nth-child(2) .item__name a {
+  color: #35C5F0;
+}
+
+
+/* mypage menu */
+/* .mypage {
+  
+} */
+.mypage .inner {
+  padding: 50px 0;
+}
+.mypage .user-menu {
+  display: flex;
+  position: relative;
+  justify-content: center;
+}
+/* .mypage .user-menu .item {
+} */
+.mypage .user-menu .item::before {
+  content: "";
+  width: 2px;
+  height: 24px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  background-color: #ccc;
+}
+.mypage .user-menu .item:first-child::before {
+  display: none;
+}
+.mypage .user-menu .item a {
+  font-size: 24px;
+  padding: 11px 20px;
+  font-family: 'Jua', sans-serif;
+}
+.mypage .user-menu .item a:hover {
+  color: #333;
+}
+.mypage .user-menu .item:first-child a {
+  color: #35C5F0;
+}
+
+
+
+
+/*
+  MyPage profile 
+*/
+/* .profile {
+  
+} */
+.profile .inner {
+  height: 550px;
+  display: flex;
+}
+.profile .inner .inner-left,
+.profile .inner .inner-right {
+  width: 50%;
+  height: 100%;
+  border: 2px solid #d1d1d1;
+  border-radius: 10px;
+}
+.profile .inner .inner-left {
+  margin-right: 20px;
+}
+
+.profile .inner .inner-left h2 {
+  margin: 20px 0 40px 40px;
+  font-family: 'Jua', sans-serif;
+}
+.profile .inner .inner-left p {
+  margin : 0 0 40px 40px;
+  font-size : 20px;
+  font-weight: 700;
+}
+.profile .inner-right h2 {
+  margin: 20px 0 40px 40px;
+  font-family: 'Jua', sans-serif;
+}
+.profile .inner-right .box {
+  height: 300px;
+  background-color: #e2e2e2;
+  margin: 30px;
+}
+.profile .inner-right .box span {
+  display : block;
+  color: #555;
+  padding: 10px;
+}
