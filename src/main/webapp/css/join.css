@@ -1,0 +1,126 @@
+@charset "UTF-8";
+*{
+  margin: 0;
+  padding: 0;
+}
+body {
+  color: #111;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.4;
+}
+a {
+  text-decoration: none;
+  color: #000;
+}
+.inner {
+  width: 1100px;
+  margin: 0 auto;
+  position: relative;
+}
+
+
+
+
+/*
+  join
+*/
+section {
+  width: 400px;
+  margin: auto;
+}
+section .inner {
+  margin-top: 50px;
+  width: 100%;
+}
+section .inner .head {
+  display: flex;
+  justify-content: center;
+}
+section .inner .head a{
+  display: flex;
+  justify-content: center;
+}
+section .inner .head a:hover {
+  color: #333;
+}
+section .head .logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+}
+section .head .title {
+  font-size: 30px;
+  font-family: 'Jua', sans-serif;
+  margin-left: 10px;
+  margin-top: 5px;
+}
+/* section .join {
+  
+} */
+section .join p {
+  font-size: 18px;
+  font-weight: bold;
+}
+section .sns {
+  font-size: 12px;
+  margin-top: 15px;
+  color: #777575;
+  display: flex;
+  justify-content: center;
+}
+section .kakao{
+  margin-top: 5px;
+  display: flex;
+  justify-content: center;
+}
+section .kakao img {
+  width: 200px;
+}
+section .container-md #formTag {
+  margin-top: 40px;
+}
+section .container-md #formTag #email{
+  width: 250px;
+}
+section .container-md #formTag .duple{
+  color: #fff;
+  margin-top: 29px;
+}
+
+section .container-md #formTag .post {
+  display: flex;
+}
+section .container-md #formTag .post input:first-child {
+  width: 100px;
+}
+section .container-md #formTag .post input{
+  margin-right: 20px;
+}
+section .container-md #formTag .post input:last-child{
+  margin-right: 0;
+  width: 100px;
+  height: 30px;
+  font-size: 14px;
+}
+section .container-md #formTag .smt {
+  width: 300px;
+  color: #fff;
+  display: block;
+  margin: auto;
+}
+
+section .question {
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  margin: 20px auto 50px;
+}
+
+section .question a {
+  margin-left: 20px;
+}
+section .question a:hover {
+  color: #35C5F0;
+}
