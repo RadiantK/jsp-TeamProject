@@ -33,7 +33,7 @@
     <div class="inner">
       <ul class="user-menu">
         <li class="item"><a href="userEdit.html">프로필</a></li>
-        <li class="item"><a href="">결제정보 확인</a></li>
+        <li class="item"><a href="${cp}/orders/orderlistMypage">결제정보 확인</a></li>
         <li class="item"><a href="">문의내역 확인</a></li>
         <li class="item"><a href="userEdit.html">회원정보 수정</a></li>
       </ul>
