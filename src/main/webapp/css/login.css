@@ -21,7 +21,7 @@ a {
 
 
 .login .inner {
-  width: 100%;
+  width: 500px;
   top: 150px;
 }
 .login .inner > div {
@@ -46,15 +46,15 @@ a {
   margin-left: 10px;
   margin-top: 5px;
 }
-.login #formTag .email,
-.login #formTag .pwd,
-.login #formTag .smt {
+.login #formTag {
+  text-align: center;
+}
+.login #formTag #email,
+.login #formTag #pwd {
+  width: 250px;
   margin: auto;
 }
-.login #formTag .smt {
-  display: flex;
-  justify-content: center;
-}
+
 .login #formTag .smt .submit {
   width: 240px;
   color: #fff;
@@ -94,18 +94,16 @@ a {
 .login .choose > input:hover {
   color: #35C5F0;
 }
-
-.login #noneFormTag .email,
-.login #noneFormTag .pwd,
-.login #noneFormTag .smt {
+.login #noneFormTag {
+  text-align: center;
+}
+.login #noneFormTag #nonEmail,
+.login #noneFormTag #nonPwd {
+  width: 250px;
   margin: auto;
 }
-.login #noneFormTag .smt {
-  display: flex;
-  justify-content: center;
-}
+
 .login #noneFormTag .smt .submit {
   width: 240px;
   color: #fff;
 }
-
