@@ -18,31 +18,31 @@
               <ul class="inner">
                 <li>
                   <a href="">
-                    <img src="images/main/drop_funiture.png" alt="가구" />
+                    <img src="${cp}/images/main/drop_funiture.png" alt="가구" />
                     <div>가구</div>
                   </a>
                 </li>
                 <li>
                   <a href="">
-                    <img src="images/main/drop_fabric.png" alt="패브릭" />
+                    <img src="${cp}/images/main/drop_fabric.png" alt="패브릭" />
                     <div>패브릭</div>
                   </a>
                 </li>
                 <li>
                   <a href="">
-                    <img src="images/main/drop_light.png" alt="조명" />
+                    <img src="${cp}/images/main/drop_light.png" alt="조명" />
                     <div>조명</div>
                   </a>
                 </li>
                 <li>
                   <a href="">
-                    <img src="images/main/drop_appliances.png" alt="가전제품" />
+                    <img src="${cp}/images/main/drop_appliances.png" alt="가전제품" />
                     <div>가전제품</div>
                   </a>
                 </li>
                 <li>
                   <a href="">
-                    <img src="images/main/drop_kitchenware.png" alt="주방용품" />
+                    <img src="${cp}/images/main/drop_kitchenware.png" alt="주방용품" />
                     <div>주방용품</div>
                   </a>
                 </li>
