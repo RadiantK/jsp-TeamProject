@@ -58,7 +58,7 @@
           </a>
         </li>
         <li class="item">
-          <a href="">
+          <a href="${cp }/orders/orderlistAdmin">
             <span class="material-symbols-outlined">
               receipt_long
             </span>
