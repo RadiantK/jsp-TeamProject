@@ -1,0 +1,111 @@
+.reviewTitle{
+    font-size: 30px;
+    font-weight: bold;
+}
+.review-point{
+    display: flex;
+    align-items: center;
+    border: 1px solid rgb(192, 192, 192);
+    border-bottom: white;
+    margin-top: 10px;
+}
+.review-point span{
+    margin-left: 15px;
+    margin-right: 50px;
+    font-weight: bold;
+}
+.review-point > ul{
+    display: flex;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.review-point > ul li{
+    margin-right: 50px;
+}
+.review-textarea{
+    width: 100%;
+    height: 200px;
+    border: 1px solid rgb(192, 192, 192);
+    border-bottom: white;
+}
+.review-textarea > .review-txt{
+    width: 100%;
+    height: 100%;
+    border: none;
+    resize: none;
+}
+.review-btn{
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid rgb(192, 192, 192);
+    padding: 10px;
+}
+#btn-file{
+    width: 150px;
+    background-color: #35C5F0;
+    color: #fff;
+}
+#btn-file:hover{
+	background-color: white;
+	color: #35C5F0;
+}
+#btn-review{
+    width: 150px;
+    background-color: white;
+    color: #35C5F0;
+}
+#btn-review:hover{
+	background-color: #35C5F0;
+	color: white;
+}
+
+/* review-list */
+.review-list{
+    margin-top: 50px;
+    border-top: 1px solid rgb(192, 192, 192);
+}
+
+.review-list > .rev-container{
+    display: flex;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgb(192, 192, 192);
+    
+}
+.review-list > .rev-container > .rev-writer{
+    /* background-color: rgb(177, 177, 177); */
+    width: 20%;
+    margin-bottom: 20px;
+}
+.review-list > .rev-container > .rev-content{
+    /* background-color: rgb(228, 228, 228); */
+    width: 80%;
+    margin-bottom: 20px;
+}
+.rev-writer > p {
+    line-height: 30px;
+}
+.rev-content > p {
+    line-height: 25px;
+    margin-bottom: 20px;
+}
+.revImg {
+    display: flex;
+}
+.revImg > a > img {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+.rev-paging{
+    margin-top: 30px;
+    text-align: center;
+}
+.rev-paging li{
+	display: inline-block;
+	margin-right: 20px;
+	font-size: 0.9em;
+}
+.rev-paging a{
+	color: black;
+}
