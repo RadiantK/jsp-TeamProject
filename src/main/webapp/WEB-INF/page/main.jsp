@@ -48,42 +48,42 @@
       <div class="swiper">
         <div class="swiper-wrapper">
           <div class="swiper-slide">
-            <img src="./images/main/interior1.jpg" alt="인테리어 이미지" />
+            <img src="${cp}/images/main/interior1.jpg" alt="인테리어 이미지" />
             <span class="text">모던한 인테리어</span>
             <a href="javascript:void(0)" class="button">보러가기</a>
           </div>
           <div class="swiper-slide">
-            <img src="./images/main/interior2.jpg" alt="인테리어 이미지" />
+            <img src="${cp}/images/main/interior2.jpg" alt="인테리어 이미지" />
             <span class="text">심플한 침실 인테리어</span>
             <a href="javascript:void(0)" class="button">보러가기</a>
           </div>
           <div class="swiper-slide">
-            <img src="./images/main/interior3.jpg" alt="인테리어 이미지" />
+            <img src="${cp}/images/main/interior3.jpg" alt="인테리어 이미지" />
             <span class="text">엣지있는 침실 인테리어</span>
             <a href="javascript:void(0)" class="button">보러가기</a>
           </div>
           <div class="swiper-slide">
-            <img src="./images/main/interior4.jpg" alt="인테리어 이미지" />
+            <img src="${cp}/images/main/interior4.jpg" alt="인테리어 이미지" />
             <span class="text">깔끔한 거실 인테리어</span>
             <a href="javascript:void(0)" class="button">보러가기</a>
           </div>
           <div class="swiper-slide">
-            <img src="./images/main/interior5.jpg" alt="인테리어 이미지" />
+            <img src="${cp}/images/main/interior5.jpg" alt="인테리어 이미지" />
             <span class="text">자연스럽고 심플한 인테리어</span>
             <a href="javascript:void(0)" class="button">보러가기</a>
           </div>
           <div class="swiper-slide">
-            <img src="./images/main/interior6.jpg" alt="인테리어 이미지" />
+            <img src="${cp}/images/main/interior6.jpg" alt="인테리어 이미지" />
             <span class="text">분위기있는 거실 인테리어</span>
             <a href="javascript:void(0)" class="button">보러가기</a>
           </div>
           <div class="swiper-slide">
-            <img src="./images/main/interior7.jpg" alt="인테리어 이미지" />
+            <img src="${cp}/images/main/interior7.jpg" alt="인테리어 이미지" />
             <span class="text">깔끔하고 세련된 인테리어</span>
             <a href="javascript:void(0)" class="button">보러가기</a>
           </div>
           <div class="swiper-slide">
-            <img src="./images/main/interior8.jpg" alt="인테리어 이미지" />
+            <img src="${cp}/images/main/interior8.jpg" alt="인테리어 이미지" />
             <span class="text">심플한 욕실 디자인</span>
             <a href="javascript:void(0)" class="button">보러가기</a>
           </div>
@@ -102,55 +102,55 @@
       <ul class="quick-menu">
         <li class="item">
           <a href="javascript:void(0)">
-            <img src="./images/main/menu1.png" alt="메뉴">
+            <img src="${cp}/images/main/menu1.png" alt="메뉴">
             <div>쇼핑하기</div>
           </a>
         </li>
         <li class="item">
           <a href="javascript:void(0)">
-            <img src="./images/main/menu2.png" alt="메뉴">
+            <img src="${cp}/images/main/menu2.png" alt="메뉴">
             <div>여름초특가</div>
           </a>
         </li>
         <li class="item">
           <a href="javascript:void(0)">
-            <img src="./images/main/menu3.png" alt="메뉴">
+            <img src="${cp}/images/main/menu3.png" alt="메뉴">
             <div>N평집들이</div>
           </a>
         </li>
         <li class="item">
           <a href="javascript:void(0)">
-            <img src="./images/main/menu4.png" alt="메뉴">
+            <img src="${cp}/images/main/menu4.png" alt="메뉴">
             <div>공간별사진</div>
           </a>
         </li>
         <li class="item">
           <a href="javascript:void(0)">
-            <img src="./images/main/menu5.png" alt="메뉴">
+            <img src="${cp}/images/main/menu5.png" alt="메뉴">
             <div>시공업체</div>
           </a>
         </li>
         <li class="item">
           <a href="javascript:void(0)">
-            <img src="./images/main/menu6.png" alt="메뉴">
+            <img src="${cp}/images/main/menu6.png" alt="메뉴">
             <div>쉬운이사</div>
           </a>
         </li>
         <li class="item">
           <a href="javascript:void(0)">
-            <img src="./images/main/menu7.png" alt="메뉴">
+            <img src="${cp}/images/main/menu7.png" alt="메뉴">
             <div>오늘의딜</div>
           </a>
         </li>
         <li class="item">
           <a href="javascript:void(0)">
-            <img src="./images/main/menu8.png" alt="메뉴">
+            <img src="${cp}/images/main/menu8.png" alt="메뉴">
             <div>빠른배송</div>
           </a>
         </li>
         <li class="item">
           <a href="javascript:void(0)">
-            <img src="./images/main/menu9.png" alt="메뉴">
+            <img src="${cp}/images/main/menu9.png" alt="메뉴">
             <div>집순이로그</div>
           </a>
         </li>
@@ -164,14 +164,14 @@
       <ul class="sns-menu">
         <li class="item">
           <a href="javascript:void(0)">
-            <img src="images/main/story1.jpg" alt="스토리" />
+            <img src="${cp}/images/main/story1.jpg" alt="스토리" />
             <div>기본적이고 심플하고 깔끔한 거실 디자인. 눕고싶은 공간 만들기</div>
             <p>koko1234</p>
           </a>
         </li>
         <li class="item">
           <a href="javascript:void(0)">
-            <img src="images/main/story2.jpg" alt="스토리" />
+            <img src="${cp}/images/main/story2.jpg" alt="스토리" />
             <div>벽난로와 균형잡힌 가구 세팅으로 분위기있는 공간 만들기</div>
             <p>settingMind</p>
           </a>
