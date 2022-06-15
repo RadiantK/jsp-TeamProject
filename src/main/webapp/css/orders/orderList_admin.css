@@ -1,0 +1,85 @@
+#adminTable{
+    text-align: center;
+    width: 100%;
+}
+
+#adminTable thead {
+    font-size: 18px;
+    color: gray;
+    border-bottom: 1px solid darkgray;
+}
+
+#adminTable tr {
+    height: 50px;
+    border-bottom: 1px dotted lightgray;
+}
+
+.preBtn{
+    width:25px;
+    height:25px;
+    border:1px solid lightgray;
+    border-radius: 3px;
+    margin: 5px;
+    text-align: center;
+    font-size:18px;
+    color:darkgray;
+}
+
+.preBtn:hover {
+    background-color: darkgray;
+}
+
+.curPage{
+    margin:5px;
+    color:gray;
+    font-size:20px;
+}
+
+.otherPage{
+    margin:5px;
+    color:lightgray;
+    font-size:20px;
+}
+
+.nextBtn{
+    width:25px;
+    height:25px;
+    border:1px solid lightgray;
+    border-radius: 3px;
+    margin: 5px;
+    text-align: center;
+    font-size:18px;
+    color:darkgray;
+}
+
+.nextBtn:hover {
+    background-color: darkgray;
+}
+
+.searchDiv{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.selectDiv{
+    width:100px;
+    height:35px;
+    border: 1px solid lightgray;
+}
+
+.searchText{
+    height:35px;
+    border: 1px solid lightgray; 
+    margin:3px; 
+}
+
+.searchBtn{
+    width:100px;
+    height:35px;
+    background-color:#35C5F0;
+    border: 1px solid #35C5F0;
+    border-radius: 4px;
+    color:white;
+    font-weight: 500;
+}
