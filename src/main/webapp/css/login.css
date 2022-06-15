@@ -1,4 +1,3 @@
-@charset "UTF-8";
 *{
   margin: 0;
   padding: 0;
@@ -55,6 +54,12 @@ a {
   margin: auto;
 }
 
+.login #formTag #emailHelp,
+.login #formTag #pwdHelp {
+	color : #FF0000;
+}
+
+
 .login #formTag .smt .submit {
   width: 240px;
   color: #fff;
@@ -107,3 +112,4 @@ a {
   width: 240px;
   color: #fff;
 }
+
