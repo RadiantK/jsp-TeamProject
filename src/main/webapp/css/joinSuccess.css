@@ -1,0 +1,44 @@
+@charset "UTF-8";
+.success {
+  position: relative;
+}
+.success .inner {
+  padding-top: 150px;
+  height: 700px;
+  text-align: center;
+}
+.success .inner::before {
+  content: "";
+  background-image: url(../images/house-logo.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  opacity: .3;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.success .inner .content {
+  position: absolute;
+  height: 50px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+.success .title {
+  margin-bottom: 30px;
+  font-size: 50px;
+}
+.success a {
+  width: 200px;
+  cursor: pointer;
+  color : #fff;
+  font-size: 20px;
+}
+.success a:hover {
+  color : #000;
+}

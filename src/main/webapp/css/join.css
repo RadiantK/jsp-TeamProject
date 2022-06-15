@@ -81,6 +81,14 @@ section .kakao img {
 section .container-md #formTag {
   margin-top: 40px;
 }
+section .container-md #formTag #emailHelp,
+section .container-md #formTag #confirmPwdHelp {
+	color: #FF0000;
+}
+section .container-md #formTag #nickNameHelp {
+	color: #0000FF;
+}
+
 section .container-md #formTag #email{
   width: 250px;
 }
