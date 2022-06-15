@@ -18,11 +18,14 @@ public class CategoryDao {
 	private CategoryDao() {}
 	
 	public static CategoryDao getInstance() {
+		if(categoryDao == null) {
+			categoryDao = new CategoryDao();
+		}
 		return categoryDao;
 	}
 	
-	/* 대분류 카테고리 조회 */
-	public List<Bcategory> selectBcg() {
+	/* 대분류 카테고리 데이터 전체조회 */
+	public List<Bcategory> selectBcgAll() {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -50,7 +53,37 @@ public class CategoryDao {
 		}
 	}
 	
-	/* 파라미터로 받은 대분류 카테고리넘버에 해당하는 소분류 카테고리 전체조회 */
+	/* 대분류 카테고리 번호로 카테고리명 조회 */
+	public Bcategory selectBcg(int bcategoryNum) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			String sql = "select * from bcategory where bcategory_num = ?";
+			con = DBPool.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, bcategoryNum);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				String btype = rs.getString("btype");
+				
+				Bcategory bcategory = new Bcategory(bcategoryNum, btype);
+				return bcategory;
+			}else {
+				return null;
+			}
+			
+		}catch (SQLException s) {
+			s.printStackTrace();
+			return null;
+		}finally {
+			DBPool.close(con, pstmt, rs);
+		}
+	}
+	
+	/* 파라미터로 받은 대분류 카테고리명에 해당하는 소분류 카테고리 데이터 전체조회 */
 	public List<Scategory> selectScg(String btype) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
