@@ -91,7 +91,7 @@ public class MemberDao {
 				String orderPwd = rs.getString("orderPwd");
 				int available = rs.getInt("available");
 				int role = rs.getInt("role");
-				
+			
 				member = new Member(
 						memberNum, email, password, name, nickName, phone,
 						gender, regDate, orderPwd, available, role);
