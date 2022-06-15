@@ -5,3 +5,4 @@ images/
 resource/
 .DS_Store
 package-lock.json
+*.jar

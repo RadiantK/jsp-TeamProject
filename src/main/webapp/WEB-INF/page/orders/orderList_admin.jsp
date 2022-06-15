@@ -63,6 +63,24 @@
       </tr> 
     </table>
 
+<div class="nullDiv">
+  <span class="preBtn"> < </span>
+  <span class="curPage"> 1 </span>
+  <span class="otherPage"> 2 </span>
+  <span class="nextBtn"> > </span>
+</div>
+
+<div class="searchDiv">
+  <select class="selectDiv">
+    <option> 주문번호 </option>
+    <option> 주문회원 </option>
+    <option> 주문제품 </option>
+  </select>
+  <input type="text" class="searchText">
+  <input type="button" value="검색" class="searchBtn">
+</div>
+
+
 </div>
 
 

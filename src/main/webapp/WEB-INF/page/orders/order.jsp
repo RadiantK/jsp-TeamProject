@@ -1,5 +1,7 @@
+<%@page import="org.json.JSONObject"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -30,14 +32,16 @@
 	<!-- HEADER -->
 	<jsp:include page="/WEB-INF/page/include/header.jsp" />
 
-  <!-- 바디 메인 -->
-  <div class="pageWrap">
-  <form id="orderForm" name="orderForm" action="#" method="post">
+	<!-- 바디 메인 -->
+	<div class="pageWrap">
+	
+  	<form id="orderForm" name="orderForm" action="#" method="post">
   
     <h2 class="orderTitle"> 주문/결제 </h2>
 
     <h3 class="title"> 제품 </h3>
     <div class="orderDiv">
+    
     <table class="itemTable" style="width:100%">
       <thead>
         <th style="width:500px"> 제품정보 </th>
@@ -46,18 +50,24 @@
         <th> 합계 </th>
         <th> 배송비 </th>
       </thead>
-      
+
+
+ 	<!-- 제폼종류 개수만큼 반복 -->
+ 	<c:forEach var="i" begin="1" end="${itemCnt}">
       <tr>
         <th>
-          <img src="../images/orderTest.png" class="itemImg">
-          <p class="itemName"> 두닷 콰트로 에어데스크 1000 </p> 
+          <img src="${itemImg }" class="itemImg">
+          <p class="itemName"> ${itemName} </p>
         </th>
-        <td> 1 </td>
-        <td> 10,000 </td>
-        <td class="sumPrice"> 12,500 </td>
-        <td> 2,500 </td>
+        <td> ${itemPiece } </td>
+        <td> ${itemPrice } </td>
+        <td class="sumPrice"> ${itemPiece * itemPrice} </td>
+        <td style="color:darkgray"> 착불 </td>
       </tr> 
-      
+	</c:forEach>
+
+	
+
       <tr>
         <th>
           <img src="../images/orderTest2.jpg" class="itemImg">
@@ -66,12 +76,13 @@
         <td> 2 </td>
         <td> 15,000 </td>
         <td class="sumPrice"> 30,000 </td>
-        <td> 2,500 </td>
+        <td style="color:darkgray"> 착불 </td>
       </tr> 
     </table>
     
+    <!-- 결제금액 계산내역 -->
     <div class="itemPrice">
-      총 2개의 상품금액  ￦ 42,500  +  배송비  ￦ 5,000  =  <span class="totalPrice"> ￦ 45,500 </span>
+      총 2개의 상품의 합계  <strong>￦ 30,000</strong> + 배송비 착불 = <span class="totalPrice">  ￦ 45,500  </span>
     </div>
     </div>
 
@@ -99,6 +110,22 @@
         </select>
         </td>
       </tr>
+
+		<!-- 비회원인 경우 주문비밀번호 입력창 -->
+	    <c:choose>
+		    <c:when test="${empty sessionId}">
+		    <tr>
+		    	<th class="orderLabels"> 주문비밀번호 <p style="color:red; float:left;">*</p> </th>
+		    	<td><input type="password" name="orderPwd" id="orderPwd" value="" notNull="true" class="inputText"></td>
+		    </tr>
+			</c:when>
+	  
+		    <c:otherwise>
+				<input type="hidden" name="orderPwd" id="orderPwd" value="null" class="inputText">
+		    </c:otherwise>
+	    
+	    </c:choose>
+
     </table>
     </div>
 
@@ -149,7 +176,7 @@
       </tr>
       <tr>
         <th class="orderLabels"> 배송비 </th>
-        <td> ￦ 5,000 </td>
+        <td style="color:darkgray"> 착불(별도 문의) </td>
       </tr>
       <tr>
         <th class="orderLabels"> 최종 금액 </th>
