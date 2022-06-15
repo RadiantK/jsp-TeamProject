@@ -1,4 +1,4 @@
-package com.shop.controller;
+package com.shop.controller.userController;
 
 import java.io.IOException;
 
