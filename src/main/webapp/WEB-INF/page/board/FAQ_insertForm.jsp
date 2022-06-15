@@ -61,7 +61,7 @@
 
 			<br>
 			<button type="submit" class="button btn--reverse" style="display: inline-block;">등록</button>
-			<a href="${cp }/FAQ_List" class="button btn--reverse" style="display: inline-block;">취소</a>
+			<a href="${cp }/board/FAQ/List" class="button btn--reverse" style="display: inline-block;">취소</a>
 
 		</form>
 	</div>

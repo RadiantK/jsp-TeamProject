@@ -1,4 +1,4 @@
-package com.shop.controller.NoticeController;
+package com.shop.controller.boardController;
 
 import java.io.IOException;
 
@@ -8,11 +8,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/FAQ_insertForm")
+@WebServlet("/board/FAQ/insertForm")
 public class FAQInsertController extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher("/WEB-INF/board/FAQ_insertForm.jsp").forward(req, resp);
+		req.getRequestDispatcher("/WEB-INF/page/board/FAQ_insertForm.jsp").forward(req, resp);
 	}
 
 }
