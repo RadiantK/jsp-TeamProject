@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,9 +43,9 @@
 					<h1>고객센터</h1>
 					<br>
 					<div id="boardCategory">
-						<a href="${cp }/Notice_List">공지사항</a>&nbsp;&nbsp;&nbsp;&nbsp;<span>|</span>&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="${cp }/QNA_List">1:1문의</a>&nbsp;&nbsp;&nbsp;&nbsp;<span>|</span>&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="${cp }/FAQ_List">자주묻는질문</a>
+						<a href="${cp }/board/Notice/List">공지사항</a>&nbsp;&nbsp;&nbsp;&nbsp;<span>|</span>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="${cp }/board/QNA/List">1:1문의</a>&nbsp;&nbsp;&nbsp;&nbsp;<span>|</span>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="${cp }/board/FAQ/List">자주묻는질문</a>
 					</div>
 					<br>
 				</div>
@@ -63,22 +64,25 @@
 							</tr>
 						</thead>
 						<tbody>
+						<c:forEach var="vo" items="${list }">
 							<tr>
-								<td style="width: 10%" class="text-center">1</td>
-								<td style="width: 10%" class="text-center">sessionScope.member</td>
-								<td style="width: 60%" class="text-center"><a href="${cp }/QNA_Detail">주문취소 문의입니다.</a></td>
-								<td style="width: 10%" class="text-center">today</td>
+								<td style="width: 10%" class="text-center">${vo.qnaNum }</td>
+								<td style="width: 10%" class="text-center">${vo.nickname }</td>
+								<td style="width: 60%" class="text-center"><a href="${cp }/board/QNA/Detail?qnaNum=${vo.qnaNum}">${vo.title }</a></td>
+								<td style="width: 10%" class="text-center">${vo.regdate }</td>
 								<td style="width: 10%" class="text-center">답변대기중</td>
-
 							</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-xs-12">
-					<!-- 아이디가 admin이 아닐때만 보이도록 설정하기 <c:if test=""> </c:if> -->
-					<a href="${cp }/QNA_insertForm" class="button btn--reverse" style="float: right">1:1 문의하기</a>
+					<!-- 아이디가 admin이 아닐때만 보이도록 설정하기  -->
+					<c:if test="${sessionId !='admin' }"> 
+					<a href="${cp }/board/QNA/insert" class="button btn--reverse" style="float: right">1:1 문의하기</a>
+					</c:if>
 				</div>
 			</div>
 

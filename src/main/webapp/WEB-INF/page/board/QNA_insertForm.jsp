@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,7 +40,11 @@
 
 	<div class="container">
 		<h1>1:1문의(사용자용)</h1>
-		<form action="#" method="post">
+		
+		<c:set var="m" value="${requestScope.dto }"/>
+		
+		<form action="${cp }/board/QNA/insert" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="memberNum" value="${m.memberNum }">
 			<div class="form-group">
 				<label for="title">제목</label><br> <input type="text"
 					class="form-control" id="title" placeholder="제목 입력" name="title">
@@ -47,8 +52,8 @@
 
 			<div class="form-group">
 				<label for="writer">작성자</label><br> <input type="text"
-					class="form-control" id="writer" name="writer"
-					value="sessionScope.writer" readonly="readonly">
+					class="form-control" id="nickname" name="nickname"
+					value="${sessionId }" readonly="readonly">
 			</div><br>
 
 			<div class="form-group">
@@ -59,12 +64,12 @@
 
 			<div class="form-group">
 				<label for="file">파일첨부</label><br> <input type="file"
-					class="form-control" id="file" name="file">
+					class="form-control" id="image" name="image">
 			</div><br>
 
 			<br>
 			<button type="submit" class="button btn--reverse" style="display: inline-block;">등록</button>
-			<a href="${cp }/QNA_List" class="button btn--reverse" style="display: inline-block;">취소</a>
+			<a href="${cp }/board/QNA/List" class="button btn--reverse" style="display: inline-block;">취소</a>
 		</form>
 	</div>
 </main>
