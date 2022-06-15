@@ -29,7 +29,7 @@
 </head>
 <body>
 
-
+<jsp:include page="/WEB-INF/page/include/header.jsp" />
 
 <!-- 페이지 시작 -->
 <div id="wrap">
@@ -106,7 +106,7 @@
     </div>
 </div>
 
-
+<jsp:include page="/WEB-INF/page/include/footer.jsp" />
 
 </body>
 </html>
