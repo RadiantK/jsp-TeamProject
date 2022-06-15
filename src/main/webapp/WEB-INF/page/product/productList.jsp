@@ -28,6 +28,26 @@
   <script defer src="${cp}/resource/js/bootstrap.bundle.js"></script>
   <script defer src="${cp}/js/base.js"></script>
   
+  <script type="text/javascript">
+  
+  let xhr = null;
+  
+  window.onload = function(){
+	  scgList();
+  }
+  
+  function scgList(){
+	  xhr = new XMLHttpRequest();
+	  xhr.onreadystatechange = function(){
+		  if(xhr.readyState==4 && xhr.status==200){
+			  var result = xhr.responseText;
+			  let cgMenuList = document.getElementsByClassName("cg-menu-list")[0];
+			  
+		  }
+	  }
+  }
+  
+  </script>
   
 </head>
 <body>
@@ -40,7 +60,7 @@
 	
 	        <!-- 상단배너 -->
 	        <div class="cg-banner">
-	            <p>가구</p>
+	            <p>${bcg.btype }</p>
 	        </div>
 	        
 	        <!-- 제품목록박스 -->
@@ -49,7 +69,7 @@
 	            <div class="cg-menu">
 	                <div class="cg-menu-title">
 	                    <div class="list-txt">
-	                        <span><strong>가구</strong></span>
+	                        <span><strong>${bcg.btype }</strong></span>
 	                    </div>
 	                    <div class="choice">
 	                        <select name="sort" class="tune">
@@ -62,114 +82,29 @@
 	                </div>
 	                <div class="cg-menu-list">
 	                    <ul>
-	                        <li><a href="" class="select">전체(0)</a></li>
-	                        <li><a href="">침대(0)</a></li>
-	                        <li><a href="">소파(0)</a></li>
-	                        <li><a href="">식탁(0)</a></li>
-	                        <li><a href="">의자(0)</a></li>
+	                        <li><a href="" class="select">전체(${pdao.getCountBcg(bcg.bcategoryNum) })</a></li>
+	                        <c:forEach var="vo" items="${scgList }">
+	                        	<li><a href="">${vo.stype }(${pdao.getCountScg(vo.scategoryNum) })</a></li>
+	                        </c:forEach>
 	                    </ul>
 	                </div>
 	            </div>
 	            <!-- 제품목록 시작 -->
 	            <div class="cg-item row">
-	                
-	                <div class="box cell">
-	                  <div class="img-box">
-	                    <a href=""><img src="../images/product/sample.jpeg" alt="제품명"></a>
-	                  </div>
-	                  <div class="txt-box">
-	                    <a href="">
-	                      <span class="prdName">제품명</span><br>
-	                      <span class="shotDesc">#제품설명#제품설명#제품설명</span><br>
-	                      <span class="price">￦ 10,000</span>
-	                    </a>
-	                  </div>
-	                </div>
-	                <div class="box cell">
-	                  <div class="img-box">
-	                    <a href=""><img src="../images/product/sample.jpeg" alt="제품명"></a>
-	                  </div>
-	                  <div class="txt-box">
-	                    <a href="">
-	                      <span class="prdName">제품명</span><br>
-	                      <span class="shotDesc">#제품설명#제품설명#제품설명</span><br>
-	                      <span class="price">￦ 10,000</span>
-	                    </a>
-	                  </div>
-	                </div>
-	                <div class="box cell">
-	                  <div class="img-box">
-	                    <a href=""><img src="../images/product/sample.jpeg" alt="제품명"></a>
-	                  </div>
-	                  <div class="txt-box">
-	                    <a href="">
-	                      <span class="prdName">제품명</span><br>
-	                      <span class="shotDesc">#제품설명#제품설명#제품설명</span><br>
-	                      <span class="price">￦ 10,000</span>
-	                    </a>
-	                  </div>
-	                </div>
-	                <div class="box cell">
-	                  <div class="img-box">
-	                    <a href=""><img src="../images/product/sample.jpeg" alt="제품명"></a>
-	                  </div>
-	                  <div class="txt-box">
-	                    <a href="">
-	                      <span class="prdName">제품명</span><br>
-	                      <span class="shotDesc">#제품설명#제품설명#제품설명</span><br>
-	                      <span class="price">￦ 10,000</span>
-	                    </a>
-	                  </div>
-	                </div>
-	                
-	                <div class="box cell">
-	                  <div class="img-box">
-	                    <a href=""><img src="../images/product/sample.jpeg" alt="제품명"></a>
-	                  </div>
-	                  <div class="txt-box">
-	                    <a href="">
-	                      <span class="prdName">제품명</span><br>
-	                      <span class="shotDesc">#제품설명#제품설명#제품설명</span><br>
-	                      <span class="price">￦ 10,000</span>
-	                    </a>
-	                  </div>
-	                </div>
-	                <div class="box cell">
-	                  <div class="img-box">
-	                    <a href=""><img src="../images/product/sample.jpeg" alt="제품명"></a>
-	                  </div>
-	                  <div class="txt-box">
-	                    <a href="">
-	                      <span class="prdName">제품명</span><br>
-	                      <span class="shotDesc">#제품설명#제품설명#제품설명</span><br>
-	                      <span class="price">￦ 10,000</span>
-	                    </a>
-	                  </div>
-	                </div>
-	                <div class="box cell">
-	                  <div class="img-box">
-	                    <a href=""><img src="../images/product/sample.jpeg" alt="제품명"></a>
-	                  </div>
-	                  <div class="txt-box">
-	                    <a href="">
-	                      <span class="prdName">제품명</span><br>
-	                      <span class="shotDesc">#제품설명#제품설명#제품설명</span><br>
-	                      <span class="price">￦ 10,000</span>
-	                    </a>
-	                  </div>
-	                </div>
-	                <div class="box cell">
-	                  <div class="img-box">
-	                    <a href=""><img src="../images/product/sample.jpeg" alt="제품명"></a>
-	                  </div>
-	                  <div class="txt-box">
-	                    <a href="">
-	                      <span class="prdName">제품명</span><br>
-	                      <span class="shotDesc">#제품설명#제품설명#제품설명</span><br>
-	                      <span class="price">￦ 10,000</span>
-	                    </a>
-	                  </div>
-	                </div>
+	                <c:forEach var="vo" items="${pdao.selectBcg(bcg.bcategoryNum) }">
+		                <div class="box cell">
+		                  <div class="img-box">
+		                    <a href=""><img src="../upload/product/thumbnail/${vo.image }" alt="${vo.pname }"></a>
+		                  </div>
+		                  <div class="txt-box">
+		                    <a href="">
+		                      <span class="prdName">${vo.pname }</span><br>
+		                      <span class="shotDesc">#제품설명#제품설명#제품설명</span><br>
+		                      <span class="price">￦ ${vo.price }</span>
+		                    </a>
+		                  </div>
+		                </div>
+	                </c:forEach>
 	                
 	            </div>
 	            <!-- 페이징 -->
