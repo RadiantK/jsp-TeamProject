@@ -42,7 +42,7 @@
 	
 	<div class="container">
 		<h1>공지사항(관리자용)</h1>
-		<form action="${cp }/Notice_Update?noticeNum=${m.noticeNum}" method="post">
+		<form action="${cp }/board/Notice/Update?noticeNum=${m.noticeNum}" method="post">
 			<div class="form-group">
 				<label for="title">제목</label><br> <input type="text"
 					class="form-control" id="title" value="${m.title }" name="title">
@@ -61,7 +61,7 @@
 
 			<br>
 			<button type="submit" class="button btn--reverse"style="display: inline-block;" >수정</button>
-			<a href="${cp }/Notice_List" class="button btn--reverse" style="display: inline-block;">취소</a>
+			<a href="${cp }/board/Notice/List" class="button btn--reverse" style="display: inline-block;">취소</a>
 		</form>
 	</div>
 </main>

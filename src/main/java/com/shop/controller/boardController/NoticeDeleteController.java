@@ -1,4 +1,4 @@
-package com.shop.controller.NoticeController;
+package com.shop.controller.boardController;
 
 import java.io.IOException;
 
@@ -8,19 +8,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.shop.dao.CSDao;
-import com.shop.dto.Notice;
+import com.shop.dao.NoticeDao;
 
-@WebServlet("/Notice_Detail")
-public class NoticeDetailController extends HttpServlet{
+@WebServlet("/board/Notice/Delete")
+public class NoticeDeleteController extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
 		int noticeNum=Integer.parseInt(req.getParameter("noticeNum"));
-		CSDao dao=CSDao.getInstance();
-		Notice vo=dao.NoticeDetail(noticeNum);
+		NoticeDao dao=NoticeDao.getInstance();
+		int n=dao.NoticeDelete(noticeNum);
 		
-		req.setAttribute("vo", vo);
-		req.getRequestDispatcher("/WEB-INF/board/Notice_Detail.jsp").forward(req, resp);
+		if(n>0) {
+			resp.sendRedirect(req.getContextPath()+"/board/Notice/List");
+		}else {
+			System.out.println("삭제실패!");
+		}
 	}
+
 }

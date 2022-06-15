@@ -10,18 +10,18 @@ import java.util.ArrayList;
 import com.shop.dto.Notice;
 import com.shop.util.DBPool;
 
-public class CSDao {
-	private static CSDao CSDao = null;
-	
-	private CSDao() {}
-	
-	public static CSDao getInstance() {
-		if(CSDao == null) {
-			CSDao = new CSDao();
+public class NoticeDao {
+	private static NoticeDao NoticeDao = null;
+
+	private NoticeDao() {}
+
+	public static NoticeDao getInstance() {
+		if(NoticeDao == null) {
+			NoticeDao = new NoticeDao();
 		}
-		return CSDao;
+		return NoticeDao;
 	}
-	public int getMaxNum() {
+	public int getMaxNum() { // 페이징 처리를 위한 공지번호 최대값 구해오기.
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -40,7 +40,7 @@ public class CSDao {
 			DBPool.close(con, pstmt, rs);
 		}
 	}
-	public int getCount() {
+	public int getCount() { // 페이징 처리를 위한 총 글 갯수 구해오기
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -50,7 +50,7 @@ public class CSDao {
 			pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			rs.next();
-//			int cnt=rs.getInt("cnt"); ( Alias를 줘서 얻어오기 )
+			//			int cnt=rs.getInt("cnt"); ( Alias를 줘서 얻어오기 )
 			int cnt=rs.getInt(1); // 1번째 컬럼의 값 얻어오기. ( 함수는 컬럼명이 없기 때문에)
 			return cnt;
 		}catch(SQLException se) {
@@ -58,9 +58,9 @@ public class CSDao {
 			return -1;
 		}finally {
 			DBPool.close(con, pstmt, rs);	
-			}
-	  }
-	public int insertNotice(Notice dto) {
+		}
+	}
+	public int insertNotice(Notice dto) { // 공지사항 등록 DAO
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		try {
@@ -72,7 +72,7 @@ public class CSDao {
 			pstmt.setString(3, dto.getContent());
 			int n=pstmt.executeUpdate();
 			return n;
-			
+
 		}catch(SQLException se) {
 			se.printStackTrace();
 			return -1;
@@ -81,45 +81,64 @@ public class CSDao {
 		}
 	}
 
-	public ArrayList<Notice> NoticeList(int startRow,int endRow){
-	String sql="select * from "
-			+ "( "
-			+ "	select aa.*,rownum rnum from "
-			+ "	( "
-			+ "	select * from notice "
-			+ "	order by notice_num desc "
-			+ "	)aa "
-			+ ")where rnum between ? and ?";
-	Connection con=null;
-	PreparedStatement pstmt=null;
-	ResultSet rs=null;
-	try {
-		con=DBPool.getConnection();
-		pstmt=con.prepareStatement(sql);
-		pstmt.setInt(1, startRow);
-		pstmt.setInt(2, endRow);
-		rs=pstmt.executeQuery();
-		ArrayList<Notice> list=new ArrayList<Notice>();
-		while(rs.next()) {
-			int noticeNum=rs.getInt("notice_Num");
-			String memberNum=rs.getString("member_num");
-			String nickname=rs.getString("nickname");
-			String title=rs.getString("title");
-			String content=rs.getString("content");
-			Date regdate=rs.getDate("regdate");
-			int hit=rs.getInt("hit");
-			Notice dto=new Notice(noticeNum,memberNum, nickname, title, content, regdate, hit);
-			list.add(dto);
-		}
-		return list;
-	}catch(SQLException se) {
-		se.printStackTrace();
-		return null;
-	}finally {
-		DBPool.close(con, pstmt, rs);
+	public ArrayList<Notice> NoticeList(int startRow,int endRow){ // 공지 목록 불러오는 DAO + 페이징 처리
+		String sql="select * from "
+				+ "( "
+				+ "	select aa.*,rownum rnum from "
+				+ "	( "
+				+ "	select * from notice "
+				+ "	order by notice_num desc "
+				+ "	)aa "
+				+ ")where rnum between ? and ?";
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=DBPool.getConnection();
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			rs=pstmt.executeQuery();
+			ArrayList<Notice> list=new ArrayList<Notice>();
+			while(rs.next()) {
+				int noticeNum=rs.getInt("notice_Num");
+				String memberNum=rs.getString("member_num");
+				String nickname=rs.getString("nickname");
+				String title=rs.getString("title");
+				String content=rs.getString("content");
+				Date regdate=rs.getDate("regdate");
+				int hit=rs.getInt("hit");
+				Notice dto=new Notice(noticeNum,memberNum, nickname, title, content, regdate, hit);
+				list.add(dto);
+			}
+			return list;
+		}catch(SQLException se) {
+			se.printStackTrace();
+			return null;
+		}finally {
+			DBPool.close(con, pstmt, rs);
 		}
 	}
-	public Notice NoticeDetail(int noticeNum) {
+
+	public int countHit(int hit, int noticeNum) { // 조회수 기능 구현 DAO
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=DBPool.getConnection();
+			String sql="update notice set hit=? where notice_num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, hit);
+			pstmt.setInt(2, noticeNum);
+			return pstmt.executeUpdate();
+		}catch(SQLException se) {
+			se.printStackTrace();
+			return -1;
+		}finally {
+			DBPool.close(con, pstmt);
+		}
+	}
+
+	public Notice NoticeDetail(int noticeNum) { // 상세내용 보기 + 공지번호로 하나의 전체컬럼 보기(다용도목적)
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -137,9 +156,11 @@ public class CSDao {
 				String content=rs.getString("content");
 				Date regdate=rs.getDate("regdate");
 				int hit=rs.getInt("hit");
+				hit ++;
+				countHit(hit, noticeNum);
 				Notice dto=new Notice(noticeNum, memberNum, nickname, title, content, regdate, hit);
 				return dto;
-				
+
 			}
 			return null;
 		}catch(SQLException s) {
@@ -149,7 +170,7 @@ public class CSDao {
 			DBPool.close(con, pstmt, rs);
 		}
 	}
-	public int NoticeUpdate(Notice dto) {
+	public int NoticeUpdate(Notice dto) { // 공지사항 수정 DAO
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		try {
@@ -168,8 +189,25 @@ public class CSDao {
 			DBPool.close(con, pstmt);
 		}
 	}
+	
+	public int NoticeDelete(int noticeNum) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=DBPool.getConnection();
+			String sql="delete from notice where notice_num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, noticeNum);
+			return pstmt.executeUpdate();
+		}catch(SQLException se) {
+			se.printStackTrace();
+			return -1;
+		}finally {
+			DBPool.close(con, pstmt);
+		}
+	}
 }
-	
-	
+
+
 
 

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>1:1문의 글쓰기 양식</title>
+<title>Insert title here</title>
   <!-- material-icon -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   <!-- 부트스트랩css -->
@@ -34,11 +34,13 @@
   <script defer src="${cp}/js/main.js"></script>
 </head>
 <body>
-<main>
+
 <jsp:include page="/WEB-INF/page/include/header.jsp" />
 
+
+<main>
 	<div class="container">
-		<h1>1:1문의(사용자용)</h1>
+		<h1>자주묻는질문(관리자용)</h1>
 		<form action="#" method="post">
 			<div class="form-group">
 				<label for="title">제목</label><br> <input type="text"
@@ -48,7 +50,7 @@
 			<div class="form-group">
 				<label for="writer">작성자</label><br> <input type="text"
 					class="form-control" id="writer" name="writer"
-					value="sessionScope.writer" readonly="readonly">
+					value="sessionScope.admin" readonly="readonly">
 			</div><br>
 
 			<div class="form-group">
@@ -57,14 +59,10 @@
 					placeholder="내용 작성(최대 500자)"></textarea>
 			</div><br>
 
-			<div class="form-group">
-				<label for="file">파일첨부</label><br> <input type="file"
-					class="form-control" id="file" name="file">
-			</div><br>
-
 			<br>
 			<button type="submit" class="button btn--reverse" style="display: inline-block;">등록</button>
-			<a href="${cp }/QNA_List" class="button btn--reverse" style="display: inline-block;">취소</a>
+			<a href="${cp }/board/FAQ/List" class="button btn--reverse" style="display: inline-block;">취소</a>
+
 		</form>
 	</div>
 </main>

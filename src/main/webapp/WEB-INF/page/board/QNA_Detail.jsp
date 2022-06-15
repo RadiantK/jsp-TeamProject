@@ -47,40 +47,47 @@
 				<table class="table">
 					<thead>
 						<tr>
-							<td colspan="3" style="width: 100%"><h1>주문취소 문의입니다.</h1></td>
+							<td colspan="3" style="width: 100%"><h1>${vo.title }</h1></td>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							<td colspan="2" style="width: 30%">회원</td>
-							<td colspan="2" style="width: 70%">2022/02-22/22:22:22</td>
+							<td colspan="2" style="width: 30%">${vo.nickname }</td>
+							<td colspan="2" style="width: 70%">${vo.regdate }</td>
 						</tr>
+						
+						<c:if test="${vo.image != null}"> <!-- 첨부파일이 있을 때만 파일 보이도록 설정 -->
 						<tr>
-							<td colspan="10" style="height: 400px; text-align: left;"><br>
-							<br> <pre> <!-- pre 태그사용 공백, 엔터키 입력인식? -->
-페이스북 계정을 변경하셨거나 새로 생성하여 간편 로그인 시도 시 이러한 오류가 발생될 수 있습니다.
-우선 로그인하시려는 페이스북 계정의 [메뉴 → 설정 및 개인정보 → 설정 → 앱 및 웹사이트 → 오늘의집 연동]이 정상적으로 되었는지 확인 부탁드리며, 
-정상적으로 로그인이 되지 않으시다면, 번거로우시겠지만 고객센터로 문의 부탁드립니다.
-오늘의집 고객센터 1670-0876 (운영 시간 : 평일 09:00~18:00) - 마이페이지 > 나의 쇼핑 > 고객센터 > 1:1 카톡 상담하기 - 카카오 플러스친구 '오늘의집 고객센터'로 문의
-							</pre></td>
+							<td colspan="10">
+								<img src="${cp }/upload/${vo.image }"><br>
+							</td>
+						</tr>
+						</c:if>
+						
+						<tr>
+							<td colspan="10" style="height: 400px; text-align: left;">
+								${vo.content }<br>
+							</td>
 						</tr>
 					</tbody>
 				</table>
-					<a href="${cp }/QNA_List" class="button btn--reverse">목록</a>&nbsp;&nbsp;
-					<c:if test="${param.id=='admin' }">
+					<a href="${cp }/board/QNA/List" class="button btn--reverse">목록</a>&nbsp;&nbsp;
+					
+					<!-- 세션에 담긴 Id가 관리자인 경우 답글을 달 수 있도록 설정 -->
+					<c:if test="${sessionId =='admin' }"> 
 						<div class="container" style="margin-top: 20px;">
 							<h1>1:1문의(관리자용)</h1>
-							<form action="${cp }/QNA_List" method="post">
+							<form action="" method="post">
 								<div class="form-group">
 									<label for="title">제목</label><br> <input type="text"
-										class="form-control" id="title" placeholder="[re] + sessionScope.title"
+										class="form-control" id="title" value="[re]${vo.title }"
 										name="title">
 								</div>
 
 								<div class="form-group">
 									<label for="writer">작성자</label><br> <input type="text"
-										class="form-control" id="writer" name="writer"
-										value="sessionScope.admin" readonly="readonly">
+										class="form-control" id="nickname" name="nickname"
+										value="${sessionId }" readonly="readonly">
 								</div>
 
 								<div class="form-group">
@@ -92,10 +99,11 @@
 								<button type="submit" class="button btn--reverse">답변등록</button>
 							</form>
 						</div>
+						<!-- 세션에 담긴 Id가 관리자가 아닐 경우 자신의 글 수정 삭제 가능. -->
 					</c:if>
-					<c:if test="${param.id!='admin' }">
-						<a href="" class="button btn--reverse">수정</a> &nbsp;&nbsp;
-					<a onclick="return confirm('삭제하시겠습니까?')" href=""
+					<c:if test="${sessionId !='admin' }">
+						<a href="${cp }/board/QNA/Update?qnaNum=${vo.qnaNum}" class="button btn--reverse">수정</a> &nbsp;&nbsp;
+					<a onclick="return confirm('삭제하시겠습니까?')" href="${cp }/board/QNA/Delete?qnaNum=${vo.qnaNum}"
 							class="button btn--reverse">삭제</a>
 					</c:if>
 			</div>

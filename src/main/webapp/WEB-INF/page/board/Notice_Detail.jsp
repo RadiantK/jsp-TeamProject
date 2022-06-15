@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,37 +35,49 @@
   <script defer src="${cp}/js/main.js"></script>
 </head>
 <body>
-
 <jsp:include page="/WEB-INF/page/include/header.jsp" />
 
 
 <main>
-	<div class="container">
-		<h1>자주묻는질문(관리자용)</h1>
-		<form action="#" method="post">
-			<div class="form-group">
-				<label for="title">제목</label><br> <input type="text"
-					class="form-control" id="title" placeholder="제목 입력" name="title">
-			</div><br>
-
-			<div class="form-group">
-				<label for="writer">작성자</label><br> <input type="text"
-					class="form-control" id="writer" name="writer"
-					value="sessionScope.admin" readonly="readonly">
-			</div><br>
-
-			<div class="form-group">
-				<label for="content">내용</label><br>
-				<textarea class="form-control" rows="10" id="content" name="content"
-					placeholder="내용 작성(최대 500자)"></textarea>
-			</div><br>
-
-			<br>
-			<button type="submit" class="button btn--reverse" style="display: inline-block;">등록</button>
-			<a href="${cp }/FAQ_List" class="button btn--reverse" style="display: inline-block;">취소</a>
-
-		</form>
-	</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12">
+					<h1>공지사항</h1><br>
+				</div>
+				<div class="col-xs-12">
+					<p>내일의 집의 새로운 소식입니다.</p><br>
+				</div>
+				<table class="table">
+					<thead>
+						<tr>
+							<td colspan="3" style="width: 100%"><h1>${vo.title }</h1></td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="2" style="width: 15%">${vo.nickname }</td>
+							<td colspan="2" style="width: 70%">${vo.regdate }</td>
+							<td colspan="2" style="width: 15%">조회수&nbsp; ${vo.hit  }</td>							
+						</tr>
+						<tr>
+							<td colspan="10" style="height: 400px; text-align: left;">
+							<br><br>
+							${vo.content}
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="btn-group">
+					<a href="${cp }/board/Notice/List" class="button btn--reverse">목록</a>&nbsp;&nbsp;
+					<!-- 세션에 담긴 Id가 관리자인 경우에만 공지내용 수정 및 삭제가능. -->
+					<c:if test="${sessionId=='admin' }">
+					<a href="${cp }/board/Notice/Update?noticeNum=${vo.noticeNum}" class="button btn--reverse">수정</a> &nbsp;&nbsp;
+					<a onclick="return confirm('삭제하시겠습니까?')" href="${cp }/board/Notice/Delete?noticeNum=${vo.noticeNum}" class="button btn--reverse">삭제</a>					
+					</c:if>
+					
+				</div>
+			</div>
+		</div>
 </main>
 
 <jsp:include page="/WEB-INF/page/include/footer.jsp" />

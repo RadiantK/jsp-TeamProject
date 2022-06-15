@@ -46,9 +46,9 @@
 					<h1>고객센터</h1>
 					<br>
 					<div id="boardCategory">
-						<a href="${cp }/Notice_List">공지사항</a>&nbsp;&nbsp;&nbsp;&nbsp;<span>|</span>&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="${cp }/QNA_List">1:1문의</a>&nbsp;&nbsp;&nbsp;&nbsp;<span>|</span>&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="${cp }/FAQ_List">자주묻는질문</a>
+						<a href="${cp }/board/Notice/List">공지사항</a>&nbsp;&nbsp;&nbsp;&nbsp;<span>|</span>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="${cp }/board/QNA/List">1:1문의</a>&nbsp;&nbsp;&nbsp;&nbsp;<span>|</span>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="${cp }/board/FAQ/List">자주묻는질문</a>
 					</div>
 					<br>
 				</div>
@@ -90,8 +90,8 @@
 			<div class="row">
 				<div class="col-xs-12">
 					<!-- 아이디가 admin일때만 보이도록 설정하기-->
-					<c:if test="${param.id=='admin' }">
-					<a href="${cp }/FAQ_insertForm" class="button btn--reverse" style="float: right">FAQ 등록</a>
+					<c:if test="${sessionId =='admin' }">
+					<a href="${cp }/board/FAQ/insertForm" class="button btn--reverse" style="float: right">FAQ 등록</a>
 					 </c:if> 
 				</div>
 			</div>

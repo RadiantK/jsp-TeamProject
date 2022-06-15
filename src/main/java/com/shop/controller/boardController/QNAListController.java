@@ -1,7 +1,6 @@
-package com.shop.controller.NoticeController;
+package com.shop.controller.boardController;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -9,16 +8,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+import com.shop.dao.QNADao;
+import com.shop.dto.QNA;
 
-import com.shop.dao.CSDao;
-import com.shop.dto.Notice;
 
-@WebServlet("/Notice_List")
-public class NoticeListController extends HttpServlet {
+
+
+@WebServlet("/board/QNA/List")
+public class QNAListController extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String spageNum=req.getParameter("pageNum");
@@ -28,8 +26,8 @@ public class NoticeListController extends HttpServlet {
 		}
 		int startRow=(pageNum-1)*10+1;
 		int endRow=startRow+9;
-		CSDao dao=CSDao.getInstance();
-		ArrayList<Notice> list=dao.NoticeList(startRow, endRow);
+		QNADao dao=QNADao.getInstance();
+		ArrayList<QNA> list=dao.QNAList(startRow, endRow);
 		int count=dao.getCount(); // 전체 글의 갯수
 		int pageCount=(int)Math.ceil(count/10.0); // 전체 페이지 갯수
 		int startPage=((pageNum-1)/10*10)+1; // 시작 페이지 번호  // ex) (pagenum=10) -> 9/10 = 0 *10 = 0 +1 = 1
@@ -42,6 +40,9 @@ public class NoticeListController extends HttpServlet {
 		req.setAttribute("startPage", startPage);
 		req.setAttribute("endPage", endPage);
 		req.setAttribute("pageNum", pageNum);
-		req.getRequestDispatcher("/WEB-INF/board/Notice_List.jsp").forward(req, resp);
+		
+		
+		req.getRequestDispatcher("/WEB-INF/page/board/QNA_List.jsp").forward(req, resp);
 	}
+
 }
