@@ -1,4 +1,4 @@
-package com.shop.controller.NoticeController;
+package com.shop.controller.boardController;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,10 +14,10 @@ import javax.servlet.http.HttpSession;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.shop.dao.CSDao;
+import com.shop.dao.NoticeDao;
 import com.shop.dto.Notice;
 
-@WebServlet("/Notice_List")
+@WebServlet("/board/Notice/List")
 public class NoticeListController extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -28,7 +28,7 @@ public class NoticeListController extends HttpServlet {
 		}
 		int startRow=(pageNum-1)*10+1;
 		int endRow=startRow+9;
-		CSDao dao=CSDao.getInstance();
+		NoticeDao dao=NoticeDao.getInstance();
 		ArrayList<Notice> list=dao.NoticeList(startRow, endRow);
 		int count=dao.getCount(); // 전체 글의 갯수
 		int pageCount=(int)Math.ceil(count/10.0); // 전체 페이지 갯수
@@ -42,6 +42,6 @@ public class NoticeListController extends HttpServlet {
 		req.setAttribute("startPage", startPage);
 		req.setAttribute("endPage", endPage);
 		req.setAttribute("pageNum", pageNum);
-		req.getRequestDispatcher("/WEB-INF/board/Notice_List.jsp").forward(req, resp);
+		req.getRequestDispatcher("/WEB-INF/page/board/Notice_List.jsp").forward(req, resp);
 	}
 }

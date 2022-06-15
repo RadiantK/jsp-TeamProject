@@ -45,9 +45,9 @@
 					<h1>고객센터</h1>
 					<br>
 					<div id="boardCategory">
-						<a href="${cp }/Notice_List">공지사항</a>&nbsp;&nbsp;&nbsp;&nbsp;<span>|</span>&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="${cp }/QNA_List">1:1문의</a>&nbsp;&nbsp;&nbsp;&nbsp;<span>|</span>&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="${cp }/FAQ_List">자주묻는질문</a>
+						<a href="${cp }/board/Notice/List">공지사항</a>&nbsp;&nbsp;&nbsp;&nbsp;<span>|</span>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="${cp }/board/QNA/List">1:1문의</a>&nbsp;&nbsp;&nbsp;&nbsp;<span>|</span>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="${cp }/board/FAQ/List">자주묻는질문</a>
 					</div>
 					<br>
 				</div>
@@ -69,7 +69,7 @@
 					<c:forEach var="vo" items="${list }">
 						<tr>
 							<td style="width: 10%" class="text-center">${vo.noticeNum }</td>
-							<td style="width: 60%" class="text-center"><a href="${cp }/Notice_Detail?noticeNum=${vo.noticeNum}">${vo.title }</a></td>
+							<td style="width: 60%" class="text-center"><a href="${cp }/board/Notice/Detail?noticeNum=${vo.noticeNum}">${vo.title }</a></td>
 							<td style="width: 20%" class="text-center">${vo.regdate }</td>
 							<td style="width: 10%" class="text-center">${vo.hit }</td>
 						</tr>
@@ -82,32 +82,33 @@
 
 		<div class="row">
 			<div class="col-xs-12">
+			<!-- 세션에 담긴 Id가 관리자일 경우에만 공지 등록 가능하도록 설정 -->
 			<c:if test="${sessionId=='admin' }">
-					<a href="${cp }/Notice_insert" class="button btn--reverse" style="float: right">공지등록</a>
+					<a href="${cp }/board/Notice/insert" class="button btn--reverse" style="float: right">공지등록</a>
 			</c:if>
 			</div>
 		</div>
 
 
-
-<div>
-	<c:if test="${startPage>10 }">
-		<a href="${cp }/Notice_List?pageNum=${startPage-1}">이전</a>
-	</c:if>
-	<c:forEach var="i" begin="${startPage }" end="${endPage }">
-		<c:choose>
-			<c:when test="${pageNum==i }">
-				<a href="${cp }/Notice_List?pageNum=${i}"><span style="color:red">${i }</span></a>			
-			</c:when>
-			<c:otherwise>
-				<a href="${cp }/Notice_List?pageNum=${i}"><span style="color:gray">${i }</span></a>
-			</c:otherwise>
-		</c:choose>
-	</c:forEach>
-	<c:if test="">
-		<a href="">다음</a>
-	</c:if>
-</div>
+<!-- 목록 페이징 처리 -->
+	<div>
+		<c:if test="${startPage>10 }">
+			<a href="${cp }/board/Notice/List?pageNum=${startPage-1}">이전</a>
+		</c:if>
+		<c:forEach var="i" begin="${startPage }" end="${endPage }">
+			<c:choose>
+				<c:when test="${pageNum==i }">
+					<a href="${cp }/board/Notice/List?pageNum=${i}"><span style="color:red">${i }</span></a>			
+				</c:when>
+				<c:otherwise>
+					<a href="${cp }/board/Notice/List?pageNum=${i}"><span style="color:gray">${i }</span></a>
+				</c:otherwise>
+			</c:choose>
+		</c:forEach>
+		<c:if test="${endPage<pageCount }">
+			<a href="${cp }/board/Notice/List?pageNum=${endPage+1}">다음</a>
+		</c:if>
+	</div>
 
 		</div>
 	</main>
