@@ -38,17 +38,17 @@
       </div>
 
       <form id="formTag" action="${cp}/user/login" method="post">
-        <div class="email mb-1 row w-25">
+        <div class="email mb-1 row">
           <label for="email" class="form-label"></label>
           <input type="email" class="form-control fs-6" id="email" name="email" aria-describedby="emailHelp" placeholder="이메일">
           <div id="emailHelp" class="form-text">이메일이 올바르지 않습니다</div>
         </div>
-        <div class="pwd mb-3 row w-25">
+        <div class="pwd mb-3 row">
           <label for="pwd" class="form-label"></label>
           <input type="password" class="form-control fs-6" id="pwd" name="pwd" aria-describedby="pwdHelp" placeholder="비밀번호">
           <div id="pwdHelp" class="form-text">비밀번호가 올바르지 않습니다.</div>
         </div>
-        <div class="smt mb-2 row w-25">
+        <div class="smt mb-2">
           <input type="button" class="submit btn btn-info" value="로그인"/>
         </div>
       </form>

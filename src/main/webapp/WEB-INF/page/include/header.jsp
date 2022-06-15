@@ -5,7 +5,7 @@
   <header>
     <div class="inner">
       <div class="logo">
-        <a href="main.html" >
+        <a href="${cp}/main" >
           <span class="title">내일의집</span>
         </a>
       </div>
@@ -80,7 +80,7 @@
 		            <a href="${cp}/user/login">로그인</a>
 		          </li>
 		          <li>
-		            <a href="join.html">회원가입</a>
+		            <a href="${cp}/user/join">회원가입</a>
 		          </li>
           	</c:when>
           	<c:otherwise>
