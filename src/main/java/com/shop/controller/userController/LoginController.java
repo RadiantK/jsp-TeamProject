@@ -1,4 +1,4 @@
-package com.shop.controller;
+package com.shop.controller.userController;
 
 import java.io.IOException;
 
@@ -36,12 +36,9 @@ public class LoginController extends HttpServlet {
 		String pwd = "";
 		if(pwd_ != null && !pwd_.equals("")) pwd = pwd_;
 		
-		System.out.println(email);
-		System.out.println(pwd);
 		MemberDao memberDao = MemberDao.getInstance();
 		LoginCommand login = memberDao.memberLogin(email, pwd);
 		
-		System.out.println(login);
 		if(login != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("sessionId", email);

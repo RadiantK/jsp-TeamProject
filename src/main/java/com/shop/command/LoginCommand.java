@@ -24,9 +24,4 @@ public class LoginCommand {
 		return role;
 	}
 
-	@Override
-	public String toString() {
-		return "LoginCommand [email=" + email + ", pwd=" + pwd + ", role=" + role + "]";
-	}
-	
 }
