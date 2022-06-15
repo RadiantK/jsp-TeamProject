@@ -45,15 +45,15 @@ public class MemberDao {
 				String name = rs.getString("name");
 				String nickName = rs.getString("nickName");
 				String phone = rs.getString("phone");
+				String address = rs.getString("address");
 				String gender = rs.getString("gender");
 				Date regDate = rs.getDate("regDate");
-				String orderPwd = rs.getString("orderPwd");
 				int available = rs.getInt("available");
 				int role = rs.getInt("role");
 				
 				Member member = new Member(
 						memberNum, email, password, name, nickName, phone,
-						gender, regDate, orderPwd, available, role);
+						address, gender, regDate, available, role);
 				list.add(member);
 			}
 			return list;
@@ -86,15 +86,15 @@ public class MemberDao {
 				String name = rs.getString("name");
 				String nickName = rs.getString("nickName");
 				String phone = rs.getString("phone");
+				String address = rs.getString("address");
 				String gender = rs.getString("gender");
 				Date regDate = rs.getDate("regDate");
-				String orderPwd = rs.getString("orderPwd");
 				int available = rs.getInt("available");
 				int role = rs.getInt("role");
 				
 				member = new Member(
 						memberNum, email, password, name, nickName, phone,
-						gender, regDate, orderPwd, available, role);
+						address, gender, regDate, available, role);
 			}
 			return member;
 		}catch(SQLException e) {
@@ -138,7 +138,8 @@ public class MemberDao {
 		}
 	}
 
-	public int join() {
+	// 회원가입
+	public int join(Member member) {
 		String sql = "INSERT INTO member(member_num, email, password,"
 				+ " name, nickname, phone, address, gender) "
 				+ "VALUES(seq_member.nextval,?,?,?,?,?,?,?)";
@@ -148,13 +149,71 @@ public class MemberDao {
 		try {
 			con = DBPool.getConnection();
 			pstmt = con.prepareStatement(sql);
-			
+			pstmt.setString(1, member.getEmail());
+			pstmt.setString(2, member.getPassword());
+			pstmt.setString(3, member.getName());
+			pstmt.setString(4, member.getNickName());
+			pstmt.setString(5, member.getPhone());
+			pstmt.setString(6, member.getAddress());
+			pstmt.setString(7, member.getGender());
 			int n = pstmt.executeUpdate();
 			
 			return n;
 		}catch(SQLException e) {
 			e.printStackTrace();
 			return -1;
+		}
+	}
+	
+	// 이메일 중복 검사
+	public int findByEmail (String email) {
+		String sql = "SELECT email FROM member WHERE email = ?";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = DBPool.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, email);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				return 1;
+			}
+			
+			return -1;
+		}catch(SQLException e) {
+			e.printStackTrace();
+			return -1;
+		}finally {
+			DBPool.close(con, pstmt, rs);
+		}
+	}
+	
+	// 닉네임 중복 검사
+	public int findByNickName (String nickName) {
+		String sql = "SELECT nickName FROM member WHERE nickName = ?";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = DBPool.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, nickName);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				return 1;
+			}
+			
+			return -1;
+		}catch(SQLException e) {
+			e.printStackTrace();
+			return -1;
+		}finally {
+			DBPool.close(con, pstmt, rs);
 		}
 	}
 }
