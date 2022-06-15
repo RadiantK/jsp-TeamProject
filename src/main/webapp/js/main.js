@@ -1,4 +1,4 @@
-// 배지 이벤트
+/*// 배지 이벤트
 const badgeEl = document.querySelector('header .badges');
 // window : 브라우저 하나의 창 
 // _.throttle(함수, 시간)
@@ -19,7 +19,7 @@ window.addEventListener('scroll', _.throttle(function(){
       display: 'block'
     });
   }
-}, 400));
+}, 400));*/
 
 
 

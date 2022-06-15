@@ -9,6 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>내일의집</title>
+
   <!-- material-icon -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   <!-- 부트스트랩css -->
@@ -185,13 +186,18 @@
       </ul>
     </div>
 
+  </section>
+
+  <!-- 이벤트 -->
+  <section class="season">
     <div class="event">
       <a href="javascript:void(0)">
-        <img src="./images/main/event1.png" alt="이벤트">
+        <img src="${cp}/images/main/event1.png" alt="이벤트">
       </a>
     </div>
   </section>
 
+	<!-- footer -->
 	<jsp:include page="/WEB-INF/page/include/footer.jsp" />
 
 </body>
