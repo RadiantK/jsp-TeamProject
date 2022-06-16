@@ -8,13 +8,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 
 import com.shop.dao.MemberDao;
+import com.shop.dto.Member;
 
 @SuppressWarnings("serial")
-@WebServlet("/user/join/check_nick")
+@WebServlet("/user/check_nick")
 public class CheckNickNameController extends HttpServlet {
 	
 	@Override
@@ -27,7 +29,18 @@ public class CheckNickNameController extends HttpServlet {
 		
 		MemberDao memberDao = MemberDao.getInstance();
 		int n = memberDao.findByNickName(nickName);
+		
 		JSONObject jo = new JSONObject();
+		
+		// 회원정보 수정 시 자신의 닉네임을 표시
+		HttpSession session = request.getSession();
+		String myEmail = (String) session.getAttribute("sessionId");
+		if(myEmail != null) {
+			Member member = memberDao.selectOne(myEmail);
+			if(member.getNickName().equals(nickName)) {
+				jo.put("nick", "myNickName");
+			}
+		}
 		
 		if(n > 0) {
 			jo.put("code", true);
