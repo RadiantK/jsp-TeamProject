@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -41,9 +43,9 @@
             <div class="prd-box-txt">
 
               <div class="txt-top">
-                <p class="detailCategory">홈ㅤ>ㅤ가구ㅤ>ㅤ침대</p>
-                <p class="detailPrdName">제품명</p>
-                <p class="detailShotDesc">#제품설명#제품설명#제품설명#제품설명</p>
+                <p class="detailCategory">홈ㅤ>ㅤ${btype }ㅤ>ㅤ${stype }</p>
+                <p class="detailPrdName">${pname }</p>
+                <p class="detailShotDesc">${pdesc }</p>
               </div>
 
               <div class="txt-mid">
