@@ -34,6 +34,7 @@ public class OrderOKController extends HttpServlet{
 		
 		// 결제테이블 insert
 		
+	   ///ㅇㅇ
 		
 		
 	}
