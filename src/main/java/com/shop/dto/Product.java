@@ -32,14 +32,6 @@ public class Product {
 		this.bcategoryNum = bcategoryNum;
 	}
 
-	public String getPdesc() {
-		return pdesc;
-	}
-
-	public void setPdesc(String pdesc) {
-		this.pdesc = pdesc;
-	}
-
 	public int getProductNum() {
 		return productNum;
 	}
