@@ -5,8 +5,8 @@ import java.sql.Date;
 public class Product {
 	private int productNum;
 	private int scategoryNum;
-	private String code;
 	private String pname;
+	private String pdesc;
 	private int price;
 	private int discount;
 	private int cnt;
@@ -17,18 +17,27 @@ public class Product {
 	
 	public Product() {}
 
-	public Product(int productNum, int scategoryNum, String code, String pname, int price, int discount, int cnt,
+	public Product(int productNum, int scategoryNum, String pname, String pdesc, int price, int discount, int cnt,
 			Date regdate, String image, int bcategoryNum) {
+		super();
 		this.productNum = productNum;
 		this.scategoryNum = scategoryNum;
-		this.code = code;
 		this.pname = pname;
+		this.pdesc = pdesc;
 		this.price = price;
 		this.discount = discount;
 		this.cnt = cnt;
 		this.regdate = regdate;
 		this.image = image;
 		this.bcategoryNum = bcategoryNum;
+	}
+
+	public String getPdesc() {
+		return pdesc;
+	}
+
+	public void setPdesc(String pdesc) {
+		this.pdesc = pdesc;
 	}
 
 	public int getProductNum() {
@@ -45,14 +54,6 @@ public class Product {
 
 	public void setScategoryNum(int scategoryNum) {
 		this.scategoryNum = scategoryNum;
-	}
-
-	public String getCode() {
-		return code;
-	}
-
-	public void setCode(String code) {
-		this.code = code;
 	}
 
 	public String getPname() {
