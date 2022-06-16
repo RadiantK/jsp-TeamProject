@@ -39,10 +39,9 @@ header .main-menu .item:nth-child(2) .item__name a {
 .mypage .user-menu .item a:hover {
   color: #333;
 }
-.mypage .user-menu .item:last-child a {
+.mypage .user-menu .item:nth-child(4) a {
   color: #35C5F0;
 }
-
 
 
 
@@ -56,6 +55,9 @@ header .main-menu .item:nth-child(2) .item__name a {
   padding: 30px;
   margin-left: 50px;
   font-weight: 700;
+}
+.edit #frm .form-text {
+	color: #0000FF;
 }
 .edit #frm input{
   border: 2px solid #aaa;
