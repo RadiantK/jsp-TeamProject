@@ -5,7 +5,7 @@ CREATE TABLE member ( -- 회원
     name VARCHAR2(20), -- 이름
     nickname VARCHAR2(10), -- 닉네임
     phone VARCHAR2(20), -- 연락처
-    address VARCHAR2(100), -- 주소
+    address VARCHAR2(100), -- 주소 
     gender VARCHAR2(10), -- 성별(male, female)
     regdate DATE DEFAULT SYSDATE, -- 가입일
     available NUMBER(1) DEFAULT 1, -- 탈퇴여부(1일반, 0탈퇴)
