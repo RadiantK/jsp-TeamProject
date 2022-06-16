@@ -1,4 +1,3 @@
-<%@page import="org.json.JSONObject"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -35,7 +34,7 @@
 	<!-- 바디 메인 -->
 	<div class="pageWrap">
 	
-  	<form id="orderForm" name="orderForm" action="#" method="post">
+  	<form id="orderForm" name="orderForm" onsubmit="return false()">
   
     <h2 class="orderTitle"> 주문/결제 </h2>
 
@@ -47,55 +46,52 @@
         <th style="width:500px"> 제품정보 </th>
         <th> 수량 </th>
         <th> 금액 </th>
+        <th> 할인가 </th>
         <th> 합계 </th>
         <th> 배송비 </th>
       </thead>
 
-
  	<!-- 제폼종류 개수만큼 반복 -->
- 	<c:forEach var="i" begin="1" end="${itemCnt}">
+ 	<c:forEach var="i" items="${orderList}">
+ 	<input type="hidden" name="itemImg" id="itemImg" value="${i.itemImg}">
+ 	<input type="hidden" name="itemName" id="itemName" value="${i.itemName}">
+ 	<input type="hidden" name="itemPiece" id="itemPiece" value="${i.piece}">
+ 	<input type="hidden" name="itemNum" id="itemNum" value="${i.itemNum}">
+ 
       <tr>
         <th>
-          <img src="${itemImg }" class="itemImg">
-          <p class="itemName"> ${itemName} </p>
+          <img src="${i.itemImg}" class="itemImg">
+          <p class="itemName"> ${i.itemName} </p>
         </th>
-        <td> ${itemPiece } </td>
-        <td> ${itemPrice } </td>
-        <td class="sumPrice"> ${itemPiece * itemPrice} </td>
+        <td> ${i.piece} </td>
+        <td>${i.price} </td>
+        <td style="text-decoration:underline">${i.discountPrice} </td>
+        <td class="sumPrice"> ${i.itemTotal} </td>
         <td style="color:darkgray"> 착불 </td>
       </tr> 
 	</c:forEach>
-
 	
-
-      <tr>
-        <th>
-          <img src="../images/orderTest2.jpg" class="itemImg">
-          <p class="itemName"> 시디즈 탭 플러스 화이트쉘 </p> 
-        </th>
-        <td> 2 </td>
-        <td> 15,000 </td>
-        <td class="sumPrice"> 30,000 </td>
-        <td style="color:darkgray"> 착불 </td>
-      </tr> 
     </table>
     
     <!-- 결제금액 계산내역 -->
     <div class="itemPrice">
-      총 2개의 상품의 합계  <strong>￦ 30,000</strong> + 배송비 착불 = <span class="totalPrice">  ￦ 45,500  </span>
+      총 ${totalCnt}개의 상품의 합계  <strong>￦ ${total} </strong>
+       + 배송비 착불 = <span class="totalPrice">  ￦ ${total}  </span>
     </div>
     </div>
 
     <h3 class="title"> 주문 고객 정보 </h3>
     <div class="orderDiv">
+    	<input type="hidden" name="mnum" value="${mnum}">
+    
     <table class="orderTable">
       <tr>
         <th class="orderLabels"> 주문자명<p style="color:red; float:left;">*</p> </th>
-        <td> <input type="text" name="orderName" id="orderName" value="" notNull="true" class="inputText"> </td>
+        <td> <input type="text" name="orderName" id="orderName" value="${mname}" notNull="true" class="inputText"> </td>
       </tr>
       <tr>
         <th class="orderLabels"> 전화번호<p style="color:red; float:left;">*</p> </th>
-        <td> <input type="text" name="orderPhone" id="orderPhone" value="" notNull="true" class="inputText"> </td>
+        <td> <input type="text" name="orderPhone" id="orderPhone" value="${phone}" notNull="true" class="inputText"> </td>
       </tr>
       <tr>
         <th class="orderLabels"> 이메일 </th>
@@ -125,7 +121,7 @@
 		    </c:otherwise>
 	    
 	    </c:choose>
-
+	
     </table>
     </div>
 
@@ -169,10 +165,12 @@
 
     <h3 class="title"> 결제 정보 </h3>
     <div class="orderDiv">
+    <input type="hidden" name="total" id="total" value="${total}">
+    
     <table id="paymentTable">
       <tr>
         <th class="orderLabels"> 합계 금액 </th>
-        <td> ￦ 42,500 </td>
+        <td> ￦ ${total} </td>
       </tr>
       <tr>
         <th class="orderLabels"> 배송비 </th>
@@ -180,17 +178,17 @@
       </tr>
       <tr>
         <th class="orderLabels"> 최종 금액 </th>
-        <th style="font-size:x-large"> ￦ 45,500 </th>
+        <th style="font-size:x-large"> ￦ ${total} </th>
       </tr>
     </table>
     </div>
 
     <h3 class="title"> 결제 수단 </h3>
     <div class="orderDiv2">
-      <input type="radio" name="payOption" value="1" class="payOption"> 신용카드
+      <input type="radio" name="payOption" value="card" class="payOption"> 신용카드
       <input type="radio" name="payOption" value="2" class="payOption"> 실시간 계좌이체
       <input type="radio" name="payOption" value="2" class="payOption"> 무통장입금
-      <input type="radio" name="payOption" value="1" class="payOption"> 카카오페이
+      <input type="radio" name="payOption" value="kakaopay" class="payOption"> 카카오페이
     </div>
 
     <div id="checkDiv">
@@ -257,15 +255,17 @@ function payModule(){
   IMP.init('imp49001285'); // 가맹점 식별코드
   // IMP.request_pay(param, callback) 결제창 호출
   IMP.request_pay({ // param
-  name: '주문결제테스트', // 결제창에서 보이는 상품명
-  amount: 1000, // 가격
-  buyer_name: $("#orderName").val(), // 구매자 이름
-  buyer_tel: $("#orderPhone").val(), // 구매자 전화번호
+	  name: $("#itemName").val(), // 결제창에서 보이는 상품명
+	  amount: $("#total").val(), // 가격
+	  buyer_name: $("#orderName").val(), // 주문자명 
+	  buyer_tel: $("#orderPhone").val(), // 주문자 전화번호
 
   }, function (rsp) { // callback 
     if (rsp.success) {
       alert('결제 성공하였습니다. 결제 금액: ' + rsp.paid_amount);
-      location.href = '${cp}/orders/orderOK';
+      orderForm.action = '${cp}/orders/orderOK';
+      orderForm.method = 'post';
+      orderForm.submit();
 
   } else {
       alert('결제 실패하였습니다. ' + rsp.error_msg);

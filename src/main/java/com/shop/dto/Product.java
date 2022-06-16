@@ -19,6 +19,7 @@ public class Product {
 
 	public Product(int productNum, int scategoryNum, String pname, String pdesc, int price, int discount, int cnt,
 			Date regdate, String image, int bcategoryNum) {
+		super();
 		this.productNum = productNum;
 		this.scategoryNum = scategoryNum;
 		this.pname = pname;
@@ -29,6 +30,14 @@ public class Product {
 		this.regdate = regdate;
 		this.image = image;
 		this.bcategoryNum = bcategoryNum;
+	}
+
+	public String getPdesc() {
+		return pdesc;
+	}
+
+	public void setPdesc(String pdesc) {
+		this.pdesc = pdesc;
 	}
 
 	public int getProductNum() {

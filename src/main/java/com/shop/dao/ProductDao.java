@@ -339,4 +339,40 @@ public class ProductDao {
 			DBPool.close(con, pstmt, rs);
 		}
 	}
+	
+	// 개별 상품 조회 
+	public Product selectOne(int productNum) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Product product = null;
+		
+		try {
+			String sql = "select * from product where product_num=?";
+			con = DBPool.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, productNum);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				int scategoryNum = rs.getInt("category_num");
+				String pname = rs.getString("pname");
+				String pdesc = rs.getString("pdesc");
+				int price = rs.getInt("price");
+				int discount = rs.getInt("discount");
+				int cnt = rs.getInt("cnt");
+				Date regdate = rs.getDate("regdate");
+				String image = rs.getString("image");
+				
+				product = new Product(productNum, scategoryNum, pname, pdesc, price, discount, cnt, regdate, image, 0);
+			}
+			return product;
+			
+		}catch (SQLException s) {
+			s.printStackTrace();
+			return null;
+		}finally {
+			DBPool.close(con, pstmt, rs);
+		}
+	}
 }

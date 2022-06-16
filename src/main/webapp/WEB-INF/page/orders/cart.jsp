@@ -46,7 +46,7 @@
     <table class="cartTable">
     	<thead>
     	<tr>
-        	<th> <input type="checkbox" name="select" onclick="selectAll(this)"> </th>
+        	<th> <input type="checkbox" name="cart" onclick="selectAll(this)"> </th>
             <th style="width:400px"> 제품정보 </th>
             <th> 금액 </th>
             <th> 수량 </th>
@@ -56,7 +56,7 @@
           </tr>
         </thead>
           <tr>
-            <td> <input type="checkbox" name="select"></td>
+            <td> <input type="checkbox" name="cart"></td>
             <td>
             <img src="./images/orderTest.png" class="itemImg"> 
             <p class="itemName"> 두닷 콰트로 에어데스크 1000 </p>
@@ -72,7 +72,7 @@
             <td> <input type="button" value="삭제" class="cartDelete" onclick=""> </td>
           </tr>
           <tr>
-            <td> <input type="checkbox" name="select"></td>
+            <td> <input type="checkbox" name="cart"></td>
             <td>
             <img src="./images/orderTest2.jpg" class="itemImg">
             <p class="itemName"> 시디즈 화이트쉘 </p>
@@ -118,7 +118,7 @@ function amountCal(me, n){
 
 // 전체 체크 
 function selectAll(selectAll){
-	var boxes = document.getElementsByName('select');
+	var boxes = document.getElementsByName('cart');
     boxes.forEach((checkbox) => {checkbox.checked=selectAll.checked});
 }
 
