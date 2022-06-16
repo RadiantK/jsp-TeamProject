@@ -10,7 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.shop.command.LoginCommand;
+import com.shop.config.ServiceConfig;
 import com.shop.dao.MemberDao;
+import com.shop.exception.MemberNotFoundException;
+import com.shop.exception.WrongIdPasswordException;
+import com.shop.service.MemberLoginService;
 
 @SuppressWarnings("serial")
 @WebServlet("/user/login")
@@ -36,23 +40,34 @@ public class LoginController extends HttpServlet {
 		String pwd = "";
 		if(pwd_ != null && !pwd_.equals("")) pwd = pwd_;
 		
-		MemberDao memberDao = MemberDao.getInstance();
-		LoginCommand login = memberDao.memberLogin(email, pwd);
+		ServiceConfig config = ServiceConfig.getInstance();
+		MemberLoginService service = config.getMemberLoginService();
 		
-		if(login != null) {
-			HttpSession session = request.getSession();
-			session.setAttribute("sessionId", email);
-			System.out.println(session.getAttribute("sessionId"));
-			if(login.getRole() == 1) {
-				response.sendRedirect(request.getContextPath() + "/main");
-				return;
-			}else {
-				response.sendRedirect(request.getContextPath() + "/admin/main");
+		try {
+			LoginCommand login = service.login(email, pwd);
+			
+			if(login != null) {
+				HttpSession session = request.getSession();
+				session.setAttribute("sessionId", email);
+				
+				if(login.getRole() == 1) {
+					response.sendRedirect(request.getContextPath() + "/main");
+					return;
+				}else {
+					response.sendRedirect(request.getContextPath() + "/admin/main");
+					return;
+				}
+			} else {
+				response.sendRedirect(request.getContextPath() + "/login");
 				return;
 			}
-		} else {
-			response.sendRedirect(request.getContextPath() + "/login");
-			return;
+		}catch(MemberNotFoundException e) {
+			request.setAttribute("errorEmail", "일차히는 이메일이 존재하지 않습니다.");
+			request.getRequestDispatcher("/WEB-INF/page/user/login.jsp").forward(request, response);
+		}catch(WrongIdPasswordException e) {
+			request.setAttribute("errorPwd", "비밀번호가 일치하지 않습니다.");
+			request.getRequestDispatcher("/WEB-INF/page/user/login.jsp").forward(request, response);
 		}
+		
 	}
 }

@@ -13,20 +13,22 @@ import com.shop.dao.MemberDao;
 import com.shop.dto.Member;
 
 @SuppressWarnings("serial")
-@WebServlet("/user/mypage/profile")
-public class MyPageController extends HttpServlet{
-
+@WebServlet("/user/mypage/edit")
+public class MemberEditController extends HttpServlet {
+	
 	@Override
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
 		String email = (String)session.getAttribute("sessionId");
 		
 		MemberDao memberDao = MemberDao.getInstance();
-		Member member = memberDao.selectOne(email);
-		request.setAttribute("m", member);
 		
-		request.getRequestDispatcher("/WEB-INF/page/mypage/mypage.jsp")
+		Member member = memberDao.selectOne(email);
+		request.setAttribute("member", member);
+		
+		request.getRequestDispatcher("/WEB-INF/page/mypage/memberEdit.jsp")
 		.forward(request, response);
 	}
 }

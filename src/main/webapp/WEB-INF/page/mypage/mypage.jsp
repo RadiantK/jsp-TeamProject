@@ -32,10 +32,10 @@
   <section class="mypage">
     <div class="inner">
       <ul class="user-menu">
-        <li class="item"><a href="userEdit.html">프로필</a></li>
+        <li class="item"><a href="${cp}/user/mypage/profile">프로필</a></li>
         <li class="item"><a href="${cp}/orders/orderlistMypage">결제정보 확인</a></li>
         <li class="item"><a href="${cp}/QNA_List">문의내역 확인</a></li>
-        <li class="item"><a href="userEdit.html">회원정보 수정</a></li>
+        <li class="item"><a href="${cp}/user/mypage/edit">회원정보 수정</a></li>
       </ul>
     </div>
   </section>
@@ -43,12 +43,12 @@
   <section class="profile">
     <div class="inner">
       <div class="inner-left">
-        <h2>내 정보</h2>
-        <p>이메일 </p>
-        <p>이름 </p>
-        <p>닉네임 </p>
-        <p>연락처 </p>
-        <p>가입일 </p>
+        <h2>내 정보 </h2>
+        <p>이메일 : ${m.email}</p>
+        <p>이름 : ${m.name}</p>
+        <p>닉네임 : ${m.nickName}</p>
+        <p>연락처 : ${m.phone}</p>
+        <p>가입일 : ${m.regDate}</p>
       </div>
 
       <div class="inner-right">

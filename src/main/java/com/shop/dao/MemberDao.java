@@ -167,7 +167,7 @@ public class MemberDao {
 	
 	// 이메일 중복 검사
 	public int findByEmail (String email) {
-		String sql = "SELECT email FROM member WHERE email = ?";
+		String sql = "SELECT email FROM member WHERE email = ? AND available = 1";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -193,7 +193,7 @@ public class MemberDao {
 	
 	// 닉네임 중복 검사
 	public int findByNickName (String nickName) {
-		String sql = "SELECT nickName FROM member WHERE nickName = ?";
+		String sql = "SELECT nickName FROM member WHERE nickName = ? AND available = 1";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;

@@ -81,7 +81,6 @@ submitEl.addEventListener('click', loginHandler);
 
 function loginHandler(){
 
-  let regExpEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 
   let email = formEl.email;
   let pwd = formEl.pwd;
@@ -91,11 +90,7 @@ function loginHandler(){
     email.focus();
     return;
   }
-  if(!regExpEmail.test(email.value)){
-    alert('잘못된 이메일 양식입니다.');
-    formEl.email.focus();
-    return;
-  }
+
   if(pwd.value == ""){
     alert("비밀번호를 입력하세요.");
     pwd.focus();

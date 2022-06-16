@@ -20,7 +20,9 @@ function joinHandler() {
   let regExpPhone = /^[0-9]*$/;
   // 닉네임 정규식(숫자,한글,영문자만 사용가능)
   let regExpNickName = /^[0-9가-힣a-zA-Z]*$/;
+  // 우편번호 정규식(숫자만 가능)
   let regExpPostcode = /^[0-9]*$/;
+  // 주소 정규식(숫자, 한글만 가능)
   let regExpAddress = /^[0-9가-힣 ]*$/;
 
 let email = formEl.email;
@@ -45,8 +47,8 @@ let email = formEl.email;
   }
 
   if(confirmPwd.value != pwd.value){
-    // alert('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
-    document.getElementById('confirmPwdHelp').innerHTML = "비밀번호와 비밀번호 확인이 일치하지 않습니다.";
+    alert('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
+    // document.getElementById('confirmPwdHelp').innerHTML = "비밀번호와 비밀번호 확인이 일치하지 않습니다.";
     confirmPwd.focus();
     return;
   }
