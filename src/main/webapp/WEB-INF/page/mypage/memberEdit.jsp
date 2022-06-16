@@ -6,7 +6,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>YourHouse</title>
+  <title>내일의집</title>
   <!-- material-icon -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   <!-- 부트스트랩css -->
@@ -26,9 +26,12 @@
   <!-- 부트스트랩 js -->
   <script defer src="${cp}/resource/js/bootstrap.bundle.js"></script>
   <script defer src="${cp}/js/common.js"></script>
+   <script defer src="${cp}/js/memberEdit.js"></script>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/page/include/header.jsp" />
+	
+	<input type="hidden" id="cp" value="${cp}" />
 	
 	  <!-- 페이지 메뉴 -->
   <section class="mypage">
@@ -38,6 +41,7 @@
         <li class="item"><a href="${cp}/orders/orderlistMypage">결제정보 확인</a></li>
         <li class="item"><a href="${cp}/QNA_List">문의내역 확인</a></li>
         <li class="item"><a href="${cp}/user/mypage/edit">회원정보 수정</a></li>
+        <li class="item"><a href="${cp}/user/mypage/delmem">회원탈퇴</a></li>
       </ul>
     </div>
   </section>
@@ -51,7 +55,7 @@
             <label for="email" class="text col-form-label">이메일</label>
           </div>
           <div class="col-auto">
-            <input type="email" id="email" name="email" class="form-control" readonly />
+            <input type="email" id="email" name="email" class="form-control" value="${member.email}" readonly />
           </div>
         </div>
 
@@ -64,7 +68,7 @@
           </div>
           <div class="col-auto">
             <span id="pwdHelp" class="form-text">
-              Must be 8-20 characters long.
+              변경하지 않으려면 기존의 비밀번호를 입력하세요.
             </span>
           </div>
         </div>
@@ -77,7 +81,7 @@
           </div>
           <div class="col-auto">
             <span id="confirmPwdHelp" class="form-text">
-              Must be 8-20 characters long.
+            	변경하지 않으려면 기존 비밀번호 확인
             </span>
           </div>
         </div>
@@ -86,11 +90,10 @@
             <label for="nickName" class="text col-form-label">닉네임</label>
           </div>
           <div class="col-auto">
-            <input type="text" id="nickName" name="nickName" class="form-control" aria-describedby="nickNameHelp">
+            <input type="text" id="nickName" name="nickName" class="form-control" value="${member.nickName}" aria-describedby="nickNameHelp">
           </div>
           <div class="col-auto">
             <span id="nickNameHelp" class="form-text">
-              Must be 8-20 characters long.
             </span>
           </div>
         </div>
@@ -99,11 +102,11 @@
             <label for="phone" class="text col-form-label">연락처</label>
           </div>
           <div class="col-auto">
-            <input type="text" id="phone" name="phone" class="form-control" aria-describedby="phoneHelp">
+            <input type="text" id="phone" name="phone" class="form-control" value="${member.phone}" aria-describedby="phoneHelp" />
           </div>
           <div class="col-auto">
             <span id="phoneHelp" class="form-text">
-              Must be 8-20 characters long.
+              연락처는 하이픈(-)을 제외하고 입력하세요.
             </span>
           </div>
         </div>
@@ -112,7 +115,7 @@
             <label for="regDate" class="text col-form-label">가입일</label>
           </div>
           <div class="col-auto">
-            <input type="text" id="regDate" name="regDate" class="form-control" readonly/>
+            <input type="text" id="regDate" name="regDate" class="form-control" value="${member.regDate}" readonly/>
           </div>
         </div>
         <div class="mb-5">성별 : &nbsp;

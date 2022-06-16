@@ -19,8 +19,9 @@
   <!-- Jua -->
   <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
 
+
   <link rel="stylesheet" href="${cp}/css/common.css" />
-  <link rel="stylesheet" href="${cp}/css/mypage.css" />
+  <link rel="stylesheet" href="${cp}/css/deleteMember.css" />
   
   <!-- 부트스트랩 js -->
   <script defer src="${cp}/resource/js/bootstrap.bundle.js"></script>
@@ -29,39 +30,44 @@
 <body>
 	<jsp:include page="/WEB-INF/page/include/header.jsp" />
 	
+	  <!-- 페이지 메뉴 -->
   <section class="mypage">
     <div class="inner">
       <ul class="user-menu">
         <li class="item"><a href="${cp}/user/mypage/profile">프로필</a></li>
         <li class="item"><a href="${cp}/orders/orderlistMypage">결제정보 확인</a></li>
-        <li class="item"><a href="${cp }/board/QNA/List">문의내역 확인</a></li>
+        <li class="item"><a href="${cp}/QNA_List">문의내역 확인</a></li>
         <li class="item"><a href="${cp}/user/mypage/edit">회원정보 수정</a></li>
         <li class="item"><a href="${cp}/user/mypage/delmem">회원탈퇴</a></li>
       </ul>
     </div>
   </section>
 
-  <section class="profile">
+
+  <section class="delete">
     <div class="inner">
-      <div class="inner-left">
-        <h2>내 정보 </h2>
-        <p>이메일 : ${m.email}</p>
-        <p>이름 : ${m.name}</p>
-        <p>닉네임 : ${m.nickName}</p>
-        <p>연락처 : ${m.phone}</p>
-        <p>가입일 : ${m.regDate}</p>
-      </div>
+      <form action="" id="frm">
 
-      <div class="inner-right">
-        <h2>커뮤니티 로그</h2>
-        <div class="box">
-          <span>기록이 존재하지 않습니다.</span>
+        <div class="mb-5 row g-3 align-items-center">
+          <div class="col-auto">
+            <label for="pwd" class="text col-form-label">비밀번호</label>
+          </div>
+          <div class="col-auto">
+            <input type="password" id="pwd" class="form-control" name="pwd" aria-describedby="pwdHelp" placeholder="비밀번호를 입력하세요.">
+          </div>
+          <div class="col-auto">
+            <span id="pwdHelp" class="form-text">
+              
+            </span>
+          </div>
         </div>
-      </div>
-    </div>
 
+
+        <input type="button" class="smt btn btn-info" value="탈퇴하기" />
+      </form>
+    </div>
   </section>
 	
-	<jsp:include page="/WEB-INF/page/include/footer.jsp" />
+ 	<jsp:include page="/WEB-INF/page/include/footer.jsp" />
 </body>
 </html>

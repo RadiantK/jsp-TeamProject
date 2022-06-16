@@ -11,7 +11,6 @@ import javax.servlet.http.HttpSession;
 
 import com.shop.command.LoginCommand;
 import com.shop.config.ServiceConfig;
-import com.shop.dao.MemberDao;
 import com.shop.exception.MemberNotFoundException;
 import com.shop.exception.WrongIdPasswordException;
 import com.shop.service.MemberLoginService;
