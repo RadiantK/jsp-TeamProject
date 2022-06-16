@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -41,12 +42,18 @@
         <div class="email mb-1 row">
           <label for="email" class="form-label"></label>
           <input type="email" class="form-control fs-6" id="email" name="email" aria-describedby="emailHelp" placeholder="이메일">
-          <div id="emailHelp" class="form-text">이메일이 올바르지 않습니다</div>
+          <c:if test="${not empty errorEmail}">
+          	<div id="emailHelp" class="form-text">${errorEmail}</div>
+          </c:if>
+          <div id="emailHelp" class="form-text"></div>
         </div>
         <div class="pwd mb-3 row">
           <label for="pwd" class="form-label"></label>
           <input type="password" class="form-control fs-6" id="pwd" name="pwd" aria-describedby="pwdHelp" placeholder="비밀번호">
-          <div id="pwdHelp" class="form-text">비밀번호가 올바르지 않습니다.</div>
+          <c:if test="${not empty errorPwd}">
+         		<div id="pwdHelp" class="form-text">${errorPwd}</div>
+          </c:if>
+          <div id="pwdHelp" class="form-text"></div>
         </div>
         <div class="smt mb-2">
           <input type="button" class="submit btn btn-info" value="로그인"/>
