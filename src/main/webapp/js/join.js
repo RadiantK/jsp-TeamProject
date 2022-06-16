@@ -78,14 +78,14 @@ let email = formEl.email;
     return;
   }
   
-  if(phone.value.length < 10 || phone.value.length > 11){
-    alert('잘못된 길이의 번호입니다.');
+  if(!regExpPhone.test(phone.value)){
+    alert("번호는 숫자로만 입력해주세요.");
     phone.focus();
     return;
   }
-
-  if(!regExpPhone.test(phone.value)){
-    alert("번호는 숫자로만 입력해주세요.");
+  
+  if(phone.value.length < 10 || phone.value.length > 11){
+    alert('잘못된 길이의 번호입니다.');
     phone.focus();
     return;
   }
@@ -191,7 +191,7 @@ function nickNameCheckHandler(){
       }
     }
   }
-  xhr.open('post', cpEl+"/user/join/check_nick", true);
+  xhr.open('post', cpEl+"/user/check_nick", true);
   xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
   let param = "nickName="+nickNameEl.value;
   xhr.send(param);

@@ -99,15 +99,19 @@ a {
 .login .choose > input:hover {
   color: #35C5F0;
 }
+
 .login #noneFormTag {
   text-align: center;
+  display: none;
+}
+.login #noneFormTag #nonePwdHelp {
+	color: #FF0000;
 }
 .login #noneFormTag #nonEmail,
 .login #noneFormTag #nonPwd {
   width: 250px;
   margin: auto;
 }
-
 .login #noneFormTag .smt .submit {
   width: 240px;
   color: #fff;

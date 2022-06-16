@@ -75,6 +75,19 @@
         <input type="button" value="비회원 주문 조회하기" />
       </div>
 
+			<form action="" id="noneFormTag" method="post">
+        <div class="email mb-2">
+          <input type="email" class="form-control fs-6" id="nonEmail" name="email" aria-describedby="emailHelp" placeholder="주문 이메일">
+          <div id="emailHelp" class="form-text"></div>
+        </div>
+        <div class="pwd mb-3">
+          <input type="password" class="form-control fs-6" id="nonPwd" name="pwd" aria-describedby="nonePwdHelp" placeholder="주문 비밀번호">
+          <div id="nonePwdHelp" class="form-text"></div>
+        </div>
+        <div class="smt mb-2">
+          <input type="button" class="submit nonSubmit btn btn-info" value="주문 조회"/>
+        </div>
+      </form>
     </div>
   </section>
 </body>
