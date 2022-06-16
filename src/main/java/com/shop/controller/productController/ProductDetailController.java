@@ -12,7 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 public class ProductDetailController extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
+		int pnum = Integer.parseInt(request.getParameter("pnum"));
+		
+		
+		
 		request.getRequestDispatcher("/WEB-INF/page/product/productDetail.jsp")
 		.forward(request, response);
 	}

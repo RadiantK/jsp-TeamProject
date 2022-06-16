@@ -17,31 +17,31 @@
             <div class="contents__menu">
               <ul class="inner">
                 <li>
-                  <a href="">
+                  <a href="${cp }/product/list?bcnum=1">
                     <img src="${cp}/images/main/drop_funiture.png" alt="가구" />
                     <div>가구</div>
                   </a>
                 </li>
                 <li>
-                  <a href="">
+                  <a href="${cp }/product/list?bcnum=2">
                     <img src="${cp}/images/main/drop_fabric.png" alt="패브릭" />
                     <div>패브릭</div>
                   </a>
                 </li>
                 <li>
-                  <a href="">
+                  <a href="${cp }/product/list?bcnum=3">
                     <img src="${cp}/images/main/drop_light.png" alt="조명" />
                     <div>조명</div>
                   </a>
                 </li>
                 <li>
-                  <a href="">
+                  <a href="${cp }/product/list?bcnum=4">
                     <img src="${cp}/images/main/drop_appliances.png" alt="가전제품" />
                     <div>가전제품</div>
                   </a>
                 </li>
                 <li>
-                  <a href="">
+                  <a href="${cp }/product/list?bcnum=5">
                     <img src="${cp}/images/main/drop_kitchenware.png" alt="주방용품" />
                     <div>주방용품</div>
                   </a>
