@@ -26,14 +26,16 @@ public class QNAInsertController extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 			HttpSession session=req.getSession();
 			String email=(String)session.getAttribute("sessionId");
-//			System.out.println(email);
+			if(email==null || email.equals("")) {
+				resp.sendRedirect(req.getContextPath()+"/user/login");
+			}else {
 			MemberDao dao=MemberDao.getInstance();
 			Member dto=dao.selectOne(email);
 			System.out.println("dto:" + dto);
 			req.setAttribute("dto", dto);
 		
 			req.getRequestDispatcher("/WEB-INF/page/board/QNA_insertForm.jsp").forward(req, resp);
-		
+			}
 	}
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
