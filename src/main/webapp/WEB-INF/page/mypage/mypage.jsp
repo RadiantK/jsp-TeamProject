@@ -6,7 +6,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>YourHouse</title>
+  <title>내일의집</title>
   <!-- material-icon -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   <!-- 부트스트랩css -->
@@ -36,6 +36,7 @@
         <li class="item"><a href="${cp}/orders/orderlistMypage">결제정보 확인</a></li>
         <li class="item"><a href="${cp}/QNA_List">문의내역 확인</a></li>
         <li class="item"><a href="${cp}/user/mypage/edit">회원정보 수정</a></li>
+        <li class="item"><a href="${cp}/user/mypage/delmem">회원탈퇴</a></li>
       </ul>
     </div>
   </section>
