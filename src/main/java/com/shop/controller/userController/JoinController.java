@@ -61,11 +61,11 @@ public class JoinController extends HttpServlet {
 				response.sendRedirect(request.getContextPath()+"/user/join");
 			}
 		}catch(DuplicateMemberException e) {
-			request.setAttribute("errorEmailMsg", "중복된 이메일을 입력하셨습니다.");
+			request.setAttribute("errorEmail", "중복된 이메일을 입력하셨습니다.");
 			request.getRequestDispatcher("/WEB-INF/page/user/join.jsp")
 			.forward(request, response);
 		}catch(DuplicateNickNameException e) {
-			request.setAttribute("errorNickMsg", "중복된 닉네임을 입력하셨습니다.");
+			request.setAttribute("errorNickName", "중복된 닉네임을 입력하셨습니다.");
 			request.getRequestDispatcher("/WEB-INF/page/user/join.jsp")
 			.forward(request, response);
 		}

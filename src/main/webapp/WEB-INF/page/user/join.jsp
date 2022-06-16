@@ -57,8 +57,8 @@
           <div class="col-auto">
             <label for="email" class="form-label">Email</label>
             <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="example@example.com" maxlength="30">
-            <c:if test="${not empty errorEmailMsg}">
-            	<div id="emailHelp" class="form-text">${errorMsg}</div>
+            <c:if test="${not empty errorEmail}">
+            	<div id="emailHelp" class="form-text">${errorEmail}</div>
             </c:if>
             <div id="emailHelp" class="form-text"></div>
           </div>
@@ -83,8 +83,8 @@
           <div class="mb-1">
             <label for="nickName" class="form-label">닉네임</label>
             <input type="text" class="form-control form-control-sm" id="nickName" name="nickName" aria-describedby="nickNameHelp" placeholder="한글, 영어, 숫자만 사용가능" maxlength="20"/>
-            <c:if test="${not empty errorNickMsg}">
-            	<div id="nickNameHelp" class="form-text">${errorNickMsg}</div>
+            <c:if test="${not empty errorNickName}">
+            	<div id="nickNameHelp" class="form-text">${errorNickName}</div>
             </c:if>
             <div id="nickNameHelp" class="form-text"></div>
           </div>
