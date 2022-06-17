@@ -48,6 +48,7 @@ public class LoginController extends HttpServlet {
 			if(login != null) {
 				HttpSession session = request.getSession();
 				session.setAttribute("sessionId", email);
+				session.setAttribute("sessionPwd", pwd);
 				
 				if(login.getRole() == 1) {
 					response.sendRedirect(request.getContextPath() + "/main");

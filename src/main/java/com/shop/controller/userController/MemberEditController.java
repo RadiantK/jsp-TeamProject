@@ -9,8 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.shop.command.JoinCommand;
+import com.shop.config.ServiceConfig;
 import com.shop.dao.MemberDao;
 import com.shop.dto.Member;
+import com.shop.exception.DuplicateNickNameException;
+import com.shop.service.MemberEditService;
 
 @SuppressWarnings("serial")
 @WebServlet("/user/mypage/edit")
@@ -38,6 +42,34 @@ public class MemberEditController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		String email = request.getParameter("email");
+		String password = request.getParameter("pwd");
+		String nickName = request.getParameter("nickName");
+		String phone = request.getParameter("phone");
+		String gender = request.getParameter("gender");
 		
+		ServiceConfig config = ServiceConfig.getInstance();
+		MemberEditService service = config.getMemberEditService();
+		
+		JoinCommand command = new JoinCommand(email, password, "", nickName, phone, "", gender);
+		
+		try {
+			int n = service.MemberEdit(command);
+			
+			if(n > 0) {
+				response.sendRedirect(request.getContextPath()+"/user/mypage/profile");
+				return;
+			}else {
+				request.setAttribute("errorMsg", "수정중 에러가 발생했습니다.");
+				request.getRequestDispatcher("/WEB-INF/page/mypage/memberEdit.jsp")
+				.forward(request, response);
+				return;
+			}
+			
+		}catch(DuplicateNickNameException e) {
+			request.setAttribute("dupleNickName", "닉네임이 중복되었습니다.");
+			request.getRequestDispatcher("/WEB-INF/page/mypage/memberEdit.jsp")
+			.forward(request, response);
+		}
 	}
 }

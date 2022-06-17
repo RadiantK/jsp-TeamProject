@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -49,13 +50,19 @@
 
   <section class="edit">
     <div class="inner">
-      <form action="" id="frm">
+      <form action="${cp}/user/mypage/edit" id="frm" method="post">
         <div class="mb-5 row g-3 align-items-center">
           <div class="col-auto">
             <label for="email" class="text col-form-label">이메일</label>
           </div>
           <div class="col-auto">
-            <input type="email" id="email" name="email" class="form-control" value="${member.email}" readonly />
+            <input type="email" id="email" name="email" class="form-control" value="${member.email}" aria-describedby="emailHelp" readonly />
+          </div>
+          <div class="col-auto">
+          	<c:if test="${not empty errorMsg}">
+          		<span id="emailHelp" class="form-text">${errorMsg}</span>
+          	</c:if>
+            <span id="emailHelp" class="form-text"></span>
           </div>
         </div>
 
@@ -93,8 +100,10 @@
             <input type="text" id="nickName" name="nickName" class="form-control" value="${member.nickName}" aria-describedby="nickNameHelp">
           </div>
           <div class="col-auto">
-            <span id="nickNameHelp" class="form-text">
-            </span>
+          	<c:if test="${not empty dupleNickName}">
+          		<span id="nickNameHelp" class="form-text">${dupleNickName}</span>
+          	</c:if>
+            <span id="nickNameHelp" class="form-text"></span>
           </div>
         </div>
         <div class="mb-5 row g-3 align-items-center">

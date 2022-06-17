@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -26,6 +27,7 @@
   <!-- 부트스트랩 js -->
   <script defer src="${cp}/resource/js/bootstrap.bundle.js"></script>
   <script defer src="${cp}/js/common.js"></script>
+  <script defer src="${cp}/js/deleteMember.js"></script>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/page/include/header.jsp" />
@@ -43,25 +45,25 @@
     </div>
   </section>
 
-
+	<input type="hidden" id="cp" value="${cp}" />
+	
   <section class="delete">
     <div class="inner">
-      <form action="" id="frm">
-
+      <form action="${cp}/user/mypage/delmem" id="formTag" method="post">
         <div class="mb-5 row g-3 align-items-center">
           <div class="col-auto">
             <label for="pwd" class="text col-form-label">비밀번호</label>
           </div>
           <div class="col-auto">
-            <input type="password" id="pwd" class="form-control" name="pwd" aria-describedby="pwdHelp" placeholder="비밀번호를 입력하세요.">
+            <input type="password" id="pwd" name="pwd" class="form-control" aria-describedby="pwdHelp" placeholder="비밀번호를 입력하세요.">
           </div>
           <div class="col-auto">
-            <span id="pwdHelp" class="form-text">
-              
-            </span>
+          	<c:if test="${not empty errorMsg}">
+          		<span id="pwdHelp" class="form-text">${errorMsg}</span>
+          	</c:if>
+            <span id="pwdHelp" class="form-text"></span>
           </div>
         </div>
-
 
         <input type="button" class="smt btn btn-info" value="탈퇴하기" />
       </form>

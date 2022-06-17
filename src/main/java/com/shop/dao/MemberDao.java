@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.shop.command.JoinCommand;
 import com.shop.command.LoginCommand;
 import com.shop.dto.Member;
 import com.shop.util.DBPool;
@@ -162,6 +163,8 @@ public class MemberDao {
 		}catch(SQLException e) {
 			e.printStackTrace();
 			return -1;
+		}finally {
+			DBPool.close(con, pstmt);
 		}
 	}
 	
@@ -214,6 +217,56 @@ public class MemberDao {
 			return -1;
 		}finally {
 			DBPool.close(con, pstmt, rs);
+		}
+	}
+	
+	// 회원정보 수정
+	public int editInfo(JoinCommand req) {
+		String sql = "UPDATE MEMBER SET password = ?, nickName = ?, phone = ?,"
+				+ " gender = ? WHERE email = ? AND available = 1";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = DBPool.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, req.getPassword());
+			pstmt.setString(2, req.getNickName());
+			pstmt.setString(3, req.getPhone());
+			pstmt.setString(4, req.getGender());
+			pstmt.setString(5, req.getEmail());
+			int n = pstmt.executeUpdate();
+			
+			return n;
+		}catch(SQLException e) {
+			e.printStackTrace();
+			return -1;
+		}finally {
+			DBPool.close(con, pstmt);
+		}
+	}
+	
+	// 회원탈퇴
+	public int withdraw(String email, String pwd) {
+		String sql = "UPDATE MEMBER SET available = 0 WHERE email = ? "
+				+ "AND password = ? AND available = 1";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = DBPool.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, email);
+			pstmt.setString(2, pwd);
+
+			int n = pstmt.executeUpdate();
+			
+			return n;
+		}catch(SQLException e) {
+			e.printStackTrace();
+			return -1;
+		}finally {
+			DBPool.close(con, pstmt);
 		}
 	}
 }

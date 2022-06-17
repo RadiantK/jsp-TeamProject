@@ -35,8 +35,8 @@ function editHandler(){
   }
 
   // if(nickName.value ) ajax
-  if(nickName.value == "") {
-    alert('닉네임을 입력해주세요.');
+  if(nickName.value.length < 2) {
+    alert('닉네임을 입력해주세요.(2자 이상)');
     nickName.focus();
     return;
   }
