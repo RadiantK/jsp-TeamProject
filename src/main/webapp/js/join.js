@@ -25,7 +25,7 @@ function joinHandler() {
   // 주소 정규식(숫자, 한글만 가능)
   let regExpAddress = /^[0-9가-힣 ]*$/;
 
-let email = formEl.email;
+	let email = formEl.email;
   let pwd = formEl.pwd;
   let confirmPwd = formEl.confirmPwd;
   let name = formEl.name;
@@ -66,8 +66,8 @@ let email = formEl.email;
   }
 
   // if(nickName.value ) ajax
-  if(nickName.value == "") {
-    alert('닉네임을 입력해주세요.');
+  if(nickName.value.length < 2) {
+    alert('닉네임을 입력해주세요.(2자이상)');
     nickName.focus();
     return;
   }
