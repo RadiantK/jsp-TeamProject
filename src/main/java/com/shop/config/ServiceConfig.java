@@ -2,6 +2,7 @@ package com.shop.config;
 
 import com.shop.dao.MemberDao;
 import com.shop.dao.OrdersDao;
+import com.shop.service.MemberEditService;
 import com.shop.service.MemberLoginService;
 import com.shop.service.MemberRegistService;
 import com.shop.service.NoneMemberLoginService;
@@ -14,6 +15,7 @@ public class ServiceConfig {
 	private MemberRegistService memberRegistService;
 	private MemberLoginService memberLoginService;
 	private NoneMemberLoginService noneMemberLoginService;
+	private MemberEditService memberEditService;
 	
 	private static ServiceConfig serviceConfig = null;
 	
@@ -26,6 +28,7 @@ public class ServiceConfig {
 		memberRegistService = new MemberRegistService(memberDao);
 		memberLoginService = new MemberLoginService(memberDao);
 		noneMemberLoginService = new NoneMemberLoginService(ordersDao);
+		memberEditService = new MemberEditService(memberDao);
 	}
 	
 	public static ServiceConfig getInstance() {
@@ -45,6 +48,10 @@ public class ServiceConfig {
 
 	public NoneMemberLoginService getNoneMemberLoginService() {
 		return noneMemberLoginService;
+	}
+
+	public MemberEditService getMemberEditService() {
+		return memberEditService;
 	}
 
 }
