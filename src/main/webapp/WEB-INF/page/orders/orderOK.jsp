@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -30,22 +31,37 @@
 	<!-- HEADER -->
 	<jsp:include page="/WEB-INF/page/include/header.jsp" />
 
-<!-- 바디 메인 -->
+<!-- 주문 성공 -->
 <div class="pageWrap">
-<div id="imgDiv">
-    <img src="../images/orderOK.png" style="width:200px; height:200px;">
-</div>
 
-<div id="msgDiv"> 
-    <p id="msgTitle"> 주문해주셔서 감사합니다. </p>
-    <p> 상세 주문내역 및 진행상황은 <br>
-    <strong>마이페이지 > 주문내역</strong>에서 확인하실 수 있습니다. </p>
-</div>
+<c:choose>
+	<c:when test="${empty errorMsg}">
+	<div id="imgDiv">
+	    <img src="${cp}/images/orderOK.png" style="width:200px; height:200px;">
+	</div>
+	
+	<div id="msgDiv"> 
+	    <p id="msgTitle"> 주문해주셔서 감사합니다. </p>
+	    <p> 상세 주문내역 및 진행상황은 <br>
+	    <strong>마이페이지 > 주문내역</strong>에서 확인하실 수 있습니다. </p>
+	</div>
+	</c:when>
 
-      <div class="btnDiv">
-        <a href="javascript:history.back();" class="btnWhite"> 이전으로 </a> 
-        <a href="${cp}/orders/orderlistMypage" class="btnBlue"> 주문내역확인 </a>
-      </div>
+	<c:otherwise> 
+	<div id="imgDiv"></div>
+	
+	<div id="msgDiv"> 
+	    <p id="msgTitle"> 주문 실패 </p>
+	    <p> 요청하신 주문이 정상적으로 완료되지 않았습니다. <br>
+	    다시 시도하여 주시기 바랍니다. </p>
+	</div>
+	</c:otherwise>
+</c:choose>
+
+	<div class="btnDiv">
+		<a href="${cp}/main" class="btnWhite"> 메인으로 </a> 
+		<a href="${cp}/orders/orderlistMypage" class="btnBlue"> 주문내역확인 </a>
+	</div>
 
 </div>
 

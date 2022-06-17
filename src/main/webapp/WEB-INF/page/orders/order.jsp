@@ -53,7 +53,6 @@
 
  	<!-- 제폼종류 개수만큼 반복 -->
  	<c:forEach var="i" items="${orderList}">
- 	<input type="hidden" name="itemImg" id="itemImg" value="${i.itemImg}">
  	<input type="hidden" name="itemName" id="itemName" value="${i.itemName}">
  	<input type="hidden" name="itemPiece" id="itemPiece" value="${i.piece}">
  	<input type="hidden" name="itemNum" id="itemNum" value="${i.itemNum}">
@@ -82,7 +81,6 @@
 
     <h3 class="title"> 주문 고객 정보 </h3>
     <div class="orderDiv">
-    	<input type="hidden" name="mnum" value="${mnum}">
     
     <table class="orderTable">
       <tr>
@@ -95,7 +93,7 @@
       </tr>
       <tr>
         <th class="orderLabels"> 이메일 </th>
-        <td> <input type="text" name="email1" value="" class="inputText"> @
+        <td> <input type="text" name="email1" id="email1" value="" class="inputText"> @
         <input type="text" name="email2" id="email2" value="" disabled>
         <select name="email" onchange="emailChange()">
           <option value="0"> 메일주소 선택 </option>
@@ -110,6 +108,8 @@
 		<!-- 비회원인 경우 주문비밀번호 입력창 -->
 	    <c:choose>
 		    <c:when test="${empty sessionId}">
+		    <input type="hidden" name="mnum" value="A100">
+		    
 		    <tr>
 		    	<th class="orderLabels"> 주문비밀번호 <p style="color:red; float:left;">*</p> </th>
 		    	<td><input type="password" name="orderPwd" id="orderPwd" value="" notNull="true" class="inputText"></td>
@@ -118,6 +118,7 @@
 	  
 		    <c:otherwise>
 				<input type="hidden" name="orderPwd" id="orderPwd" value="null" class="inputText">
+			   	<input type="hidden" name="mnum" value="${mnum}">
 		    </c:otherwise>
 	    
 	    </c:choose>
@@ -141,7 +142,7 @@
         <tr>
           <th class="orderLabels"> 주소<p style="color:red; float:left;">*</p> </th>
           <td> <input type="button" name="kakaoBtn" id="kakaoBtn" value="주소찾기">
-               <input type="text" name="kakaoAddr" value="" id="kakaoZonecode" notNull="true" readonly="readonly">
+               <input type="text" name="kakaoZonecode" value="" id="kakaoZonecode" notNull="true" readonly="readonly">
           </td> 
         </tr>
         <tr>
@@ -166,6 +167,7 @@
     <h3 class="title"> 결제 정보 </h3>
     <div class="orderDiv">
     <input type="hidden" name="total" id="total" value="${total}">
+    <input type="hidden" name="cartCnt" value="${cartCnt}">
     
     <table id="paymentTable">
       <tr>
@@ -259,6 +261,7 @@ function payModule(){
 	  amount: $("#total").val(), // 가격
 	  buyer_name: $("#orderName").val(), // 주문자명 
 	  buyer_tel: $("#orderPhone").val(), // 주문자 전화번호
+	  buyer_email: $("#email1").val() + "@" + $("#email2").val() // 주문자 이메일 
 
   }, function (rsp) { // callback 
     if (rsp.success) {
