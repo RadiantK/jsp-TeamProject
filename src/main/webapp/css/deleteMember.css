@@ -52,24 +52,27 @@ header .main-menu .item:nth-child(2) .item__name a {
 .delete .inner {
   height: 550px;
 }
-.delete #frm {
+.delete #formTag {
   padding: 30px;
   margin-left: 50px;
   font-weight: 700;
 }
-.delete #frm input{
+.delete #formTag input{
   border: 2px solid #aaa;
 }
-.delete #frm input:focus{
+.delete #formTag input:focus{
   outline: 2px solid #35C5F0;
 }
-.delete #frm .text {
+.delete #formTag #pwdHelp {
+	color: #FF0000;
+}
+.delete #formTag .text {
   width: 130px;
 }
-.delete #frm .button-group {
+.delete #formTag .button-group {
   display: flex;
 }
-.delete #frm .smt {
+.delete #formTag .smt {
   width: 200px;
   color: #fff;
   display: block;
