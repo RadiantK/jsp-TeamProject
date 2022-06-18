@@ -269,4 +269,60 @@ public class MemberDao {
 			DBPool.close(con, pstmt);
 		}
 	}
+	
+	// 회원이메일 찾기
+	public String searchEmail(String name, String phone) {
+		String sql = "SELECT email FROM member "
+				+ "WHERE name = ? AND phone = ? AND available = 1";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = DBPool.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, name);
+			pstmt.setString(2, phone);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				return rs.getString("email");
+			}
+			
+			return null;
+		}catch(SQLException e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			DBPool.close(con, pstmt, rs);
+		}
+	}
+	
+	// 회원비밀번호 찾기
+	public String searchPassword(String email, String phone) {
+		String sql = "SELECT password FROM member "
+				+ "WHERE email = ? AND phone = ? AND available = 1";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = DBPool.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, email);
+			pstmt.setString(2, phone);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				return rs.getString("password");
+			}
+			
+			return null;
+		}catch(SQLException e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			DBPool.close(con, pstmt, rs);
+		}
+	}
 }

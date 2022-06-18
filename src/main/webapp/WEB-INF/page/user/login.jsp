@@ -61,8 +61,8 @@
       </form>
 
       <div class="search">
-        <a href=""><span>아이디 찾기</span></a>
-        <a href=""><span>비밀번호 재설정</span></a>
+        <a href="${cp}/user/search/em"><span>아이디 찾기</span></a>
+        <a href="${cp}/user/search/pw"><span>비밀번호 찾기</span></a>
         <a href="${cp}/user/join"><span>회원가입</span></a>
       </div>
 
