@@ -56,10 +56,12 @@
  	<input type="hidden" name="itemName" id="itemName" value="${i.itemName}">
  	<input type="hidden" name="itemPiece" id="itemPiece" value="${i.piece}">
  	<input type="hidden" name="itemNum" id="itemNum" value="${i.itemNum}">
+ 	<input type="hidden" name="itemTotal" id="itemTotal" value="${i.itemTotal}">
+ 	<input type="hidden" name="itemImg" id="itemImg" value="${i.itemImg}">
  
       <tr>
         <th>
-          <img src="${i.itemImg}" class="itemImg">
+          <img src="${cp}/images/${i.itemImg}" class="itemImg">
           <p class="itemName"> ${i.itemName} </p>
         </th>
         <td> ${i.piece} </td>
@@ -117,7 +119,7 @@
 			</c:when>
 	  
 		    <c:otherwise>
-				<input type="hidden" name="orderPwd" id="orderPwd" value="null" class="inputText">
+				<input type="hidden" name="orderPwd" id="orderPwd" value="0" class="inputText">
 			   	<input type="hidden" name="mnum" value="${mnum}">
 		    </c:otherwise>
 	    
