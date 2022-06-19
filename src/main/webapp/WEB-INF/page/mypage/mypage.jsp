@@ -25,6 +25,7 @@
   <!-- 부트스트랩 js -->
   <script defer src="${cp}/resource/js/bootstrap.bundle.js"></script>
   <script defer src="${cp}/js/common.js"></script>
+  <script defer src="${cp}/js/deleteMember.js"></script>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/page/include/header.jsp" />
@@ -36,10 +37,12 @@
         <li class="item"><a href="${cp}/orders/orderlistMypage">결제정보 확인</a></li>
         <li class="item"><a href="${cp }/board/QNA/List">문의내역 확인</a></li>
         <li class="item"><a href="${cp}/user/mypage/edit">회원정보 수정</a></li>
-        <li class="item"><a href="${cp}/user/mypage/delmem">회원탈퇴</a></li>
+        <li class="item"><a href="javascript:deleteMyAccountHandler()">회원탈퇴</a></li>
       </ul>
     </div>
   </section>
+
+	<input type="hidden" id="cp" value="${cp}" />
 
   <section class="profile">
     <div class="inner">
