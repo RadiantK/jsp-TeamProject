@@ -6,7 +6,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>YourHouse</title>
+  <title>내일의집</title>
   <!-- material-icon -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   <!-- 부트스트랩css -->
@@ -34,7 +34,7 @@
     <div class="inner">
       <ul class="admin-menu">
         <li class="item">
-          <a href="userManagement.html">
+          <a href="${cp}/admin/user/list">
             <span class="material-symbols-outlined">
               account_circle
             </span>
@@ -42,7 +42,7 @@
           </a>
         </li>
         <li class="item">
-          <a href="salesManagement.html">
+          <a href="${cp}/admin/sales/list">
             <span class="material-symbols-outlined">
               paid
             </span>
