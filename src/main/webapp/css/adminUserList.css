@@ -1,0 +1,127 @@
+@charset "UTF-8";
+/* .board {
+  
+} */
+.board .inner {
+  width: 1300px;
+}
+.board .board-title {
+  margin: 130px 0 30px 0;
+}
+.board .board-title h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+.board .search-form {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+.board .search-form select {
+  font-size: 20px;
+  margin-right: 10px;
+  border-radius: 10px;
+  border: 2px solid #72c0d8;
+}
+.board .search-form .words {
+  font-size: 18px;
+  margin-right: 10px;
+  border-radius: 10px;
+  border: 2px solid #72c0d8;
+  padding-left: 5px;
+}
+.board .search-form .words:focus {
+  outline: 2px solid #35C5F0;
+}
+.board .search-form .smt {
+  color: #fff;
+}
+.board .board-list {
+  border-top: 2px solid #333;
+}
+.board .board-list > div {
+  display: flex;
+  border-bottom: 1px solid #ddd;
+}
+.board .board-list > div.top {
+  border-bottom: 1px solid #999;
+}
+.board .board-list > div:last-child {
+  border-bottom: 1px solid #333;
+}
+.board .board-list > div > div {
+  padding: 15px 0;
+  text-align: center;
+}
+.board .board-list > div.top > div {
+  font-weight: 700;
+}
+.board .board-list .num {
+  width: 4%;
+}
+.board .board-list .email {
+  width: 15%;
+}
+.board .board-list .password {
+  width: 8%;
+}
+.board .board-list .name {
+  width: 8%;
+}
+.board .board-list .nickName {
+  width: 7%;
+}
+.board .board-list .phone {
+  width: 10%;
+}
+.board .board-list .address {
+  width: 32%;
+  text-align: left;
+}
+.board .board-list .top .address {
+  text-align: center;
+}
+.board .board-list .gender {
+  width: 5%;
+}
+.board .board-list .regDate {
+  width: 8%;
+}
+.board .board-list .available {
+  width: 5%;
+}
+.board .board-list .role {
+  width: 4%;
+}
+
+.board .board-page {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+.board .board-page a,
+.board .board-page span {
+  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.board .board-page span {
+	font-size: 28px;
+	cursor: pointer;
+  padding: 10px;
+  margin-right: 10px;
+}
+.board .board-page span:hover {
+  color:#35C5F0;
+}
+.board .board-page span:last-child {
+  margin-right: 0;
+}
+.board .board-page .page span:hover {
+  color:#35C5F0
+}
+.board .board-page a span {
+  display: block;
+  font-size: 28px;
+}
