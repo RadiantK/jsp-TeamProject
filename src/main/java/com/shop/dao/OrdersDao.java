@@ -1,9 +1,11 @@
 package com.shop.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.shop.command.LoginCommand;
 import com.shop.dto.Orders;
@@ -20,6 +22,153 @@ public class OrdersDao {
 			OrdersDao = new OrdersDao();
 		}
 		return OrdersDao;
+	}
+	
+	// 마이페이지 주문내역 결과수
+	public int getCnt(String email, String orderPwd) {
+		String sql = "select NVL(count(*),0) as cnt from orders where email=? and orderpwd=?";
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = DBPool.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1,email);
+			pstmt.setString(2, orderPwd);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				int cnt = rs.getInt("cnt");
+				return cnt;
+			}
+			return -1;
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+			return -1;
+		}finally {
+			DBPool.close(con, pstmt, rs);
+		}
+	}
+	
+	// 마이페이지 주문내역 
+	public ArrayList<Orders> selectList(int startRow,int endRow,String email,String orderPwd) {
+		
+		String sql = "select * from"
+				   + "(select a.*, rownum rnum from"
+				   + "(select * from orders where email=? and orderpwd=?"
+				   + " order by order_num desc) a)"
+				   + " where rnum>=? and rnum<=?";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<Orders> list = new ArrayList<>();
+		
+		try {
+			con = DBPool.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, email);
+			pstmt.setString(2, orderPwd);	
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				int orderNum = rs.getInt("order_num");
+				String memberNum = rs.getString("member_num");
+				String name = rs.getString("name");
+				String phone = rs.getString("phone");
+				int amount = rs.getInt("amount");
+				String orderState = rs.getString("orderstate");
+				Date regdate = rs.getDate("regdate");
+				
+				Orders orders = new Orders(orderNum,memberNum,email,name,phone,amount,orderPwd,orderState,regdate);
+				list.add(orders);
+			}
+			return list;
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			DBPool.close(con, pstmt, rs);
+		}
+	}
+	
+	// 마이페이지 주문상태 검색결과수
+	public int getSearchCnt(String email, String orderPwd, String orderState) {
+		String sql = "select NVL(count(*),0) as cnt from orders where email=? and orderpwd=? and orderstate=?";
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = DBPool.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1,email);
+			pstmt.setString(2, orderPwd);
+			pstmt.setString(3, orderState);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				int cnt = rs.getInt("cnt");
+				return cnt;
+			}
+			return -1;
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+			return -1;
+		}finally {
+			DBPool.close(con, pstmt, rs);
+		}
+	}
+	
+	// 마이페이지 주문상태 검색 
+	public ArrayList<Orders> searchList(int startRow,int endRow,String email,String orderPwd,String orderState) {
+		
+		String sql = "select * from"
+				   + "(select a.*, rownum rnum from"
+				   + "(select * from orders where email=? and orderpwd=? and orderstate=?"
+				   + " order by order_num desc) a)"
+				   + " where rnum>=? and rnum<=?";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<Orders> list = new ArrayList<>();
+		
+		try {
+			con = DBPool.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, email);
+			pstmt.setString(2, orderPwd);
+			pstmt.setString(3, orderState);			
+			pstmt.setInt(4, startRow);
+			pstmt.setInt(5, endRow);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				int orderNum = rs.getInt("order_num");
+				String memberNum = rs.getString("member_num");
+				String name = rs.getString("name");
+				String phone = rs.getString("phone");
+				int amount = rs.getInt("amount");
+				Date regdate = rs.getDate("regdate");
+				
+				Orders orders = new Orders(orderNum,memberNum,email,name,phone,amount,orderPwd,orderState,regdate);
+				list.add(orders);
+			}
+			return list;
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			DBPool.close(con, pstmt, rs);
+		}
 	}
 	
 	// 신규 주문 
@@ -47,9 +196,10 @@ public class OrdersDao {
 	}
 	
 	// 신규 주문번호 가져오기 
-	public int newOrderNum(String mnum, int amount) {
-		String sql = "select order_num from orders where member_num=? and amount=? "
-				   + "and to_char(regdate)=to_char(sysdate,'yy/mm/dd')";
+	public int newOrderNum() {
+		String sql = "select * from "
+				   + "(select last_value(order_num) over() as newordernum from orders) "
+				   + "where rownum=1";
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -58,12 +208,10 @@ public class OrdersDao {
 		try {
 			con = DBPool.getConnection();
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, mnum);
-			pstmt.setInt(2, amount);
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				int newOrderNum = rs.getInt("order_num");
+				int newOrderNum = rs.getInt("newordernum");
 				return newOrderNum;
 			}
 			return -1;

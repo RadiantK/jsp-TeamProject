@@ -7,17 +7,38 @@ public class OrderDetail {
 	private int pnum;
 	private String pname;
 	private int piece;
+	private int total;
+	private String image;
 	
 	public OrderDetail() {}
 	
-	public OrderDetail(int orderDetailNum, int orderNum, int pnum, String pname, int piece) {
+	public OrderDetail(int orderDetailNum, int orderNum, int pnum, String pname, int piece, int total, String image) {
 		super();
 		this.orderDetailNum = orderDetailNum;
 		this.orderNum = orderNum;
 		this.pnum = pnum;
 		this.pname = pname;
 		this.piece = piece;
+		this.total = total;
+		this.image = image;
 	}
+	
+	public int getTotal() {
+		return total;
+	}
+
+	public void setTotal(int total) {
+		this.total = total;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
 	public int getOrderDetailNum() {
 		return orderDetailNum;
 	}

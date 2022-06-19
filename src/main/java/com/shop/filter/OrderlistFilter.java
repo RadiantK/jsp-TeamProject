@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 
 @WebFilter(urlPatterns= {"/orders/orderlistMypage", // 마이페이지 주문리스트
 						 "/orders/orderDetailMypage"}) // 마이페이지 주문상세 
-public class OrdersFilter implements Filter{
+public class OrderlistFilter implements Filter{
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
@@ -22,12 +22,16 @@ public class OrdersFilter implements Filter{
 		HttpServletRequest req = (HttpServletRequest)request;
 		HttpServletResponse resp = (HttpServletResponse)response;
 		HttpSession session = req.getSession();
-		String sessionId = (String)session.getAttribute("sessionId");
+		String email = (String)session.getAttribute("sessionId");
 		
-		if(sessionId==null) {
-			resp.sendRedirect(req.getContextPath()+"/user/login");
-		} else {
-			chain.doFilter(req, resp);
+		if(email==null) {
+			
+			email = (String)req.getAttribute(email);
+
+			if (email==null) {
+				resp.sendRedirect(req.getContextPath()+"/user/login");
+			}
 		}
+		chain.doFilter(req, resp);
 	}
 }

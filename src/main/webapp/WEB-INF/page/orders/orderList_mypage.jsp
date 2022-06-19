@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -47,7 +48,8 @@
   <!-- 마이페이지 주문/결제정보 -->
   <div class="pageWrap">
 
-  <div class="cntDiv">
+	<!-- 주문상태별 조회 -->
+  	<div class="cntDiv">
     <table class="cntTable">
       <tr>
         <th class="cntTitle"> 입금대기 
@@ -56,89 +58,96 @@
         <td class="arrow"> > </td>
         
         <th class="cntTitle"> 결제완료 
-        <br> <span class="cnt"> 1 </span>
+        <br> <a href="${cp}/orders/orderlistMypage?orderState=결제완료" class="cnt"> ${paid} </a>
         </th>
         <td class="arrow"> > </td>
         
         <th class="cntTitle"> 배송중 
-          <br> <span class="cnt"> 1 </span>
+        <br> <a href="${cp}/orders/orderlistMypage?orderState=배송중" class="cnt"> ${inTransit} </a>
           </th>
           <td class="arrow"> > </td>
-
+          
         <th class="cntTitle"> 배송완료 
-        <br> <span class="cnt"> 0 </span>
+        <br> <a href="${cp}/orders/orderlistMypage?orderState=배송완료" class="cnt"> ${delivered} </a>
         </th>
         <td class="arrow"> > </td>
 
         <th class="cntTitle"> 주문취소
-          <br> <span class="cnt"> 0 </span>
+        <br> <a href="${cp}/orders/orderlistMypage?orderState=주문취소" class="cnt"> ${cancle} </a>
         </th>
       </tr>
     </table>
   </div>
 
-  <div class="listDiv">
+	<!-- 주문내역 -->
+	<c:forEach var="i" items="${orderList}">
+  	<div class="listDiv">
     <table class="listTable">
         <thead>
         <tr>
-            <th colspan="2" class="tableOrdernum"> 주문일자: 2022.06.10 | 주문번호: 12345678 </th>
-            <th class="goOrderdetail"> <a href="${cp }/orders/orderdetailMypage" style="color:darkgray"> 상세보기 > </a> </th>
+            <th class="tableOrdernum"> 주문일자: ${i.regdate } | 주문번호: ${i.orderNum} </th>
+            <th class="goOrderdetail"> <a href="${cp}/orders/orderdetailMypage" style="color:darkgray"> 상세보기 > </a> </th>
         </tr>
         </thead>
+        
         <tr>
-            <th>
-            <img src="../images/orderTest.png" class="itemImg">
+        	<th>
+                <table style="width:100%">
+                <c:set var="cnt" value="1"/>
+	        	<c:forEach var="j" items="${orderDetail}">
+	        	<c:if test="${i.orderNum == j.orderNum}">
+	        	<c:set var="cnt" value="${cnt+1}"/>
+	                <tr>
+	                <td>
+	                <img src="${cp}/images/${j.image}" class="itemImg"><br>
+	                <span class="itemName"><a href="${cp}/orders/orderdetailMypage"> ${j.pname} </a><br>
+	                <span class="itemPay"> ￦ ${j.total} </span></span>
+	                </td>
+	                </tr>
+	            </c:if>
+	            </c:forEach>
+	            
+               </table>
             </th>
-            <th class="itemName"> <a href="${cp }/orders/orderdetailMypage">두닷 콰트로 에어데스크 1000 외 </a>
-              <br> <span class="itemPay"> 결제금액 ￦ 45,000 </span>
-            </th>
-            <th> <p class="orderState"> 결제완료 </p> </th>
+        	<th rowspan="${cnt}"> <p class="orderState"> 결제완료 </p> </th>
         </tr>
+        
     </table>
-  </div>
+ 	</div>
+  	</c:forEach>
 
-  <div class="listDiv">
-    <table class="listTable">
-        <thead>
-        <tr>
-            <th colspan="2" class="tableOrdernum"> 주문일자: 2022.06.12 | 주문번호: 43219865 </th>
-            <th class="goOrderdetail"> <a href="orderDetail_mypage.html" style="color:darkgray"> 상세보기 > </a> </th>
-        </tr>
-        </thead>
-        <tr>
-            <th>
-            <img src="../images/orderTest2.jpg" class="itemImg">
-            </th>
-            <th class="itemName"> <a href=""> 시디즈 화이트쉘 </a>
-              <br> <span class="itemPay"> 결제금액 ￦ 30,000 </span>
-            </th>
-            <th><p class="orderState"> 배송중 </p></th>
-        </tr>
-    </table>
-  </div>
- 
+ <!-- 하단 페이지 목록 -->
  <div class="nullDiv">
-  <span class="preBtn"> < </span>
-  <span class="curPage"> 1 </span>
-  <span class="otherPage"> 2 </span>
-  <span class="nextBtn"> > </span>
-</div>
+ 	<c:if test="${startPage>5}">
+	<a href="${cp}/orders/orderlistMypage?pageNum=${pageNum-1}&orderState=${orderState}" class="preBtn"> < </a>
+	</c:if>
+	<c:if test="${startPage<5}">
+	<a class="preBtn"> < </a>
+	</c:if>
+	
+	<c:forEach var="i" begin="${startPage}" end="${endPage}">
+	<c:choose>
+	<c:when test="${pageNum==i}">
+	  <a href="${cp}/orders/orderlistMypage?pageNum=${i}&orderState=${orderState}" class="curPage"> ${i} </a>
+	</c:when>
+	<c:otherwise>
+	  <a href="${cp}/orders/orderlistMypage?pageNum=${i}&orderState=${orderState}" class="otherPage"> ${i} </a>
+	</c:otherwise>
+	</c:choose>
+	</c:forEach>
 
-<div class="searchDiv">
-  <select class="selectDiv">
-    <option> 주문번호 </option>
-    <option> 주문회원 </option>
-    <option> 주문제품 </option>
-  </select>
-  <input type="text" class="searchText">
-  <input type="button" value="검색" class="searchBtn">
+	<c:if test="${endPage<pageCnt}">
+	<a href="${cp}/orders/orderlistMypage?pageNum=${endPage+1}&orderState=${orderState}" class="nextBtn"> > </a>
+	</c:if>
+	<c:if test="${endPage>=pageCnt}">
+	<a class="nextBtn"> > </a>
+	</c:if>	
 </div>
 
  </div>
 
    	<!-- FOOTER -->
 	<jsp:include page="/WEB-INF/page/include/footer.jsp" />
-    
-    
+        
 </body>
 </html>

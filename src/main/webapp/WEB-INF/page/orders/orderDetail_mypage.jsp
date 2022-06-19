@@ -58,24 +58,29 @@
           <th> 주문취소 </th>
         </tr>
       </thead>
-        <tr>
-          <td>
-          <img src="../images/orderTest.png" class="itemImg"> 
-          <p class="itemName"><strong>두닷 콰트로 에어데스크 1000 </strong><br> 10,000원 / 1개</p>
-          </td>
-          <td rowspan="2"> 45,000 </td>
-          <td rowspan="2"> 결제완료 </td>
-          <td rowspan="2"> <input type="button" name="" value="주문취소" class="btnCancle"></td>
+         
+         <tr>
+        	<td>
+            <table style="width:100%">
+	        	<tr>
+	            <td>
+	            	<img src="../images/orderTest.png" class="itemImg"> 
+          			<p class="itemName"><strong>두닷 콰트로 에어데스크 1000 </strong><br> 10,000원 / 1개</p>
+	            </td>
+	           	</tr>
+	           	<tr>
+          		<td>
+		       		<img src="../images/orderTest2.jpg" class="itemImg">
+		         	<p class="itemName"><strong>시디즈 화이트쉘</strong><br> 15,000원 / 2개 </p>
+		        </td>
+		        </tr>
+            </table>
+            </td>
+           	<td rowspan="2"> 45,000 </td>
+          	<td rowspan="2"> 결제완료 </td>
+          	<td rowspan="2"> <input type="button" name="" value="주문취소" class="btnCancle"></td>
         </tr>
-        <tr>
-          <td>
-          <img src="../images/orderTest2.jpg" class="itemImg">
-          <p class="itemName"><strong>시디즈 화이트쉘</strong><br> 15,000원 / 2개 </p>
-          </td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
+        
     </table>
 
     <h3 class="title"> 주문고객 정보 </h3>
@@ -122,7 +127,7 @@
       </tr>
       <tr>
         <th class="orderLabels"> 배송비 </th>
-        <td> ￦ 2,500 </td>
+        <td style="color:gray"> 착불(별도 문의) </td>
       </tr>
       <tr>
         <th class="orderLabels"> 최종 결제금액 </th>

@@ -42,7 +42,7 @@ public class OrderOKController extends HttpServlet{
 		}
 	
 		// 주문번호 가져오기
-		int newOrderNum = oDao.newOrderNum(memberNum,amount);		
+		int newOrderNum = oDao.newOrderNum();		
 		
 		// 주문상세 테이블 추가
 		int cartCnt = Integer.parseInt(req.getParameter("cartCnt"));
@@ -53,12 +53,15 @@ public class OrderOKController extends HttpServlet{
 			String[] itemNum = req.getParameterValues("itemNum");
 			String[] itemName = req.getParameterValues("itemName");
 			String[] itemPiece = req.getParameterValues("itemPiece");
+			String[] itemTotal = req.getParameterValues("itemTotal");
+			String[] itemImg = req.getParameterValues("itemImg");
 			
 			for(int i=0; i<cartCnt; i++) {
 				int pnum = Integer.parseInt("itemNum[i]");
 				int piece = Integer.parseInt("itemPiece[i]");
+				int total = Integer.parseInt("itemTotal[i]");
 				
-				OrderDetail od = new OrderDetail(0,newOrderNum,pnum,itemName[i],piece);
+				OrderDetail od = new OrderDetail(0,newOrderNum,pnum,itemName[i],piece,total,itemImg[i]);
 				newod = odDao.newOrderDetail(od);
 			}
 						
@@ -66,8 +69,10 @@ public class OrderOKController extends HttpServlet{
 			int pnum = Integer.parseInt(req.getParameter("itemNum"));
 			String itemName = req.getParameter("itemName");
 			int piece = Integer.parseInt(req.getParameter("itemPiece"));
+			int total = Integer.parseInt(req.getParameter("itemTotal"));
+			String itemImg = req.getParameter("itemImg");
 				
-			OrderDetail od = new OrderDetail(0,newOrderNum,pnum,itemName,piece);
+			OrderDetail od = new OrderDetail(0,newOrderNum,pnum,itemName,piece,total,itemImg);
 			newod = odDao.newOrderDetail(od);
 		}
 		System.out.println("orderdetail: " + newod);

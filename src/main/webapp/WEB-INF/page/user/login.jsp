@@ -75,7 +75,7 @@
         <input type="button" value="비회원 주문 조회하기" />
       </div>
 
-			<form action="" id="noneFormTag" method="post">
+			<form action="${cp}/user/noneMember" id="noneFormTag" method="post">
         <div class="email mb-2">
           <input type="email" class="form-control fs-6" id="nonEmail" name="email" aria-describedby="emailHelp" placeholder="주문 이메일">
           <div id="emailHelp" class="form-text"></div>

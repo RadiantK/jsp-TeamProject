@@ -55,7 +55,7 @@ public class OrderController extends HttpServlet{
 			ProductDao dao = ProductDao.getInstance();
 			Product vo = dao.selectOne(itemNum);
 			
-			String itemImg = req.getContextPath() + "/images/" + vo.getImage();
+			String itemImg = vo.getImage();
 			String itemName = vo.getPname();
 			int price = vo.getPrice();
 			int discount = vo.getDiscount();
@@ -64,9 +64,9 @@ public class OrderController extends HttpServlet{
 			int itemTotal = discountPrice*piece;
 			total += itemTotal;
 				
-			OrderCommand orderProduct = 
+			OrderCommand oc = 
 						new OrderCommand(itemNum,itemImg,itemName,price,discount,discountPrice,piece,itemTotal);
-			orderList.add(orderProduct);
+			orderList.add(oc);
 		}			
 		
 		// 세션아이디 있으면 회원번호, 이름, 전화번호 정보 가져오기 
