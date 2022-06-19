@@ -1,0 +1,86 @@
+@charset "UTF-8";
+*{
+  margin: 0;
+  padding: 0;
+}
+body {
+  color: #111;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.4;
+}
+a {
+  text-decoration: none;
+  color: #000;
+}
+.inner {
+  width: 1100px;
+  margin: 0 auto;
+  position: relative;
+}
+
+
+
+
+/*
+  join
+*/
+section {
+  width: 400px;
+  margin: auto;
+}
+section .inner {
+  margin-top: 150px;
+  width: 100%;
+}
+section .inner .head {
+  display: flex;
+  justify-content: center;
+}
+section .inner .head a{
+  display: flex;
+  justify-content: center;
+}
+section .inner .head a:hover {
+  color: #333;
+}
+section .head .logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+}
+section .head .title {
+  font-size: 30px;
+  font-family: 'Jua', sans-serif;
+  margin-left: 10px;
+  margin-top: 5px;
+}
+/* section .join {
+  
+} */
+section .join p {
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+section .box {
+  width: 400px;
+  height: 400px;
+}
+section #frm {
+  margin: 30px;
+}
+section #frm input{
+  width: 300px;
+}
+section #frm #nickNameHelp{
+	color: #0000FF;
+}
+section #frm .smt {
+  width: 300px;
+  color: #fff;
+  display: block;
+  margin: 40px 0 0 10px;
+}
