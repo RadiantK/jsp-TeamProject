@@ -3,6 +3,7 @@ package com.shop.controller.userController;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,6 +14,7 @@ import com.shop.exception.MemberNotFoundException;
 import com.shop.service.NoneMemberLoginService;
 
 @SuppressWarnings("serial")
+@WebServlet("/user/noneMember")
 public class NoneMemberLoginController extends HttpServlet {
 
 	@Override
@@ -30,7 +32,7 @@ public class NoneMemberLoginController extends HttpServlet {
 			request.setAttribute("login", login);
 			
 			LoginCommand re = (LoginCommand)request.getAttribute("login");
-			request.getRequestDispatcher("").forward(request, response);
+			request.getRequestDispatcher("/orders/orderlistMypage").forward(request, response);
 			
 		}catch(MemberNotFoundException e) { // 로그인 실패 시
 			response.sendRedirect(request.getContextPath()+"/user/login");
