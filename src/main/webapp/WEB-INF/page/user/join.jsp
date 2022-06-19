@@ -7,7 +7,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>YourHouse</title>
+  <title>내일의집</title>
   <!-- material-icon -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   <!-- 부트스트랩css -->
@@ -24,7 +24,9 @@
 
   <script defer src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
   <script defer src="${cp}/js/kakao.js"></script>
-  
+
+  <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+	<script defer src="${cp}/js/kakaoLogin.js"></script>  
   <script defer src="${cp}/resource/js/bootstrap.bundle.js"></script>
   <script defer src="${cp}/js/join.js"></script>
 </head>
@@ -49,7 +51,13 @@
       
       <div class="sns">카카오로 간편 로그인/회원가입</div>
       <div class="kakao">
-        <a href="javascript:void(0)"><img src="${cp}/images/kakao_login.png" alt="카카오로그인"></a>
+	      <form id="kakaoForm" action="${cp}/user/kakao/login" method="post">
+ 	      	<input type="hidden" id="kakaoEmail" name="kakaoEmail" />
+ 	      	<input type="hidden" id="kakaoGender" name="kakaoGender" />
+	        <a href="javascript:kakaoLogin()">
+	        	<img src="${cp}/images/kakao_login.png" alt="카카오로그인">
+	        </a>
+        </form>
       </div>
 
       <div class="container-md">

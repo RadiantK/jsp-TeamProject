@@ -16,22 +16,13 @@ import com.shop.dao.MemberDao;
 public class DeleteMemberController extends HttpServlet{
 
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		request.getRequestDispatcher("/WEB-INF/page/mypage/deleteMember.jsp")
-		.forward(request, response);
-	}
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		String pwd = request.getParameter("pwd");
-		
 		HttpSession session = request.getSession();
 		String email = (String) session.getAttribute("sessionId");
 		
 		MemberDao memberDao = MemberDao.getInstance();
-		int n = memberDao.withdraw(email, pwd);
+		int n = memberDao.withdraw(email);
 		
 		if(n > 0) {
 			response.sendRedirect(request.getContextPath()+"/user/logout");

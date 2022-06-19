@@ -1,0 +1,138 @@
+@charset "UTF-8";
+/* .board {
+}
+.board .inner {
+} */
+.board .board-title {
+  margin: 130px 0 30px 0;
+}
+.board .board-title h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+.board .search-form {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+.board .search-form p {
+  font-size: 22px;
+  font-weight: bold;
+  margin-right: 15px;
+}
+.board .search-form p .words {
+  font-size: 20px;
+  margin-right: 10px;
+  border-radius: 10px;
+  border: 2px solid #72c0d8;
+  padding-left: 10px;
+}
+.board .search-form p .words:focus {
+  outline: 2px solid #35C5F0;
+}
+.board .search-form p .words:nth-child(2){
+  border: none;
+  width: 25px;
+  padding: 0;
+  margin: 0;
+}
+.board .search-form p .smt {
+  color: #fff;
+}
+
+.board .sales ul{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-size: 24px;
+  margin-bottom: 15px;
+  position: relative;
+}
+/* .board .sales ul li {
+  
+} */
+.board .sales ul li::before {
+  content: "";
+  width: 2px;
+  height: 24px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  background-color: #555;
+}
+.board .sales ul li:first-child::before {
+  display: none;
+}
+.board .sales ul li span {
+  margin : 0 30px;
+}
+.board .board-list {
+  border-top: 2px solid #333;
+}
+.board .board-list > div {
+  display: flex;
+  border-bottom: 1px solid #ddd;
+}
+.board .board-list > div.top {
+  border-bottom: 1px solid #999;
+}
+.board .board-list > div:last-child {
+  border-bottom: 1px solid #333;
+}
+.board .board-list > div > div {
+  padding: 15px 0;
+  text-align: center;
+}
+.board .board-list > div.top > div {
+  font-weight: 700;
+}
+.board .board-list .num {
+  width: 10%;
+}
+.board .board-list .email {
+  width: 25%;
+}
+.board .board-list .name {
+  width: 10%;
+}
+.board .board-list .pnum {
+  width: 10%;
+}
+.board .board-list .cnt {
+  width: 10%;
+}
+.board .board-list .amount {
+  width: 12%;
+}
+.board .board-list .status {
+  width: 10%;
+}
+.board .board-list .regDate {
+  width: 18%;
+}
+
+.board .board-page {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+.board .board-page a {
+  display: block;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  margin-right: 10px;
+}
+.board .board-page a:last-child {
+  margin-right: 0;
+}
+.board .board-page a:hover {
+  color:#35C5F0
+}
+.board .board-page a span {
+  display: block;
+  font-size: 30px;
+}

@@ -192,7 +192,7 @@ function nickNameCheckHandler(){
     }
   }
   xhr.open('post', cpEl+"/user/check_nick", true);
-  xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
   let param = "nickName="+nickNameEl.value;
   xhr.send(param);
 }

@@ -27,8 +27,12 @@ public class MemberDao {
 	}
 	
 	// 회원목록
-	public List<Member> selectList() {
-		String sql = "SELECT * FROM member";
+	public List<Member> selectList(int startNum, int endNum, String type, String query) {
+		String sql = "SELECT * FROM ( "
+				+ "SELECT ROWNUM RN, M.* FROM ( "
+				+ "SELECT * FROM member "
+				+ "WHERE "+type+" LIKE ? ORDER BY regdate desc ) M ) "
+				+ "WHERE RN BETWEEN ? AND ?";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -37,6 +41,9 @@ public class MemberDao {
 		try {
 			con = DBPool.getConnection();
 			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, "%"+query+"%");
+			pstmt.setInt(2, startNum);
+			pstmt.setInt(3, endNum);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -61,6 +68,32 @@ public class MemberDao {
 		}catch(SQLException e) {
 			e.printStackTrace();
 			return null;
+		}finally {
+			DBPool.close(con, pstmt, rs);
+		}
+	}
+	
+	public int getCount(String type, String query) {
+		String sql = "SELECT NVL(COUNT(member_num), 0) cnt FROM member "
+				+ "WHERE '"+type+"' LIKE ?";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int count = 0;
+		
+		try {
+			con = DBPool.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, "%"+query+"%");
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				count = rs.getInt("cnt");
+			}
+			return count;
+		}catch(SQLException e) {
+			e.printStackTrace();
+			return -1;
 		}finally {
 			DBPool.close(con, pstmt, rs);
 		}
@@ -129,7 +162,37 @@ public class MemberDao {
 				LoginCommand login = new LoginCommand(email, pwd, role);
 				return login;
 			}
+			return null;
+		}catch(SQLException e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			DBPool.close(con, pstmt, rs);
+		}
+	}
+	
+	// 회원 로그인(카카오)
+	public LoginCommand kakaoLogin(String reqEmail) {
+		String sql = "SELECT * FROM member "
+				+ "WHERE email = ? AND available = 1";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = DBPool.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, reqEmail);
+			rs = pstmt.executeQuery();
 			
+			if(rs.next()) {
+				String email = rs.getString("email");
+				String pwd = rs.getString("password");
+				int role = rs.getInt("role");
+				
+				LoginCommand login = new LoginCommand(email, pwd, role);
+				return login;
+			}
 			return null;
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -184,7 +247,6 @@ public class MemberDao {
 			if(rs.next()) {
 				return 1;
 			}
-			
 			return -1;
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -210,7 +272,6 @@ public class MemberDao {
 			if(rs.next()) {
 				return 1;
 			}
-			
 			return -1;
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -247,9 +308,9 @@ public class MemberDao {
 	}
 	
 	// 회원탈퇴
-	public int withdraw(String email, String pwd) {
+	public int withdraw(String email) {
 		String sql = "UPDATE MEMBER SET available = 0 WHERE email = ? "
-				+ "AND password = ? AND available = 1";
+				+ "AND available = 1";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
@@ -257,10 +318,8 @@ public class MemberDao {
 			con = DBPool.getConnection();
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, email);
-			pstmt.setString(2, pwd);
 
 			int n = pstmt.executeUpdate();
-			
 			return n;
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -316,7 +375,6 @@ public class MemberDao {
 			if(rs.next()) {
 				return rs.getString("password");
 			}
-			
 			return null;
 		}catch(SQLException e) {
 			e.printStackTrace();
