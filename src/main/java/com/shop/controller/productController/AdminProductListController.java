@@ -8,12 +8,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/admin/product/insert")
-public class adminProductInsertController extends HttpServlet {
+@WebServlet("/admin/product/list")
+public class AdminProductListController extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		request.getRequestDispatcher("/WEB-INF/page/admin/adminProductInsert.jsp")
+		request.getRequestDispatcher("/WEB-INF/page/admin/adminProductList.jsp")
 		.forward(request, response);
 	}
 }
