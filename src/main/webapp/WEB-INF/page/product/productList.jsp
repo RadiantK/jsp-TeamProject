@@ -118,7 +118,7 @@
 	                <c:forEach var="i" begin="${startPage }" end="${endPage }">
 	                	<c:choose>
 	                		<c:when test="${pageNum==i }">
-	                			<span>${i }</span>
+	                			<u><span>${i }</span></u>
 	                		</c:when>
 	                		<c:otherwise>
 	                			<a href="?bcnum=${bcnum }&scnum=${scnum }&sort=${sort }&pageNum=${i }">${i }</a>

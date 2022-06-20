@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.shop.command.ProductCommand;
-import com.shop.dto.Bcategory;
 import com.shop.dto.Product;
 import com.shop.util.DBPool;
 
@@ -407,7 +406,7 @@ public class ProductDao {
 				int pdescNum = rs.getInt("productdetail_num");
 				String descImg = rs.getString("images");
 				
-				prd = new ProductCommand(productNum, scategoryNum, pname, pdesc, price, discount, cnt, regdate, image, productNum, descImg);
+				prd = new ProductCommand(productNum, scategoryNum, pname, pdesc, price, discount, cnt, regdate, image, pdescNum, descImg);
 			}
 			return prd;
 			
