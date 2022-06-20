@@ -38,11 +38,7 @@ public class OrderlistMypageController extends HttpServlet{
 		System.out.println(getState);
 		
 		int pageNum = 1;
-		if(getPageNum!=null && getPageNum!="") {
-			pageNum = Integer.parseInt("getPageNum");
-			
-			if(pageNum<1) pageNum = 1;
-		}
+		if(getPageNum!=null && getPageNum!="") pageNum = Integer.parseInt("getPageNum");
 		int endRow = pageNum*5;
 		int startRow = endRow-4;
 		
