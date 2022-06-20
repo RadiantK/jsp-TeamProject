@@ -26,21 +26,24 @@
 	     
 <script defer src="${cp}/resource/js/bootstrap.bundle.js"></script>
 <script defer src="${cp}/js/common.js"></script>
+<script defer src="${cp}/js/deleteMember.js"></script>
 </head>
 <body>
     
 	<!-- HEADER -->
 	<jsp:include page="/WEB-INF/page/include/header.jsp" />
 
-	<!-- 마이페이지 카테고리 -->
+	<input type="hidden" id="cp" value="${cp}" />
+	
+	<!-- 마이페이지 카테고리 메뉴 -->
   <section class="mypage">
     <div class="inner">
       <ul class="user-menu">
         <li class="item"><a href="${cp}/user/mypage/profile">프로필</a></li>
         <li class="item"><a href="${cp}/orders/orderlistMypage">결제정보 확인</a></li>
-        <li class="item"><a href="${cp }/board/QNA/List">문의내역 확인</a></li>
+        <li class="item"><a href="${cp}/QNA_List">문의내역 확인</a></li>
         <li class="item"><a href="${cp}/user/mypage/edit">회원정보 수정</a></li>
-        <li class="item"><a href="${cp}/user/mypage/delmem">회원탈퇴</a></li>
+        <li class="item"><a href="javascript:deleteMyAccountHandler()">회원탈퇴</a></li>
       </ul>
     </div>
   </section>
