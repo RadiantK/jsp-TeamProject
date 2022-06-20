@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.shop.dto.QNA;
 import com.shop.dto.QNAComment;
 import com.shop.util.DBPool;
 
@@ -26,7 +27,7 @@ public class QNACommentDao {
 		PreparedStatement pstmt=null;
 		try {
 			con=DBPool.getConnection();
-			String sql="insert into qnacomment values(seq_qnacomment,1,?,?,?,?,sysdate)";			
+			String sql="insert into qnacomment values(seq_qnacomment.nextval,1,?,?,?,?,sysdate)";			
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, dto.getQnaNum());
 			pstmt.setString(2, dto.getNickname());
@@ -67,6 +68,35 @@ public class QNACommentDao {
 			return list;
 		}catch(SQLException s) {
 			s.printStackTrace();
+			return null;
+		}finally {
+			DBPool.close(con, pstmt, rs);
+		}
+	}
+	public QNAComment QNACommentDetail(int qnaNum) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=DBPool.getConnection();
+			String sql="select * from qnacomment where qna_num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, qnaNum);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				int qnaCommentNum=rs.getInt("qnacomment_num");
+				String memberNum=rs.getString("member_Num");
+				qnaNum=rs.getInt("qna_num");
+				String nickname=rs.getString("nickname");
+				String title=rs.getString("title");
+				String content=rs.getString("content");
+				Date regdate=rs.getDate("regdate");
+				QNAComment dto=new QNAComment(qnaCommentNum, memberNum, qnaNum, nickname, title, content, regdate);
+				return dto;
+			}
+			return null;
+		}catch(SQLException se) {
+			se.printStackTrace();
 			return null;
 		}finally {
 			DBPool.close(con, pstmt, rs);

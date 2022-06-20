@@ -9,24 +9,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.shop.dao.QNACommentDao;
-import com.shop.dao.QNADao;
-import com.shop.dto.QNA;
 import com.shop.dto.QNAComment;
 
-@WebServlet("/board/QNA/Detail")
-public class QNADetailController extends HttpServlet {
+@WebServlet("/board/QNA/Comment/insert")
+public class QNACommentInsertController extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
 		int qnaNum=Integer.parseInt(req.getParameter("qnaNum"));
-		QNADao dao=QNADao.getInstance();
-		QNA vo=dao.QNADetail(qnaNum);
+		String title=req.getParameter("title");
+		String nickname=req.getParameter("nickname");
+		String content=req.getParameter("content");
+		QNAComment dto=new QNAComment(0, null, qnaNum, nickname, title, content, null);
 		
-		QNACommentDao cdao=QNACommentDao.getInstance();
-		QNAComment dto=cdao.QNACommentDetail(qnaNum);
+		QNACommentDao dao=QNACommentDao.getInstance();
+		int n=dao.insertComment(dto);
 		
-		req.setAttribute("vo", vo);
-		req.setAttribute("dto", dto);
-		req.getRequestDispatcher("/WEB-INF/page/board/QNA_Detail.jsp").forward(req, resp);		
+		if(n>0){
+			resp.sendRedirect(req.getContextPath()+"/board/QNA/Detail"+"?qnaNum"+"="+qnaNum);
+		}else{
+			
+		}
+		
 	}
+
 }
