@@ -48,7 +48,6 @@
 
       <div class="box">
         <form action="${cp}/user/kakao/join" method="post" class="row g-3" id="frm">
-          <input type="hidden" name="gender" />
           <div class="col-auto">
             <label for="email" class="form-label">이메일</label>
             <input type="email" class="form-control" id="email" name="email" value="${email}" readonly>
