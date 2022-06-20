@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -39,45 +40,71 @@
         <tr>
             <th> 주문일자 </th>
             <th> 주문번호 </th>
-            <th> 주문회원 </th>
-            <th> 주문제품 </th>
+            <th> 주문아이디(이메일) </th>
+            <th> 주문자명 </th>
             <th> 결제금액 </th>
             <th> 주문상태 </th>
+            <th></th>
         </tr>
         </thead>
+        
+        <c:forEach var="i" items="${orderList}">
         <tr>
-            <td> 2022.06.10 </td>
-            <td> 12345678 </td>
-            <td> admin </td>
-            <td> <a href="${cp }/orders/orderdetailAdmin"> 두닷 콰트로 에어데스크 1000 </a></td>
-            <td> 12,500 </td>
-            <td> 결제완료 </td>
+            <td> ${i.regdate } </td>
+            <td><a href="${cp}/admin/orderdetailAdmin?orderNum=${i.orderNum}">${i.orderNum } </a></td>
+            <td> ${i.email } </td>
+            <td> ${i.name } </td>
+            <td> ${i.amount } </td>
+            <td> ${i.orderState } </td>
+            <td><a href="${cp}/admin/orderdetailAdmin?orderNum=${i.orderNum}" style="color:darkgray"> 상세보기 </a></td>
         </tr> 
-        <tr>
-          <td> 2022.06.12 </td>
-          <td> 112312312 </td>
-          <td> test </td>
-          <td> <a href=""> 시디즈 의자 </a></td>
-          <td> 89,000 </td>
-          <td> 결제완료 </td>
-      </tr> 
+ 		</c:forEach>
     </table>
 
-<div class="nullDiv">
-  <span class="preBtn"> < </span>
-  <span class="curPage"> 1 </span>
-  <span class="otherPage"> 2 </span>
-  <span class="nextBtn"> > </span>
+ <!-- 하단 페이지 목록 -->
+ <div class="nullDiv">
+ 	<c:if test="${startPage>5}">
+	<a href="${cp}/orders/orderlistMypage?pageNum=${pageNum-1}&orderState=${orderState}" class="preBtn"> < </a>
+	</c:if>
+	<c:if test="${startPage<5}">
+	<a class="preBtn"> < </a>
+	</c:if>
+	
+	<c:forEach var="i" begin="${startPage}" end="${endPage}">
+	<c:choose>
+	<c:when test="${pageNum==i}">
+	  <a href="${cp}/orders/orderlistMypage?pageNum=${i}&orderState=${orderState}" class="curPage"> ${i} </a>
+	</c:when>
+	<c:otherwise>
+	  <a href="${cp}/orders/orderlistMypage?pageNum=${i}&orderState=${orderState}" class="otherPage"> ${i} </a>
+	</c:otherwise>
+	</c:choose>
+	</c:forEach>
+
+	<c:if test="${endPage<pageCnt}">
+	<a href="${cp}/orders/orderlistMypage?pageNum=${endPage+1}&orderState=${orderState}" class="nextBtn"> > </a>
+	</c:if>
+	<c:if test="${endPage>=pageCnt}">
+	<a class="nextBtn"> > </a>
+	</c:if>	
 </div>
 
+
 <div class="searchDiv">
-  <select class="selectDiv">
-    <option> 주문번호 </option>
-    <option> 주문회원 </option>
-    <option> 주문제품 </option>
-  </select>
-  <input type="text" class="searchText">
-  <input type="button" value="검색" class="searchBtn">
+	<form action="${cp}/admin/orderlistAdmin" method="post">
+ 	<select class="selectDiv" name="col">
+	    <option value="order_num"
+	    	<c:if test="${param.col=='order_num'}">selected</c:if>> 주문번호 </option>
+	    <option value="email"
+        	<c:if test="${param.col=='email'}">selected</c:if>> 주문아이디 </option>
+	    <option value="name"
+	       	<c:if test="${param.col=='name'}">selected</c:if>> 주문자명 </option>
+	    <option value="orderstate"
+	        <c:if test="${param.col=='orderstate'}">selected</c:if>> 주문상태 </option>
+  	</select>
+  	<input type="text" value="${param.keyword}" name="keyword" class="searchText">
+  	<input type="submit" value="검색" class="searchBtn">
+  </form>
 </div>
 
 
