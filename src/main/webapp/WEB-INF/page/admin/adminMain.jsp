@@ -50,7 +50,7 @@
           </a>
         </li>
         <li class="item">
-          <a href="">
+          <a href="${cp }/admin/product/list">
             <span class="material-symbols-outlined">
               inventory_2
             </span>
