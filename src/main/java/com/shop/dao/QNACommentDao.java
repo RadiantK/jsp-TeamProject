@@ -102,4 +102,39 @@ public class QNACommentDao {
 			DBPool.close(con, pstmt, rs);
 		}
 	}
+	public int updateQNAComment(QNAComment dto) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=DBPool.getConnection();
+			String sql="update qnacomment set title=?,content=? where qna_num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, dto.getTitle());
+			pstmt.setString(2, dto.getContent());
+			pstmt.setInt(3, dto.getQnaNum());
+			int n=pstmt.executeUpdate();
+			return n;
+		}catch(SQLException se) {
+			se.printStackTrace();
+			return -1;
+		}finally {
+			DBPool.close(con, pstmt);
+		}
+	}
+	public int QNACommentDelete(int qnaNum) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=DBPool.getConnection();
+			String sql="delete from qnacomment where qna_num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, qnaNum);
+			return pstmt.executeUpdate();
+		}catch(SQLException se) {
+			se.printStackTrace();
+			return -1;
+		}finally {
+			DBPool.close(con, pstmt);
+		}
+	}
 }

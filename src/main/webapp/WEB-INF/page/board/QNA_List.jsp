@@ -82,7 +82,7 @@
 									<td style="width: 60%" class="text-center"><a
 										href="${cp }/board/QNA/Detail?qnaNum=${vo.qnaNum}">${vo.title }</a></td>
 									<td style="width: 10%" class="text-center">${vo.regdate }</td>
-									<td style="width: 10%" class="text-center">답변대기중</td>
+									<td style="width: 10%" class="text-center"></td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -92,7 +92,7 @@
 			<div class="row">
 				<div class="col-xs-12">
 					<!-- 아이디가 admin이 아닐때만 보이도록 설정하기  -->
-					<c:if test="${sessionId !='admin@admin.com' }">
+					<c:if test="${sessionId !='admin' }">
 						<a href="${cp }/board/QNA/insert" class="button btn--reverse"
 							style="float: right">1:1 문의하기</a>
 					</c:if>

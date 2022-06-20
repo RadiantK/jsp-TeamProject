@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.shop.dao.QNACommentDao;
 import com.shop.dao.QNADao;
@@ -17,13 +18,22 @@ import com.shop.dto.QNAComment;
 public class QNADetailController extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		HttpSession session=req.getSession();
 		
 		int qnaNum=Integer.parseInt(req.getParameter("qnaNum"));
 		QNADao dao=QNADao.getInstance();
 		QNA vo=dao.QNADetail(qnaNum);
+		int n=dao.isComment(qnaNum);
+		if(n==0) {
+			session.setAttribute("state", "답변대기중");
+		}else if(n>=1) {
+			session.setAttribute("state", "답변완료");
+		}
 		
 		QNACommentDao cdao=QNACommentDao.getInstance();
 		QNAComment dto=cdao.QNACommentDetail(qnaNum);
+		
+		
 		
 		req.setAttribute("vo", vo);
 		req.setAttribute("dto", dto);
