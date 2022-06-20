@@ -107,7 +107,7 @@
 								<tr>
 									<td style="width: 10%" class="text-center">${vo.faqNum }</td>
 									<td style="width: 70%" class="text-center"><a
-										href="javascript:void(0)" onclick="showDetail()">${vo.title }</a></td>
+										href="${cp }/board/FAQ/Detail?faqNum=${vo.faqNum}">${vo.title }</a></td>
 									<td style="width: 20%" class="text-center">${vo.regdate }</td>
 								</tr>
 							</c:forEach>
