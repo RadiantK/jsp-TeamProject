@@ -45,48 +45,48 @@
     
     <table class="cartTable">
     	<thead>
-    	<tr>
+    		<tr>
         	<th> <input type="checkbox" name="cart" onclick="selectAll(this)"> </th>
-            <th style="width:400px"> 제품정보 </th>
-            <th> 금액 </th>
-            <th> 수량 </th>
-            <th> 합계 </th>
-            <th> 배송비 </th>
-            <th> <input type="button" value="전체삭제" class="cartDelete" onclick=""> </th>
-          </tr>
-        </thead>
-          <tr>
-            <td> <input type="checkbox" name="cart"></td>
-            <td>
-            <img src="./images/orderTest.png" class="itemImg"> 
-            <p class="itemName"> 두닷 콰트로 에어데스크 1000 </p>
-            </td>
-            <td> 10,000 </td>
-            <td>
-                <input type="button" name="plus" id="plus" class="amountBtn" value=" + " onclick="amountCal(this,1)">
-                <input type="text" name="amount" id="amount" value="1">
-                <input type="button" name="minus" id="minus" class="amountBtn" value=" － " onclick="amountCal(this,2)">
-            </td>
-            <td class="sumPrice"> 10,000 </td>
-            <td> 2,500 </td>
-            <td> <input type="button" value="삭제" class="cartDelete" onclick=""> </td>
-          </tr>
-          <tr>
-            <td> <input type="checkbox" name="cart"></td>
-            <td>
-            <img src="./images/orderTest2.jpg" class="itemImg">
-            <p class="itemName"> 시디즈 화이트쉘 </p>
-            </td>
-            <td> 15,000 </td>
-            <td>
-              <input type="button" name="plus" id="plus" class="amountBtn" value=" + " onclick="amountCal(this,1)">
-              <input type="text" name="amount" id="amount" value="1">
-              <input type="button" name="minus" id="minus" class="amountBtn" value=" － " onclick="amountCal(this,2)">
-            </td>
-            <td class="sumPrice"> 30,000 </td>
-            <td> 2,500 </td>
-            <td> <input type="button" value="삭제" class="cartDelete" onclick=""> </td>
-          </tr>
+          <th style="width:400px"> 제품정보 </th>
+          <th> 금액 </th>
+          <th> 수량 </th>
+          <th> 합계 </th>
+          <th> 배송비 </th>
+          <th> <input type="button" value="전체삭제" class="cartDelete" onclick=""> </th>
+        </tr>
+      </thead>
+        <tr>
+          <td> <input type="checkbox" name="cart"></td>
+          <td>
+	          <img src="./images/orderTest.png" class="itemImg"> 
+	          <p class="itemName"> 두닷 콰트로 에어데스크 1000 </p>
+          </td>
+          <td> 10,000 </td>
+          <td>
+             <input type="button" name="plus" id="plus" class="amountBtn" value=" + " onclick="amountCal(this,1)">
+             <input type="text" name="amount" id="amount" value="1">
+             <input type="button" name="minus" id="minus" class="amountBtn" value=" － " onclick="amountCal(this,2)">
+          </td>
+          <td class="sumPrice"> 10,000 </td>
+          <td> 2,500 </td>
+          <td> <input type="button" value="삭제" class="cartDelete" onclick=""> </td>
+        </tr>
+        <tr>
+          <td> <input type="checkbox" name="cart"></td>
+          <td>
+          <img src="./images/orderTest2.jpg" class="itemImg">
+          <p class="itemName"> 시디즈 화이트쉘 </p>
+          </td>
+          <td> 15,000 </td>
+          <td>
+            <input type="button" name="plus" id="plus" class="amountBtn" value=" + " onclick="amountCal(this,1)">
+            <input type="text" name="amount" id="amount" value="1">
+            <input type="button" name="minus" id="minus" class="amountBtn" value=" － " onclick="amountCal(this,2)">
+          </td>
+          <td class="sumPrice"> 30,000 </td>
+          <td> 2,500 </td>
+          <td> <input type="button" value="삭제" class="cartDelete" onclick=""> </td>
+        </tr>
       </table>
       
 

@@ -5,9 +5,16 @@
   <header>
     <div class="inner">
       <div class="logo">
-        <a href="${cp}/main" >
-          <span class="title">내일의집</span>
-        </a>
+      	<c:if test="${sessionId != 'admin'}">
+	        <a href="${cp}/main" >
+	          <span class="title">내일의집</span>
+	        </a>
+        </c:if>
+        <c:if test="${sessionId == 'admin'}">
+	        <a href="${cp}/admin/main" >
+	          <span class="title">내일의집</span>
+	        </a>
+        </c:if>
       </div>
 
       <ul class="main-menu">
