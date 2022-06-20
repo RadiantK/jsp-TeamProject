@@ -72,7 +72,7 @@
 
 			<div class="row">
 				<div class="col-md-12"
-					style="display: inline-block; padding-top: 60px;">
+					style="display: inline-block; padding-top: 60px; width: 600px; margin: auto;">
 					<form action="${cp }/board/FAQ/List" method="post">
 						<div>
 							<select name="field">
@@ -81,11 +81,9 @@
 								<option value="content"
 									<c:if test="${field =='content' }">selected</c:if>>내용</option>
 							</select> <input type="text" class="form-control-row rounded-pill"
-								style="width: 400px; text-align: center"
+								style="width: 450px; height:40px; text-align: center"
 								placeholder="자주묻는 질문 검색" aria-describedby="button-addon2"
-								name="keyword" value=${keyword }> <input type="submit"
-								id="searchBtn" style="margin-left: 5px;" value="검색"
-								class="bbutton btn--reverse">
+								name="keyword" value=${keyword }> 					
 						</div>
 					</form>
 				</div>
@@ -119,7 +117,7 @@
 			<div class="row">
 				<div class="col-xs-12">
 					<!-- 아이디가 admin일때만 보이도록 설정하기-->
-					<c:if test="${sessionId =='admin@admin.com' }">
+					<c:if test="${sessionId =='admin' }">
 						<a href="${cp }/board/FAQ/insert" class="button btn--reverse"
 							style="float: right">FAQ 등록</a>
 					</c:if>
