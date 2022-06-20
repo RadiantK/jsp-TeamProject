@@ -8,25 +8,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.shop.dao.QNACommentDao;
+import com.shop.dao.FAQDao;
 import com.shop.dao.QNADao;
+import com.shop.dto.FAQ;
 import com.shop.dto.QNA;
-import com.shop.dto.QNAComment;
 
-@WebServlet("/board/QNA/Detail")
-public class QNADetailController extends HttpServlet {
+@WebServlet("/board/FAQ/Detail")
+public class FAQDetailcontroller extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-		int qnaNum=Integer.parseInt(req.getParameter("qnaNum"));
-		QNADao dao=QNADao.getInstance();
-		QNA vo=dao.QNADetail(qnaNum);
-		
-		QNACommentDao cdao=QNACommentDao.getInstance();
-		QNAComment dto=cdao.QNACommentDetail(qnaNum);
+		int faqNum=Integer.parseInt(req.getParameter("faqNum"));
+		FAQDao dao=FAQDao.getInstance();
+		FAQ vo=dao.FAQDetail(faqNum);
 		
 		req.setAttribute("vo", vo);
-		req.setAttribute("dto", dto);
-		req.getRequestDispatcher("/WEB-INF/page/board/QNA_Detail.jsp").forward(req, resp);		
+		req.getRequestDispatcher("/WEB-INF/page/board/FAQ_Detail.jsp").forward(req, resp);		
 	}
+	
 }

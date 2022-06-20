@@ -82,9 +82,34 @@
 						</tr>
 					</tbody>
 				</table>
-				<div id="commList"></div>
+				<div id="commList">
+				<table class="table">
+					<thead>
+						<tr>
+							<td colspan="3" style="width: 100%"><h1>${dto.title }</h1></td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="2" style="width: 30%">${dto.nickname }</td>
+							<td colspan="2" style="width: 70%">${dto.regdate }</td>
+						</tr>
+						<tr>
+							<td colspan="10" style="height: 400px; text-align: left;">
+								${dto.content }<br>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				</div>
 				<a href="${cp }/board/QNA/List" class="button btn--reverse">목록</a>&nbsp;&nbsp;
-
+				<c:if test="${sessionId =='admin@admin.com' }">
+					<a href="${cp }/board/QNA/Comment/Update?qnaNum=${vo.qnaNum}"
+						class="button btn--reverse">수정</a> &nbsp;&nbsp;
+					<a onclick="return confirm('삭제하시겠습니까?')"
+						href="${cp }/board/QNA/Comment/Delete?qnaNum=${vo.qnaNum}"
+						class="button btn--reverse">삭제</a>
+				</c:if>
 				<!-- 세션에 담긴 Id가 관리자인 경우 답글을 달 수 있도록 설정 -->
 				<c:if test="${sessionId =='admin@admin.com' }">
 					<div class="container" style="margin-top: 20px;">

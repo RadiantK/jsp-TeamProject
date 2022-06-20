@@ -142,7 +142,7 @@ public class FAQDao {
 				pstmt.setInt(1, faqNum);
 				rs=pstmt.executeQuery();
 				if(rs.next()) {
-					faqNum=rs.getInt("faqNum");
+					faqNum=rs.getInt("faq_Num");
 					String memberNum=rs.getString("member_num");
 					String nickname=rs.getString("nickname");
 					String title=rs.getString("title");
