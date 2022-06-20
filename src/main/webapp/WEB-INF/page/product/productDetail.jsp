@@ -34,6 +34,10 @@
   <script type="text/javascript">
   	
   	var xhr = null;
+  	
+  	window.onload = function(){
+  		reviewList(1);
+  	}
   
   	function ChangeValue(){
   		let qty = document.getElementById("qty").value;
@@ -61,10 +65,105 @@
   			}
   		};
   		
-  		// xhr.open('get','/WEB-INF/page/product/qtyChange.jsp?qty='+qty+'&price='+price,true); // WEB-INF 경로 처리(url을 서블릿으로 호출????)
-  		xhr.open('get','${cp}/qtyChange.jsp?qty='+qty+'&price='+price,true);
+  		xhr.open('get','${cp}/product/qty_change?qty='+qty+'&price='+price,true);
   		xhr.send();
   	}
+  	
+  	function reviewList(pageNum){
+  		xhr = new XMLHttpRequest();
+  		xhr.onreadystatechange = function(){
+  			if(xhr.readyState==4 && xhr.status==200){
+  				var result = xhr.responseText;
+  				let reviewList = document.getElementById("review-list");
+  				
+  				let child = reviewList.childNodes;
+  				for(let i=child.length-1;i>=0;i--){
+  					let c = child.item(i);
+  					reviewList.removeChild(c);
+  				}
+  				let data = JSON.parse(result);
+  				let review = data.list;
+  				
+  				for(let i=0;i<review.length;i++){
+  					let score = review[i].score;
+  					let regdate = review[i].regdate;
+  					let nickname = review[i].nickname;
+  					let content = review[i].content;
+  					let image = review[i].image;
+  					
+  					let imgLine = "<a href=''><img src='upload/" + image + "' alt='첨부이미지'></a>";
+  					if(image == null || image == undefined || image == "" || !image){
+  						imgLine = "";
+  						console.log(imgLine);
+  					}
+  					let div = document.createElement("div");
+  					div.className = "rev-container";
+  					div.innerHTML = "<div class='rev-writer'>" +
+					                	"<p class='star'>" + score + "</p>" +
+					                    "<p class='date'>" + regdate + "</p>" +
+					                    "<p class='nickname'>" + nickname + "</p>" +
+					                "</div>" +
+					                "<div class='rev-content'>" +
+					                    "<p class='revMat'>" + content + "</p>" +
+					                    "<div class='revImg'>" +
+					                    	imgLine +
+					                    "</div>" +
+					                "</div>";
+					reviewList.appendChild(div);
+  				}
+  				let startPage = data.startPage;
+  				let endPage = data.endPage;
+  				let pageCount = data.pageCount;
+  				let pageHTML = "";
+  				if(startPage>5){
+  					pageHTML += "<a href='javascript:reviewList("+ (startPage-1) +")'>이전</a>";
+  				}
+  				for(let i=startPage;i<=endPage;i++){
+  					if(i==pageNum){
+  						pageHTML +="<a href='javascript:reviewList("+ i +")'><span style='color:black'><u> "+ i +"</u></span></a>";
+					}else{
+						pageHTML +="<a href='javascript:reviewList("+ i +")'><span style='color:gray'> "+ i +"</span></a>";
+					}
+  				}
+  				if(endPage<pageCount){
+  					pageHTML +="<a href='javascript:reviewList("+ (endPage+1) +")'>다음</a>";
+				}
+				var page = document.getElementById("rev-paging");
+				page.innerHTML = pageHTML;
+  			}
+  		};
+  		xhr.open('get','${cp}/product/detail/review?pnum=${pnum}&pageNum='+pageNum,true);
+		xhr.send();
+  	}
+  	
+  	/*
+  	function addReview(){
+  		let reviewTxt = document.getElementById("review-txt").value;
+  		let score = document.getElementsByName("prd-point")[0].value;
+  		let image = document.getElementById("review-img").value;
+  		
+  		String saveDir = "${cp}/upload";
+		out.print("업로드경로:"+saveDir+"<br>");
+		MultipartRequest mr = new MultipartRequest
+  		
+  		xhr = new XMLHttpRequest();
+  		xhr.onreadystatechange = function(){
+			if(xhr.readyState==4 && xhr.status==200){
+				let data = xhr.responseText;
+				let json = JSON.parse(data);
+				if(json.code=='success'){
+					alert('리뷰 등록 성공');
+					reviewList(1);
+				}else{
+					alert('리뷰 등록 실패');
+				}
+			}
+		};
+		xhr.open('post','${cp}/product/detail/review/insert',true);
+		xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+		let param = "pnum=" + ${pnum} + "&content=" + reviewTxt + "&score=" + score + "&image=" + image;
+		xhr.send(param);
+  	} */
   
   </script>
 </head>
@@ -87,7 +186,7 @@
 
               <div class="txt-mid">
                 <div class="reviewCountView">
-                  <a href="">${rcnt }개의 후기 보기</a>
+                  <a href="#prd-desc-review"><u>${rcnt }</u>개의 후기 보기</a>
                 </div>
                 <div class="help">
                   <c:choose>
@@ -139,29 +238,29 @@
         </div>
 
         <div class="prd-desc">
-            <div class="prd-desc-content">
+            <div class="prd-desc-content" id="prd-desc-content">
                 <div class="prd-desc-navbar">
-                  <a href="" class="on"><p>제품상세정보</p></a>
-                  <a href=""><p>제품후기</p></a>
-                  <a href=""><p>배송/교환 및 반품안내</p></a>
+                  <a href="#prd-desc-content" class="on"><p>제품상세정보</p></a>
+                  <a href="#prd-desc-review"><p>제품후기</p></a>
+                  <a href="#prd-desc-info"><p>배송/교환 및 반품안내</p></a>
                 </div>
                 <div class="prd-desc-img"><img src="./images/detail_sample.jpg" alt="상세이미지"></div>
             </div>
-            <div class="prd-desc-review">
+            <div class="prd-desc-review" id="prd-desc-review">
               <div class="prd-desc-navbar">
-                <a href=""><p>제품상세정보</p></a>
-                <a href="" class="on"><p>제품후기</p></a>
-                <a href=""><p>배송/교환 및 반품안내</p></a>
+                  <a href="#prd-desc-content"><p>제품상세정보</p></a>
+                  <a href="#prd-desc-review" class="on"><p>제품후기</p></a>
+                  <a href="#prd-desc-info"><p>배송/교환 및 반품안내</p></a>
               </div>
 
-              <form method="post" action="" id="reviewForm">
+              <form method="post" action="addReview()" id="reviewForm">
                 <p class="reviewTitle">Product Reviews</p>
                 <div class="review-point">
                   <span>평가</span>
                   <ul>
                     <li>
-                      <input type="radio" name="prd-point" id="rating5">
-                      <label for="rating5">★★★★★</label>
+                      <input type="radio" name="prd-point" id="rating5" checked="checked">
+                      <label for="rating5" >★★★★★</label>
                     </li>
                     <li>
                       <input type="radio" name="prd-point" id="rating4">
@@ -182,71 +281,30 @@
                   </ul>
                 </div>
                 <div class="review-textarea">
-                    <textarea class="review-txt"></textarea>
+                    <textarea class="review-txt" id="review-txt"></textarea>
                 </div>
                 <div class="review-btn">
-                  <input type="button" value="사진첨부" class="button btn--reverse" id="btn-file">
-                  <input type="submit" value="후기작성" class="button" id="btn-review">
+                  <label class="button btn--reverse" for="input-file">사진 첨부</label>
+                  <input type="file" name="review-img" id="input-file" style="display:none"/>
+                  <input type="button" value="후기작성" class="button" id="btn-review" onclick="addReview()">
                 </div>
               </form>
-
-              <div class="review-list">
-                
-                <!-- 리뷰1 -->
-                <div class="rev-container">
-                  <div class="rev-writer">
-                    <p class="star">★★★★★</p>
-                    <p class="date">2022.02.01</p>
-                    <p class="nickname">강아지</p>
-                  </div>
-                  <div class="rev-content">
-                    <p class="revMat">
-                      제품평<br>
-                      제품평제품평<br>
-                      제품평제품평제품평<br>
-                    </p>
-                    <div class="revImg">
-                      <a href=""><img src="./images/img01.jpg" alt="첨부이미지"></a>
-                      <a href=""><img src="./images/img02.jpg" alt="첨부이미지"></a>
-                    </div>
-                  </div>
-                </div>
-                <!-- 리뷰2 -->
-                <div class="rev-container">
-                  <div class="rev-writer">
-                    <p class="star">★★★★★</p>
-                    <p class="date">2022.02.01</p>
-                    <p class="nickname">비둘기</p>
-                  </div>
-                  <div class="rev-content">
-                    <p class="revMat">
-                      제품평<br>
-                      제품평제품평<br>
-                      제품평제품평제품평<br>
-                    </p>
-                    <div class="revImg">
-                      <a href=""><img src="./images/img03.jpg" alt="첨부이미지"></a>
-                    </div>
-                  </div>
-                </div>
-
-                
+              
+			  <!-- 리뷰 -->
+              <div class="review-list" id="review-list">
 
               </div>
+              
               <!-- 페이징 -->
-              <div class="rev-paging">
-                <ul class="help">
-                  <li><a href="">1</a></li>
-                  <li><a href="">2</a></li>
-                  <li><a href="">3</a></li>
-                 </ul>
+              <div class="rev-paging" id="rev-paging">
               </div>
+              
             </div>
-            <div class="prd-desc-info">
+            <div class="prd-desc-info" id="prd-desc-info">
               <div class="prd-desc-navbar">
-                <a href=""><p>제품상세정보</p></a>
-                <a href=""><p>제품후기</p></a>
-                <a href="" class="on"><p>배송/교환 및 반품안내</p></a>
+                  <a href="#prd-desc-content"><p>제품상세정보</p></a>
+                  <a href="#prd-desc-review"><p>제품후기</p></a>
+                  <a href="#prd-desc-info" class="on"><p>배송/교환 및 반품안내</p></a>
               </div>
               <div class="info-container">
                 <span>
