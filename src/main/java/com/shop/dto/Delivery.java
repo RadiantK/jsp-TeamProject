@@ -8,20 +8,20 @@ public class Delivery {
 	private int orderNum;
 	private String delName;
 	private String delPhone;
-	private String adress;
+	private String address;
 	private String delMsg;
 	private Date deliDate;
 	
 	public Delivery() {}
 	
-	public Delivery(int deliveryNum, int orderNum, String delName, String delPhone, String adress, String delMsg,
+	public Delivery(int deliveryNum, int orderNum, String delName, String delPhone, String address, String delMsg,
 			Date deliDate) {
 		super();
 		this.deliveryNum = deliveryNum;
 		this.orderNum = orderNum;
 		this.delName = delName;
 		this.delPhone = delPhone;
-		this.adress = adress;
+		this.address = address;
 		this.delMsg = delMsg;
 		this.deliDate = deliDate;
 	}
@@ -49,11 +49,11 @@ public class Delivery {
 	public void setDelPhone(String delPhone) {
 		this.delPhone = delPhone;
 	}
-	public String getAdress() {
-		return adress;
+	public String getAddress() {
+		return address;
 	}
-	public void setAdress(String adress) {
-		this.adress = adress;
+	public void setAddress(String adress) {
+		this.address = adress;
 	}
 	public String getDelMsg() {
 		return delMsg;
