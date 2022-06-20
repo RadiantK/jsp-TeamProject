@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.shop.command.ProductCommand;
 import com.shop.dto.Bcategory;
 import com.shop.dto.Product;
 import com.shop.util.DBPool;
@@ -367,6 +368,48 @@ public class ProductDao {
 				product = new Product(productNum, scategoryNum, pname, pdesc, price, discount, cnt, regdate, image, 0);
 			}
 			return product;
+			
+		}catch (SQLException s) {
+			s.printStackTrace();
+			return null;
+		}finally {
+			DBPool.close(con, pstmt, rs);
+		}
+	}
+	
+	// 개별 상품 정보 + 상품 상세정보 동시 조회
+	public ProductCommand selectDesc(int productNum) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ProductCommand prd = null;
+		
+		try {
+			String sql = "SELECT * "
+					+ "FROM product p "
+					+ "JOIN productdetail d "
+					+ "ON p.product_num = d.product_num "
+					+ "AND p.product_num = ?";
+			con = DBPool.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, productNum);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				int scategoryNum = rs.getInt("category_num");
+				String pname = rs.getString("pname");
+				String pdesc = rs.getString("pdesc");
+				int price = rs.getInt("price");
+				int discount = rs.getInt("discount");
+				int cnt = rs.getInt("cnt");
+				Date regdate = rs.getDate("regdate");
+				String image = rs.getString("image");
+				int pdescNum = rs.getInt("productdetail_num");
+				String descImg = rs.getString("images");
+				
+				prd = new ProductCommand(productNum, scategoryNum, pname, pdesc, price, discount, cnt, regdate, image, productNum, descImg);
+			}
+			return prd;
 			
 		}catch (SQLException s) {
 			s.printStackTrace();

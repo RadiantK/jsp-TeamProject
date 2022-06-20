@@ -8,6 +8,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.shop.command.ProductCommand;
+import com.shop.dao.CategoryDao;
+import com.shop.dao.ProductDao;
+import com.shop.dao.ReviewDao;
+import com.shop.dto.Product;
+import com.shop.dto.Scategory;
+
 @WebServlet("/product/detail")
 public class ProductDetailController extends HttpServlet {
 	@Override
@@ -15,7 +22,25 @@ public class ProductDetailController extends HttpServlet {
 		
 		int pnum = Integer.parseInt(request.getParameter("pnum"));
 		
+		/* 상품정보 조회용 */
+		ProductDao pdao = ProductDao.getInstance();
+		ProductCommand prd = pdao.selectDesc(pnum);
 		
+		/* 카테고리명 조회용 */
+		int scnum = prd.getScategoryNum();
+		CategoryDao cdao = CategoryDao.getInstance();
+		Scategory scg = cdao.selectCgName(scnum);
+		String stype = scg.getStype();
+		String btype = scg.getBtype();
+		
+		/* 리뷰정보 조회용 */
+		ReviewDao rdao = ReviewDao.getInstance();
+		int rcnt = rdao.getCnt(pnum); // 리뷰개수
+		
+		request.setAttribute("prd", prd);
+		request.setAttribute("btype", btype);
+		request.setAttribute("stype", stype);
+		request.setAttribute("rcnt", rcnt);
 		
 		request.getRequestDispatcher("/WEB-INF/page/product/productDetail.jsp")
 		.forward(request, response);

@@ -30,6 +30,43 @@
   <!-- 부트스트랩 js -->
   <script defer src="${cp}/resource/js/bootstrap.bundle.js"></script>
   <script defer src="${cp}/js/base.js"></script>
+  
+  <script type="text/javascript">
+  	
+  	var xhr = null;
+  
+  	function ChangeValue(){
+  		let qty = document.getElementById("qty").value;
+  		let price = 0;
+  		
+  		if(${prd.discount } == 0){
+  			price = ${prd.price };
+  		}else{
+  			price = ${prd.price - ( prd.price * prd.discount / 100 ) };
+  		}
+  		console.log("개수:"+qty);
+  		console.log("개당가격:"+price);
+  		
+  		xhr = new XMLHttpRequest();
+  		xhr.onreadystatechange = function(){
+  			if(xhr.readyState==4 && xhr.status==200){
+  				let data = xhr.responseText;
+  				let json = JSON.parse(data);
+  				let tPriceArea = document.getElementById("tPrice");
+  				console.log("총금액:"+tPriceArea.innerHTML);
+  				let tPrice = json.tPrice;
+  				console.log("tPrice:"+tPrice);
+  				
+  				tPriceArea.innerHTML = tPrice+"원";
+  			}
+  		};
+  		
+  		// xhr.open('get','/WEB-INF/page/product/qtyChange.jsp?qty='+qty+'&price='+price,true); // WEB-INF 경로 처리(url을 서블릿으로 호출????)
+  		xhr.open('get','${cp}/qtyChange.jsp?qty='+qty+'&price='+price,true);
+  		xhr.send();
+  	}
+  
+  </script>
 </head>
 <body>
 
@@ -39,32 +76,42 @@
 <div id="wrap">
     <div class="product-detail">
         <div class="prd-box">
-            <div class="prd-box-img"><img src="./images/sample.jpeg" alt=""></div>
+            <div class="prd-box-img"><img src="../upload/product/thumbnail/${prd.image }" alt=""></div>
             <div class="prd-box-txt">
 
               <div class="txt-top">
                 <p class="detailCategory">홈ㅤ>ㅤ${btype }ㅤ>ㅤ${stype }</p>
-                <p class="detailPrdName">${pname }</p>
-                <p class="detailShotDesc">${pdesc }</p>
+                <p class="detailPrdName">${prd.pname }</p>
+                <p class="detailShotDesc">${prd.pdesc }</p>
               </div>
 
               <div class="txt-mid">
                 <div class="reviewCountView">
-                  <a href="">3개의 후기 보기</a>
+                  <a href="">${rcnt }개의 후기 보기</a>
                 </div>
                 <div class="help">
-                  <div class="detailPrice">
-                    <p class="leftLabel">판매가</p>
-                    <p class="rightLabel">￦ 10,000</p>
-                  </div>
-                  <div class="detailPriceSale">
-                    <p class="leftLabel">할인가</p>
-                    <p class="rightLabel"><span class="pointTxt">￦ 9,000</span><span> (10%)</span></p>
-                  </div>
+                  <c:choose>
+                  	<c:when test="${prd.discount == 0 }">
+                  		<div class="detailPrice">
+		                    <p class="leftLabel">판매가</p>
+		                    <p class="rightLabel price"><fmt:formatNumber value="${prd.price }" pattern="￦ #,###"/></p>
+		                </div>
+                  	</c:when>
+                  	<c:otherwise>
+                  		<div class="detailPrice">
+		                    <p class="leftLabel">판매가</p>
+		                    <p class="rightLabel"><s><fmt:formatNumber value="${prd.price }" pattern="￦ #,###"/></s></p>
+		                </div>
+                  		<div class="detailPriceSale">
+		                    <p class="leftLabel">할인가</p>
+		                    <p class="rightLabel"><span class="pointTxt price"><fmt:formatNumber value="${prd.price - ( prd.price * prd.discount / 100 ) }" pattern="￦ #,###"/></span><span> (${prd.discount }%)</span></p>
+	                  	</div>
+                  	</c:otherwise>
+                  </c:choose>
                   <div class="detailPriceQty">
                     <p class="leftLabel">구매수량</p>
                     <p class="rightLabel">
-                      <select name="qty" class="tune">
+                      <select id="qty" class="tune" onchange="ChangeValue()">
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -79,7 +126,9 @@
               <div class="txt-bot">
                 <div class="totPrice">
                   <p class="leftLabel">총 금액 </p>
-                  <p class="rightLabel">￦ 9,000</p>
+                  <p class="rightLabel" id="tPrice">
+	                  	<fmt:formatNumber value="${prd.price - ( prd.price * prd.discount / 100 ) * qtyValue }" pattern="####"/>원
+                  </p>
                 </div>
                 <div class="botBtn">
                   <input type="button" value="장바구니" id="btn-cart" class="button">

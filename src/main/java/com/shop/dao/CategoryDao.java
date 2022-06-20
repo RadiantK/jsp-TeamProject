@@ -112,4 +112,33 @@ public class CategoryDao {
 			DBPool.close(con, pstmt, rs);
 		}
 	}
+	
+	/* 소분류카테고리번호로 카테고리명 한꺼번에 조회 */
+	public Scategory selectCgName(int snum) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Scategory scg = null;
+		try {
+			String sql = "select * from scategory where scategory_num = ?";
+			con = DBPool.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, snum);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				String stype = rs.getString("stype");
+				String btype = rs.getString("btype");
+				
+				scg = new Scategory(snum, btype, stype);
+			}
+			return scg;
+			
+		}catch (SQLException s) {
+			s.printStackTrace();
+			return null;
+		}finally {
+			DBPool.close(con, pstmt, rs);
+		}
+	}
 }
