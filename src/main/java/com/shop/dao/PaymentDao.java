@@ -1,7 +1,9 @@
 package com.shop.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.shop.dto.Payment;
@@ -18,6 +20,39 @@ public class PaymentDao {
 			paymentDao = new PaymentDao();
 		}
 		return paymentDao;
+	}
+	
+	// 상세페이지 조회
+	public Payment selectDetail(int orderNum) {
+		
+		String sql = "select * from payment where order_num=?";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = DBPool.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, orderNum);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				int payNum = rs.getInt("payment_num");
+				String means = rs.getString("means");
+				int amount = rs.getInt("amount");
+				Date regdate = rs.getDate("regdate");
+				
+				return new Payment(payNum,orderNum,means,amount,regdate);
+
+			}
+			return null;
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			DBPool.close(con, pstmt, rs);
+		}
 	}
 	
 	// 신규주문 결제정보 추가 

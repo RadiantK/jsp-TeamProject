@@ -293,8 +293,9 @@ function payModule(){
       email2.value="";
       email2.focus();
     } else {
-      email2.disabled=true;
+      email2.disabled=false;
       email2.value=emailChange;
+      email2.readonly="readonly";
     }
   }
 

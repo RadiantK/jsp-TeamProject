@@ -89,7 +89,7 @@
         <thead>
         <tr>
             <th class="tableOrdernum"> 주문일자: ${i.regdate } | 주문번호: ${i.orderNum} </th>
-            <th class="goOrderdetail"> <a href="${cp}/orders/orderdetailMypage" style="color:darkgray"> 상세보기 > </a> </th>
+            <th class="goOrderdetail"> <a href="${cp}/orders/orderdetailMypage?orderNum=${i.orderNum}" style="color:darkgray"> 상세보기 > </a> </th>
         </tr>
         </thead>
         
@@ -99,11 +99,11 @@
                 <c:set var="cnt" value="1"/>
 	        	<c:forEach var="j" items="${orderDetail}">
 	        	<c:if test="${i.orderNum == j.orderNum}">
-	        	<c:set var="cnt" value="${cnt+1}"/>
+		        <c:set var="cnt" value="${cnt+1}"/>
 	                <tr>
 	                <td>
 	                <img src="${cp}/images/${j.image}" class="itemImg"><br>
-	                <span class="itemName"><a href="${cp}/orders/orderdetailMypage"> ${j.pname} </a><br>
+	                <span class="itemName"><a href="${cp}/orders/orderdetailMypage?orderNum=${j.orderNum}"> ${j.pname} </a><br>
 	                <span class="itemPay"> ￦ ${j.total} </span></span>
 	                </td>
 	                </tr>
@@ -112,7 +112,7 @@
 	            
                </table>
             </th>
-        	<th rowspan="${cnt}"> <p class="orderState"> 결제완료 </p> </th>
+        	<th rowspan="${cnt}"><p class="orderState">${i.orderState}</p> </th>
         </tr>
         
     </table>
