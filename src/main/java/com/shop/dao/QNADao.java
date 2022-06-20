@@ -6,11 +6,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.tomcat.dbcp.dbcp2.SQLExceptionList;
 
 import com.shop.dto.Notice;
 import com.shop.dto.QNA;
+import com.shop.dto.QNAComment;
 import com.shop.util.DBPool;
 
 public class QNADao {
@@ -64,7 +66,7 @@ public class QNADao {
 		}
 	}
 	
-	public ArrayList<QNA> QNAList(int startRow,int endRow){ // 공지 목록 불러오는 DAO + 페이징 처리
+	public ArrayList<QNA> QNAList(int startRow,int endRow){ // 전체 1:1문의 목록 불러오는 DAO + 페이징 처리
 		String sql="select * from "
 				+ "( "
 				+ "	select aa.*,rownum rnum from "
@@ -87,6 +89,45 @@ public class QNADao {
 				int qnaNum=rs.getInt("qna_Num");
 				String memberNum=rs.getString("member_num");
 				String nickname=rs.getString("nickname");
+				String title=rs.getString("title");
+				String content=rs.getString("content");
+				String image=rs.getString("image");
+				Date regdate=rs.getDate("regdate");
+				QNA dto=new QNA(qnaNum, memberNum, nickname, title, content, image, regdate);
+				list.add(dto);
+			}
+			return list;
+		}catch(SQLException se) {
+			se.printStackTrace();
+			return null;
+		}finally {
+			DBPool.close(con, pstmt, rs);
+		}
+	}
+	public ArrayList<QNA> memberQNAList(int startRow,int endRow,String nickname){ // 회원별 1:1문의 목록 불러오는 DAO + 페이징 처리
+		String sql="select * from "
+				+ "( "
+				+ "	select aa.*,rownum rnum from "
+				+ "	( "
+				+ "	select * from qna where nickname=? or nickname='admin' "
+				+ "	order by qna_num desc "
+				+ "	)aa "
+				+ ")where rnum between ? and ?";
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=DBPool.getConnection();
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, nickname);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rs=pstmt.executeQuery();
+			ArrayList<QNA> list=new ArrayList<QNA>();
+			while(rs.next()) {
+				int qnaNum=rs.getInt("qna_Num");
+				String memberNum=rs.getString("member_num");
+				nickname=rs.getString("nickname");
 				String title=rs.getString("title");
 				String content=rs.getString("content");
 				String image=rs.getString("image");
@@ -185,6 +226,28 @@ public class QNADao {
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, qnaNum);
 			return pstmt.executeUpdate();
+		}catch(SQLException se) {
+			se.printStackTrace();
+			return -1;
+		}finally {
+			DBPool.close(con, pstmt);
+		}
+	}
+	public int isComment(int qnaNum) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=DBPool.getConnection();
+			String sql="select count(*) as count from qnacomment where qna_num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, qnaNum);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				int count=rs.getInt("count");
+				return count;
+			}
+			return -1;
 		}catch(SQLException se) {
 			se.printStackTrace();
 			return -1;

@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,48 +46,31 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/page/include/header.jsp" />
+	<div class="container" style="margin-top: 20px;">
+						<h1>1:1문의(관리자용)</h1>
+						<form action="${cp }/board/QNA/Comment/Update?qnaNum=${vo.qnaNum}"
+							method="post">
+							<div class="form-group">
+								<label for="title">제목</label><br> <input type="text"
+									class="form-control" id="title" value="${vo.title }"
+									name="title">
+							</div>
 
+							<div class="form-group">
+								<label for="writer">작성자</label><br> <input type="text"
+									class="form-control" id="nickname" name="nickname"
+									value="${sessionId }" readonly="readonly">
+							</div>
 
-	<main>
-		<div class="container">
-			<div class="row">
-				<div class="col-xs-12">
-					<h1>자주 묻는 질문</h1>
-					<br>
-				</div>
-				<table class="table">
-					<thead>
-						<tr>
-							<td colspan="3" style="width: 100%"><h1>${vo.title }</h1></td>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td colspan="2" style="width: 15%">${vo.nickname }</td>
-							<td colspan="2" style="width: 70%">${vo.regdate }</td>
-						</tr>
-						<tr>
-							<td colspan="10" style="height: 400px; text-align: left;"><br>
-							<br><pre>${vo.content}</pre></td>
-						</tr>
-					</tbody>
-				</table>
-				<div class="btn-group">
-					<a href="${cp }/board/FAQ/List" class="button btn--reverse">목록</a>&nbsp;&nbsp;
-					<!-- 세션에 담긴 Id가 관리자인 경우에만 공지내용 수정 및 삭제가능. -->
-					<c:if test="${sessionId=='admin' }">
-						<a href="${cp }/board/FAQ/Update?faqNum=${vo.faqNum}"
-							class="button btn--reverse">수정</a> &nbsp;&nbsp;
-					<a onclick="return confirm('삭제하시겠습니까?')"
-							href="${cp }/board/FAQ/Delete?faqNum=${vo.faqNum}"
-							class="button btn--reverse">삭제</a>
-					</c:if>
-
-				</div>
-			</div>
-		</div>
-	</main>
-
+							<div class="form-group">
+								<label for="content">내용</label><br>
+								<textarea class="form-control" rows="10" id="content"
+									name="content">${vo.content }</textarea>
+							</div>
+							<br>
+							<button type="submit" class="button btn--reverse">수정</button>
+						</form>
+					</div>
 	<jsp:include page="/WEB-INF/page/include/footer.jsp" />
 </body>
 </html>

@@ -66,7 +66,7 @@
           </a>
         </li>
         <li class="item">
-          <a href="${cp }/board/QNA/List">
+          <a href="${cp }/admin/QNA/List">
             <span class="material-symbols-outlined">
               contact_support
             </span>

@@ -95,7 +95,7 @@
 			<div class="row">
 				<div class="col-xs-12">
 					<!-- 세션에 담긴 Id가 관리자일 경우에만 공지 등록 가능하도록 설정 -->
-					<c:if test="${sessionId=='admin@admin.com' }">
+					<c:if test="${sessionId=='admin' }">
 						<a href="${cp }/board/Notice/insert" class="button btn--reverse"
 							style="float: right">공지등록</a>
 					</c:if>

@@ -63,8 +63,9 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td colspan="2" style="width: 30%">${vo.nickname }</td>
-							<td colspan="2" style="width: 70%">${vo.regdate }</td>
+							<td colspan="2" style="width: 20%">${vo.nickname }</td>
+							<td colspan="2" style="width: 60%">${vo.regdate }</td>
+							<td colspan="2" style="width: 20%; color: #35C5F0" >${state }</td>
 						</tr>
 
 						<c:if test="${vo.image != null}">
@@ -77,33 +78,36 @@
 
 						<tr>
 							<td colspan="10" style="height: 400px; text-align: left;">
-								${vo.content }<br>
+								<pre>${vo.content }</pre><br>
 							</td>
 						</tr>
 					</tbody>
 				</table>
-				<div id="commList">
-				<table class="table">
-					<thead>
-						<tr>
-							<td colspan="3" style="width: 100%"><h1>${dto.title }</h1></td>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td colspan="2" style="width: 30%">${dto.nickname }</td>
-							<td colspan="2" style="width: 70%">${dto.regdate }</td>
-						</tr>
-						<tr>
-							<td colspan="10" style="height: 400px; text-align: left;">
-								${dto.content }<br>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-				</div>
+				<!-- 답변이 있을 때만 보이도록 설정 -->
+				<c:if test="${dto.content != null }">
+					<div id="commList">
+						<table class="table">
+							<thead>
+								<tr>
+									<td colspan="3" style="width: 100%"><h1>${dto.title }</h1></td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td colspan="2" style="width: 30%">${dto.nickname }</td>
+									<td colspan="2" style="width: 70%">${dto.regdate }</td>
+								</tr>
+								<tr>
+									<td colspan="10" style="height: 400px; text-align: left;">
+										<pre>${dto.content }</pre><br>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</c:if>
 				<a href="${cp }/board/QNA/List" class="button btn--reverse">목록</a>&nbsp;&nbsp;
-				<c:if test="${sessionId =='admin@admin.com' }">
+				<c:if test="${sessionId =='admin' and dto.content != null }">
 					<a href="${cp }/board/QNA/Comment/Update?qnaNum=${vo.qnaNum}"
 						class="button btn--reverse">수정</a> &nbsp;&nbsp;
 					<a onclick="return confirm('삭제하시겠습니까?')"
@@ -111,7 +115,7 @@
 						class="button btn--reverse">삭제</a>
 				</c:if>
 				<!-- 세션에 담긴 Id가 관리자인 경우 답글을 달 수 있도록 설정 -->
-				<c:if test="${sessionId =='admin@admin.com' }">
+				<c:if test="${sessionId =='admin' }">
 					<div class="container" style="margin-top: 20px;">
 						<h1>1:1문의(관리자용)</h1>
 						<form action="${cp }/board/QNA/Comment/insert?qnaNum=${vo.qnaNum}"
@@ -119,19 +123,19 @@
 							<div class="form-group">
 								<label for="title">제목</label><br> <input type="text"
 									class="form-control" id="title" value="[re]${vo.title }"
-									name="title">
+									name="title"><br>
 							</div>
 
 							<div class="form-group">
 								<label for="writer">작성자</label><br> <input type="text"
 									class="form-control" id="nickname" name="nickname"
-									value="${sessionId }" readonly="readonly">
+									value="${sessionId }" readonly="readonly"><br>
 							</div>
 
 							<div class="form-group">
 								<label for="content">내용</label><br>
 								<textarea class="form-control" rows="10" id="content"
-									name="content" placeholder="내용 작성(최대 500자)"></textarea>
+									name="content" placeholder="내용 작성(최대 500자)"></textarea><br>
 							</div>
 							<br>
 							<button type="submit" class="button btn--reverse">답변등록</button>
@@ -139,7 +143,7 @@
 					</div>
 					<!-- 세션에 담긴 Id가 관리자가 아닐 경우 자신의 글 수정 삭제 가능. -->
 				</c:if>
-				<c:if test="${sessionId !='admin@admin.com' }">
+				<c:if test="${sessionId !='admin' }">
 					<a href="${cp }/board/QNA/Update?qnaNum=${vo.qnaNum}"
 						class="button btn--reverse">수정</a> &nbsp;&nbsp;
 					<a onclick="return confirm('삭제하시겠습니까?')"
