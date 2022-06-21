@@ -25,6 +25,8 @@
 
 <script defer src="${cp}/resource/js/bootstrap.bundle.js"></script>
 <script defer src="${cp}/js/common.js"></script>
+<script defer src="${cp}/js/cartList.js"></script>
+
 </head>
 <body>
     
@@ -33,15 +35,10 @@
      
 	<!-- 장바구니 메인 -->
     <div class="pageWrap">
+    <input type="hidden" value="${cp}" id="cp" />
     
     <h2 class="orderTitle"> 장바구니 </h2>
  
-<!-- 장바구니 비었을 때 
-<div class="nullDiv">
-  <img src="../images/cartNull.jpeg">
-</div>
- -->
- 		
  		<c:if test="${not empty sessionId}">
  			<input type="hidden" id="sessionValue" value="login" />
  		</c:if>
@@ -49,12 +46,13 @@
  			<input type="hidden" id="sessionValue" value="nonMember" />
  		</c:if>
     
-    <form name="cartForm">
+    <form name="cartForm" onsubmit="return false()">
     
     <table class="cartTable">
 			<thead>
 				<tr>
-					<th> <input type="checkbox" name="cart" onclick="selectAll(this)"> </th>
+					<th> <input type="checkbox" name="chkAll" onclick="selectAll(this)">
+					</th>
 					<th style="width:400px"> 제품정보 </th>
 					<th> 금액 </th>
 					<th> 수량 </th>
@@ -65,34 +63,19 @@
 			</thead>
 			<tbody>
 <!-- 				<tr>
-					<td> <input type="checkbox" name="cart"></td>
-					<td>
+					<td> <input type="checkbox" name="chk[]">
+					<input type="hidden" name="pnum[]" value="cart[i].productNum"></td>
+					<td>				
 						<img src="./images/orderTest.png" class="itemImg"> 
 						<p class="itemName"> 두닷 콰트로 에어데스크 1000 </p>
 					</td>
 					<td> 10,000 </td>
 					<td>
-						<input type="button" name="plus" id="plus" class="amountBtn" value=" + " onclick="amountCal(this,1)">
-						<input type="text" name="amount" id="amount" value="1">
-						<input type="button" name="minus" id="minus" class="amountBtn" value=" － " onclick="amountCal(this,2)">
+						<input type="button" name="plus" id="plus" class="pieceBtn" value=" + " onclick="pieceCal(this,1)">
+						<input type="text" name="piece[]" id="piece" value="1">
+						<input type="button" name="minus" id="minus" class="pieceBtn" value=" － " onclick="pieceCal(this,2)">
 					</td>
 					<td class="sumPrice"> 10,000 </td>
-					<td> 2,500 </td>
-					<td> <input type="button" value="삭제" class="cartDelete" onclick=""> </td>
-				</tr>
-				<tr>
-					<td> <input type="checkbox" name="cart"></td>
-					<td>
-						<img src="./images/orderTest2.jpg" class="itemImg">
-						<p class="itemName"> 시디즈 화이트쉘 </p>
-					</td>
-					<td> 15,000 </td>
-					<td>
-						<input type="button" name="plus" id="plus" class="amountBtn" value=" + " onclick="amountCal(this,1)">
-						<input type="text" name="amount" id="amount" value="1">
-						<input type="button" name="minus" id="minus" class="amountBtn" value=" － " onclick="amountCal(this,2)">
-					</td>
-					<td class="sumPrice"> 30,000 </td>
 					<td> 2,500 </td>
 					<td> <input type="button" value="삭제" class="cartDelete" onclick=""> </td>
 				</tr> -->
@@ -101,184 +84,17 @@
       
 
       <div class="cartPrice">
-        총 3개의 상품금액  ￦ 40,000  +  배송비  ￦ 5,000  = <span class="totalPrice"> ￦ 45,000 </span>
+        총 3개의 상품금액  ￦ 40,000  +  배송비  착불  = <span class="totalPrice"> ￦ 45,000 </span>
       </div>
       </form>
     
       <div class="btnDiv">
         <a href="javascript:history.back();" class="btnWhite"> 이전으로 </a> 
-        <a href="${cp}/orders/order" class="btnBlue"> 주문하기 </a>
+        <input type="submit" id="orderBtn" value="구매하기" onclick="orders(this)" class="btnUpdate">
       </div>
     
 	</div> 
     
-<script type="text/javascript">
-
-// 수량 설정 
-function amountCal(me, n){
-	if(n==1){
-    	let amount = me.nextElementSibling;
-        amount.value = parseInt(amount.value) + 1;
-    } else if (n==2){
-    	let amount = me.previousElementSibling;
-        if (amount.value=='1') return;
-        amount.value = parseInt(amount.value) - 1;
-    }
-}
-
-// 전체 체크 
-function selectAll(selectAll){
-	var boxes = document.getElementsByName('cart');
-    boxes.forEach((checkbox) => {checkbox.checked=selectAll.checked});
-}
-
-// 장바구니리스트
-window.onload = function(){
-	cartList();
-}
-
-function cartList(){
-	let sessionValue = document.getElementById('sessionValue').value;
-	console.log(sessionValue);
-	// 회원이면
-	if(sessionValue == 'login'){
-		let xhr = new XMLHttpRequest();
-		xhr.onreadystatechange = function(){
-			if(xhr.readyState == 4 && xhr.status == 200){
-				let data = xhr.responseText;
-				let json = JSON.parse(data);
-				console.log(json);
-				
-				let tbodyEl = document.querySelector('tbody');
-				let cart = json.cart;
-				
-				if(cart.length != 0) {
-					// 장바구니 목록 초기화
-					let tbodyChildsEl = tbodyEl.childNodes;
-					for(let i = tbodyChildsEl.length-1; i >= 0; i--) {
-						let tc = tbodyChildsEl.item(i);
-						tbodyEl.removeChild(tc);
-					}
-					
-					// 장바구니 목록 출력
-					for(let i = 0; i < cart.length; i++){
-						let trEl = document.createElement('tr');
-						trEl.innerHTML = 
-						  "<td><input type='checkbox' name='cart' /></td>" +
-						  "<td><img src='"+cart[i].img+"' class='itemImg' alt='상품이미지'/>" + 
-						  "<p class='itemName'>"+cart[i].pname+"</p></td>" +
-						  "<td>"+cart[i].price+"</td>" + 
-						  "<td><input type='button' name='plus' class='amountBtn' value=' + ' onclick='amountCal(this,1)' />" +
-						  "<input type='text' name='amount' id='amount' value='"+cart[i].cnt+"' />" + 
-						  "<input type='button' name='minus' class='amountBtn' value=' - ' onclick='amountCal(this,2)' /></td>" + 
-						  "<td class='sumPrice'>합계</td>" + 
-						  "<td> 2,500 </td>" + 
-						  "<td><input type='button' value='삭제' class='cartDelete' onclick='deleteCart("+cart[i].cartDetailNum+")' /></td>";
-						  
-						 tbodyEl.appendChild(trEl);
-					}
-				}else {
-					let tbodyChildsEl = tbodyEl.childNodes;
-					for(let i = tbodyChildsEl.length-1; i >= 0; i--) {
-						let tc = tbodyChildsEl.item(i);
-						tbodyEl.removeChild(tc);
-					}
-					// 장바구니 목록 출력
-					let trEl = document.createElement('tr');
-					trEl.innerHTML = 
-					  "<td style='text-align: center; height: 50px;' colspan='7'>목록이 존재하지 않습니다.</td>";
-					  
-					 tbodyEl.appendChild(trEl);
-				}
-				
-			}
-		}
-		xhr.open('get', "${cp}/user/cart/list", true);
-		xhr.send();
-		
-	}else { // 비회원이면
-		let xhr = new XMLHttpRequest();
-		xhr.onreadystatechange = function(){
-			if(xhr.readyState == 4 && xhr.status == 200){
-				let data = xhr.responseText;
-				let json = JSON.parse(data);
-				console.log(json);
-				
-				let tbodyEl = document.querySelector('tbody');
-				let cart = json.cart;
-				
-				if(cart.length != 0) {
-					// 장바구니 목록 초기화
-					let tbodyChildsEl = tbodyEl.childNodes;
-					for(let i = tbodyChildsEl.length-1; i >= 0; i--) {
-						let tc = tbodyChildsEl.item(i);
-						tbodyEl.removeChild(tc);
-					}
-					
-					// 장바구니 목록 출력
-					for(let i = 0; i < cart.length; i++){
-						let trEl = document.createElement('tr');
-						trEl.innerHTML = 
-						  "<td><input type='checkbox' name='cart' /></td>" +
-						  "<td><img src='"+cart[i].img+"' class='itemImg' alt='상품이미지'/>" + 
-						  "<p class='itemName'>"+cart[i].pname+"</p></td>" +
-						  "<td>"+cart[i].price+"</td>" + 
-						  "<td><input type='button' name='plus' class='amountBtn' value=' + ' onclick='amountCal(this,1)' />" +
-						  "<input type='text' name='amount' id='amount' value='1' />" + 
-						  "<input type='button' name='minus' class='amountBtn' value=' - ' onclick='amountCal(this,2)' /></td>" + 
-						  "<td class='sumPrice'>합계</td>" + 
-						  "<td> 2,500 </td>" + 
-						  "<td><input type='button' value='삭제' class='cartDelete' onclick='deleteCart("+cart[i].index+")' /></td>";
-						  
-						 tbodyEl.appendChild(trEl);
-					}
-				}else {
-					let tbodyChildsEl = tbodyEl.childNodes;
-					for(let i = tbodyChildsEl.length-1; i >= 0; i--) {
-						let tc = tbodyChildsEl.item(i);
-						tbodyEl.removeChild(tc);
-					}
-					// 장바구니 목록 출력
-					let trEl = document.createElement('tr');
-					trEl.innerHTML = 
-						"<td style='text-align: center; height: 50px;' colspan='7'>목록이 존재하지 않습니다.</td>";
-					  
-					 tbodyEl.appendChild(trEl);
-				}
-			}
-		}
-		xhr.open('get', "${cp}/user/cart/list", true);
-		xhr.send();
-	}
-	
-}
-
-function deleteCart(cdNum){
-	let confirmMsg = confirm('장바구니 목록에서 제거하시겠습니까?');
-	if(confirmMsg){
-		let xhr = new XMLHttpRequest();
-		xhr.onreadystatechange = function() {
-			if(xhr.readyState == 4 && xhr.status == 200){
-				let data = xhr.responseText;
-				let json = JSON.parse(data);
-				
-				if(json.code == true){
-					alert('장바구니에서 제거되었습니다.');
-					cartList();
-				}else {
-					alert('목록에서 제거에 실패했습니다.');
-				}
-			}
-		}
-		xhr.open('get', "${cp}/user/cart/delete?cnum="+cdNum, true);
-		xhr.send();
-		
-	}else {
-		alert('취소했습니다.')
-	}
-}
-      
-</script>
     
    	<!-- FOOTER -->
 	<jsp:include page="/WEB-INF/page/include/footer.jsp" />
