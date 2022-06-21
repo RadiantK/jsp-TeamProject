@@ -110,9 +110,9 @@ public class OrderDetailDao {
 		String sql = "select od.* from "
 				+ "(select * from "
 				+ "(select o1.*, rownum rnum from "
-				+ "(select * from orders where email=? and orderpwd=?"
-				+ " and orderstate=? order by order_num desc) o1)"
-				+ "where rnum>=? and rnum<=?) o2"
+				+ "(select * from orders where email=? and orderpwd=? and orderstate=? "
+				+ "order by order_num desc) o1) "
+				+ "where rnum>=? and rnum<=?) o2 "
 				+ "join orderdetail od on o2.order_num=od.order_num";
 		Connection con = null;
 		PreparedStatement pstmt = null;
