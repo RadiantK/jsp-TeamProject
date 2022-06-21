@@ -49,6 +49,27 @@
   </section>
 
 <!-- 바디 메인 -->
+<script>
+	window.onload = function() {
+		var msg = <%=request.getAttribute("msg")%>;
+		
+		if(msg!=null && msg!=""){
+			alert("msg");
+			
+		} else {
+			return;
+		}
+	}
+
+	function orderCancle(){
+		var onum = <%=request.getParameter("orderNum")%>;
+		
+		if(confirm("주문을 취소하시겠습니까?")){
+			location.href='<%=request.getContextPath()%>/orders/orderCancle?orderNum='+ onum;
+			
+		} else return;
+	}
+</script>
 <div class="pageWrap">
 
     <h3 class="title"> 주문 상세 </h3> <p> (주문일자: ${orders.regdate} | 주문번호 : ${orders.orderNum}) </p>
@@ -82,7 +103,7 @@
             </td>
            	<td rowspan="${cnt}"> ${orders.amount}원 </td>
           	<td rowspan="${cnt}"> ${orders.orderState} </td>
-          	<td rowspan="2"> <input type="button" name="" value="주문취소" class="btnCancle"></td>
+          	<td rowspan="2"> <input type="button" name="" value="주문취소" class="btnCancle" onclick="orderCancle()"></td>
          </tr>
         
     </table>
@@ -147,27 +168,5 @@
    	<!-- FOOTER -->
 	<jsp:include page="/WEB-INF/page/include/footer.jsp" />
     
-    
-<script>
-	window.onload = function() {
-		var msg = <%= request.getParameter("msg")%>;
-		
-		if(msg!=null && msg!=""){
-			alter("msg");
-			
-		} else {
-			return;
-		}
-	}
-
-	function orderCancle(){
-		var onum = <%=request.getParameter("orderNum")%>;
-		
-		if(confirm("주문을 취소하시겠습니까?")){
-			location.href='<%=request.getContextPath()%>/orders/orderCancle?orderNum='+ onum;
-			
-		} else return;
-	}
-</script>
 </body>
 </html>

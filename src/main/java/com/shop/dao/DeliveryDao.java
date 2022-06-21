@@ -22,6 +22,32 @@ public class DeliveryDao {
 		return deliveryDao;
 	}
 	
+	// 관리자 배송테이블 수정 
+	public int deliveryUpdate(Delivery del) {
+		String sql = "update delivery set delname=?, delphone=?, address=?, delmsg=? where order_num=?";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = DBPool.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(5, del.getOrderNum());
+			pstmt.setString(1, del.getDelName());
+			pstmt.setString(2, del.getDelPhone());
+			pstmt.setString(3, del.getAddress());
+			pstmt.setString(4, del.getDelMsg());
+
+			return pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+			return -1;
+		}finally {
+			DBPool.close(con, pstmt);
+		}
+	}
+	
+	
 	// 상세페이지 조회
 	public Delivery selectDetail(int orderNum) {
 		

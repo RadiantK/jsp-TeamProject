@@ -22,14 +22,12 @@ public class OrderCancleController extends HttpServlet {
 		int n = dao.orderCancle(orderNum);
 		String msg = null;
 		
-		
 		if(n<0) {
 			msg = "주문이 취소되었습니다.";
 				
 		} else {
 			msg = "주문취소를 실패했습니다. 다시 시도해주세요.";
 		}
-		System.out.println(msg);
 		
 		req.setAttribute("orderNum", orderNum);
 		req.setAttribute("msg", msg);
