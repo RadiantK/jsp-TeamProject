@@ -94,4 +94,20 @@ public class DBPool {
 			e.printStackTrace();
 		}
 	}
+	
+	public static void setAutoCommitFalse(Connection con) {
+		try {
+			con.setAutoCommit(false);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void setAutoCommitTrue(Connection con) {
+		try {
+			con.setAutoCommit(true);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }
