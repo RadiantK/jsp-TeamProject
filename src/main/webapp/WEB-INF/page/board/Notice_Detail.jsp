@@ -73,8 +73,11 @@
 							<td colspan="2" style="width: 15%">조회수&nbsp; ${vo.hit  }</td>
 						</tr>
 						<tr>
-							<td colspan="10" style="height: 400px; text-align: left;"><br>
-							<br><pre>${vo.content}</pre></td>
+							<td colspan="10" style="height: 400px; text-align: left;">
+							<br>
+							<br>
+							<pre>${vo.content}</pre>
+							</td>
 						</tr>
 					</tbody>
 				</table>

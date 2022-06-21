@@ -31,7 +31,6 @@ public class QNAInsertController extends HttpServlet{
 			}else {
 			MemberDao dao=MemberDao.getInstance();
 			Member dto=dao.selectOne(email);
-			System.out.println("dto:" + dto);
 			req.setAttribute("dto", dto);
 		
 			req.getRequestDispatcher("/WEB-INF/page/board/QNA_insertForm.jsp").forward(req, resp);
@@ -50,7 +49,6 @@ public class QNAInsertController extends HttpServlet{
 				new DefaultFileRenamePolicy() // 동일한 파일명이 존재할 시 이를 처리할 객체
 				);	
 		String memberNum=mr.getParameter("memberNum");
-		System.out.println("memberNum:"+ memberNum);
 		String nickname=mr.getParameter("nickname");
 		String title=mr.getParameter("title");
 		String content=mr.getParameter("content");

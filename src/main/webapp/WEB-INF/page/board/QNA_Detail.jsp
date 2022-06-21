@@ -85,6 +85,8 @@
 
 						<tr>
 							<td colspan="10" style="height: 400px; text-align: left;">
+								<br>
+								<br>
 								<pre>${vo.content }</pre><br>
 							</td>
 						</tr>
@@ -106,6 +108,8 @@
 								</tr>
 								<tr>
 									<td colspan="10" style="height: 400px; text-align: left;">
+										<br>
+										<br>
 										<pre>${dto.content }</pre><br>
 									</td>
 								</tr>
