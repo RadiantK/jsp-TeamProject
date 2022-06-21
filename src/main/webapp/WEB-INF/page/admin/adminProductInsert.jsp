@@ -25,7 +25,7 @@
   
   <!-- 부트스트랩 js -->
   <script defer src="${cp}/resource/js/bootstrap.bundle.js"></script>
-  <script defer src="${cp}/js/base.js"></script>
+  <script defer src="${cp}/js/common.js"></script>
 </head>
 <body>
 
