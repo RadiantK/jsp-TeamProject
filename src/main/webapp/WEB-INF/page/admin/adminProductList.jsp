@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -48,26 +50,67 @@
             <div class="cg-menu">
                 <div class="cg-menu-title">
                     <div class="list-txt">
-                        <span><strong>전체 제품 목록</strong></span>
+                        <span><strong><a href="?bcnum=0&scnum=0">전체 제품 목록</a>
+                        <c:choose>
+	                        <c:when test="${bcnum != 0 }">
+	                         - ${btype }
+	                        </c:when>
+                        </c:choose>
+                        </strong></span>
                     </div>
                     <div class="choice">
-                        <select name="sort" class="tune">
-                            <option value="">신제품순</option>
-                            <option value="">재고순</option>
-                            <option value="">리뷰많은순</option>
-                            <option value="">낮은가격순</option>
-                            <option value="">높은가격순</option>
+                        <select name="sort" class="tune" onchange="if(this.value) location.href=(this.value);">
+                            <option value="">==정렬순==</option>
+	                            <option value="?bcnum=${bcnum }&scnum=${scnum }&sort=date">신제품순</option>
+	                            <option value="?bcnum=${bcnum }&scnum=${scnum }&sort=review">리뷰많은순</option>
+	                            <option value="?bcnum=${bcnum }&scnum=${scnum }&sort=lowPrice">낮은가격순</option>
+	                            <option value="?bcnum=${bcnum }&scnum=${scnum }&sort=highPrice">높은가격순</option>
                         </select>
                     </div>
                 </div>
                 <div class="cg-menu-list">
-                    <ul>
-                        <li><a href="" class="select">전체(0)</a></li>
-                        <li><a href="">가구(0)</a></li>
-                        <li><a href="">패브릭(0)</a></li>
-                        <li><a href="">조명(0)</a></li>
-                        <li><a href="">가전(0)</a></li>
-                        <li><a href="">주방용품(0)</a></li>
+                    <ul><!-- 첫화면에선 전체상품+대분류 카테고리 출력 -->
+	                    	<c:choose>
+	                    		
+		                    	<c:when test="${bcnum == 0 }">
+		                    		<li><a href="?bcnum=0&scnum=0" class="select">전체(${totCnt })</a></li>
+		                    		<c:forEach var="bcg" items="${bcgList }">
+			                        	<c:choose>
+			                        		<c:when test="${bcg.bcategoryNum == bcnum }">
+			                        			<li><a href="?bcnum=${bcg.bcategoryNum }&scnum=${scnum }" class="select">${bcg.btype }(${pdao.getCountBcg(bcg.bcategoryNum) })</a></li>
+			                        		</c:when>
+			                        		<c:otherwise>
+			                        			<li><a href="?bcnum=${bcg.bcategoryNum }&scnum=${scnum }">${bcg.btype }(${pdao.getCountBcg(bcg.bcategoryNum) })</a></li>
+			                        		</c:otherwise>
+			                        	</c:choose>
+	                        		</c:forEach>
+		                    	</c:when>
+		                    	
+	                    		<c:otherwise>
+	                    		
+	                    			<c:choose>
+	                    				<c:when test="${scnum == 0 }">
+	                    					<li><a href="?bcnum=${bcnum }&scnum=0" class="select">전체(${bcgCnt })</a></li>
+	                    				</c:when>
+	                    				<c:otherwise>
+	                    					<li><a href="?bcnum=${bcnum }&scnum=0">전체(${bcgCnt })</a></li>
+	                    				</c:otherwise>
+	                    			</c:choose>
+	                    			
+	                    			<c:forEach var="scg" items="${scgList }">
+			                        	<c:choose>
+			                        		<c:when test="${scg.scategoryNum == scnum }">
+			                        			<li><a href="?bcnum=${bcnum }&scnum=${scg.scategoryNum }" class="select">${scg.stype }(${pdao.getCountScg(scg.scategoryNum) })</a></li>
+			                        		</c:when>
+			                        		<c:otherwise>
+			                        			<li><a href="?bcnum=${bcnum }&scnum=${scg.scategoryNum }">${scg.stype }(${pdao.getCountScg(scg.scategoryNum) })</a></li>
+			                        		</c:otherwise>
+			                        	</c:choose>
+	                        		</c:forEach>
+	                    		</c:otherwise>
+	                    		
+	                    	</c:choose>
+	                    	
                     </ul>
                 </div>
             </div>
@@ -76,7 +119,7 @@
                 <table>
                     <thead>
                         <tr>
-                            <th width="50">제품사진</th>
+                            <th width="100">제품사진</th>
                             <th width="400">제품명</th>
                             <th>가격</th>
                             <th>할인가격</th>
@@ -88,47 +131,51 @@
                     </thead>
 
                     <tbody>
-                        <tr>
-                            <td><div class="img-container"><img src="./images/sample.jpeg" alt=""></div></td>
-                            <td><span class="prdName">제품명제품명제품명</span></td>
-                            <td><span class="price">￦ 10,000</span></td>
-                            <td><span class="price-sale">￦ 9,000</span><span> (10%)</span></td>
-                            <td><span class="qty">100개</span></td>
-                            <td><span class="date">2022.01.01</span></td>
+                    	<c:forEach var="prd" items="${pList }">
+                    	<tr>
+                            <td><div class="img-container"><img src="${cp }/upload/product/thumbnail/${prd.image }" alt="${prd.pname }"></div></td>
+                            <td><span class="prdName">${prd.pname }</span></td>
+                            
+                            <c:choose>
+                             <c:when test="${prd.discount == 0 }">
+                              <td><span class="price"><fmt:formatNumber value="${prd.price }" pattern="￦ #,###"/></span></td>
+                              <td><span class="price-sale">-</span></td>
+                             </c:when>
+                             <c:otherwise>
+                              <td><span class="price"><fmt:formatNumber value="${prd.price }" pattern="￦ #,###"/></span></td>
+                              <td><span class="price-sale"><fmt:formatNumber value="${prd.price - ( prd.price * prd.discount / 100 ) }" pattern="￦ #,###"/> (${prd.discount }%)</span></td>
+                             </c:otherwise>
+                            </c:choose>
+                            
+                            <td><span class="qty">${prd.cnt }개</span></td>
+                            <td><span class="date">${prd.regdate }</span></td>
                             <td><a href=""><span class="modify">수정</span></a></td>
                             <td><a href=""><span class="delete">삭제</span></a></td>
                         </tr>
-                        <tr>
-                            <td><div class="img-container"><img src="./images/sample.jpeg" alt=""></div></td>
-                            <td><span class="prdName">제품명제품명제품명</span></td>
-                            <td><span class="price">￦ 10,000</span></td>
-                            <td><span class="price-sale">￦ 9,000</span><span> (10%)</span></td>
-                            <td><span class="qty">100개</span></td>
-                            <td><span class="date">2022.01.01</span></td>
-                            <td><a href=""><span class="modify">수정</span></a></td>
-                            <td><a href=""><span class="delete">삭제</span></a></td>
-                        </tr>
-                        <tr>
-                            <td><div class="img-container"><img src="./images/sample.jpeg" alt=""></div></td>
-                            <td><span class="prdName">제품명제품명제품명</span></td>
-                            <td><span class="price">￦ 10,000</span></td>
-                            <td><span class="price-sale">￦ 9,000</span><span> (10%)</span></td>
-                            <td><span class="qty">100개</span></td>
-                            <td><span class="date">2022.01.01</span></td>
-                            <td><a href=""><span class="modify">수정</span></a></td>
-                            <td><a href=""><span class="delete">삭제</span></a></td>
-                        </tr>
+                    	</c:forEach>
+
                     </tbody>
                 </table>
                 
             </div>
             <!-- 페이징 -->
             <div class="board-paging">
-                <ul class="help">
-                    <li><a href="">1</a></li>
-                    <li><a href="">2</a></li>
-                    <li><a href="">3</a></li>
-                </ul>
+	                <c:if test="${startPage>pageNumBox }">
+	                	<a href="?bcnum=${bcnum }&scnum=${scnum }&sort=${sort }&pageNum=${startPage-1 }"><span>이전</span></a>
+	                </c:if>
+	                <c:forEach var="i" begin="${startPage }" end="${endPage }">
+	                	<c:choose>
+	                		<c:when test="${pageNum==i }">
+	                			<u><span>${i }</span></u>
+	                		</c:when>
+	                		<c:otherwise>
+	                			<a href="?bcnum=${bcnum }&scnum=${scnum }&sort=${sort }&pageNum=${i }">${i }</a>
+	                		</c:otherwise>
+	                	</c:choose>
+	                </c:forEach>
+	                <c:if test="${endPage<pageCount }">
+	                	<a href="?bcnum=${bcnum }&scnum=${scnum }&sort=${sort }&pageNum=${endPage+1 }"><span>다음</span></a>
+	                </c:if>
             </div>
             
         </div>
