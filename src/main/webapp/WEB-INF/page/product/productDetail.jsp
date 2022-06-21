@@ -29,7 +29,8 @@
   
   <!-- 부트스트랩 js -->
   <script defer src="${cp}/resource/js/bootstrap.bundle.js"></script>
-  <script defer src="${cp}/js/base.js"></script>
+  <script defer src="${cp}/js/common.js"></script>
+  <script defer src="${cp}/js/cart.js"></script>
   
   <script type="text/javascript">
   	
@@ -216,6 +217,9 @@
 <body>
 
 <jsp:include page="/WEB-INF/page/include/header.jsp" />
+
+<input type="hidden" value="${cp}" id="cp" />
+<input type="hidden" value="${pnum}" id="pnum" />
 
 <!-- 페이지 시작 -->
 <div id="wrap">
