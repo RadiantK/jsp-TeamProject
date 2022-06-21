@@ -29,6 +29,12 @@
   <script defer src="${cp}/resource/js/bootstrap.bundle.js"></script>
   <script defer src="${cp}/js/common.js"></script>
   
+  <style type="text/css">
+  .cg-banner{
+		background: url('../images/product/banner/${bcg.bcategoryNum }.jpg') repeat 50% 0;
+	}
+  </style>
+  
 </head>
 <body>
 
