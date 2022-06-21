@@ -44,10 +44,6 @@
 <script defer src="${cp}/resource/js/bootstrap.bundle.js"></script>
 <script defer src="${cp}/js/common.js"></script>
 <script defer src="${cp}/js/main.js"></script>
-<script>
-	function showDetail() {
-	}
-</script>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/page/include/header.jsp" />

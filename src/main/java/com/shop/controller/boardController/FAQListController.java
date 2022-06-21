@@ -35,7 +35,7 @@ public class FAQListController extends HttpServlet{
 		int count=dao.getCount(field,keyword); 
 		int pageCount=(int)Math.ceil(count/10.0); 
 		int startPage=((pageNum-1)/10*10)+1; 
-		int endPage=startPage+9; 
+		int endPage=startPage+9;
 		if(endPage>pageCount) {
 			endPage=pageCount;
 		}
