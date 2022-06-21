@@ -68,6 +68,7 @@ public class OrderlistMypageController extends HttpServlet{
 
 		// 주문상태별 주문내역 카운트
 		int paid = dao.getSearchCnt(email, orderPwd,"결제완료");
+		int prepare = dao.getSearchCnt(email, orderPwd, "배송준비");
 		int	inTransit = dao.getSearchCnt(email, orderPwd, "배송중");
 		int delivered = dao.getSearchCnt(email, orderPwd, "배송완료");
 		int cancle = dao.getSearchCnt(email, orderPwd, "주문취소");
@@ -79,6 +80,7 @@ public class OrderlistMypageController extends HttpServlet{
 		req.setAttribute("endPage", endPage);
 		req.setAttribute("pageNum", pageNum);
 		req.setAttribute("paid", paid);
+		req.setAttribute("prepare", prepare);
 		req.setAttribute("inTransit", inTransit);
 		req.setAttribute("delivered", delivered );
 		req.setAttribute("cancle", cancle);
