@@ -1,4 +1,4 @@
-package com.shop.controller;
+package com.shop.controller.cartController;
 
 import java.io.IOException;
 import java.io.PrintWriter;
