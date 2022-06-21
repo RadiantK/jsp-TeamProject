@@ -4,8 +4,11 @@ import com.shop.dao.CartDao;
 import com.shop.dao.CartDetailDao;
 import com.shop.dao.MemberDao;
 import com.shop.dao.ProductDao;
+import com.shop.dto.Cart;
+import com.shop.dto.CartDetail;
 import com.shop.dto.Member;
 import com.shop.dto.Product;
+import com.shop.exception.CartException;
 
 public class MemberCartAddService {
 
@@ -27,10 +30,37 @@ public class MemberCartAddService {
 		// 회원번호 얻기
 		Member member = memberDao.selectOne(email);
 		// 상품정보 얻어오기
-		Product product = productDao.selectOne(pnum);
+		Product p = productDao.selectOne(pnum);
+		
+		System.out.println(member.getMemberNum());
+		Cart cart = cartDao.selectOne(member.getMemberNum());
+		// 장바구니에 등록된 회원정보가 없으면 회원정보를 등록
+		if(cart == null) {
+			// 장바구니를 처음 사용하는 회원이면 장바구니에 회원정보 등록
+			int n = cartDao.insert(member.getMemberNum());
+			System.out.println(n);
+			if(n < 1) {
+				throw new CartException();
+			}else {
+				cart = cartDao.selectOne(member.getMemberNum());
+				System.out.println(cart);
+			}
+		}
+		
+		// 장바구니 상세정보에 상품정보를 넣음
+		int realPrice = 
+				(int) (p.getPrice() - (p.getPrice() * (p.getDiscount() / 100.0)));
+		CartDetail detail = new CartDetail(
+				0, cart.getCartNum(), p.getProductNum(), 
+				p.getPname(), p.getCnt(), 
+				p.getPrice() * realPrice);
+		
+		int n = cartDetailDao.insert(detail);
+		if(n < 1) {
+			throw new CartException();
+		}
 		
 		
-		
-		return 1;
+		return n;
 	}
 }
