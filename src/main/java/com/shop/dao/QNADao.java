@@ -93,7 +93,8 @@ public class QNADao {
 				String content=rs.getString("content");
 				String image=rs.getString("image");
 				Date regdate=rs.getDate("regdate");
-				QNA dto=new QNA(qnaNum, memberNum, nickname, title, content, image, regdate);
+				String qnastate=rs.getString("qnastate");
+				QNA dto=new QNA(qnaNum, memberNum, nickname, title, content, image, regdate, qnastate);
 				list.add(dto);
 			}
 			return list;
@@ -132,7 +133,8 @@ public class QNADao {
 				String content=rs.getString("content");
 				String image=rs.getString("image");
 				Date regdate=rs.getDate("regdate");
-				QNA dto=new QNA(qnaNum, memberNum, nickname, title, content, image, regdate);
+				String qnastate=rs.getString("qnastate");
+				QNA dto=new QNA(qnaNum, memberNum, nickname, title, content, image, regdate, qnastate);
 				list.add(dto);
 			}
 			return list;
@@ -162,7 +164,8 @@ public class QNADao {
 				String content=rs.getString("content");
 				String image=rs.getString("image");
 				Date regdate=rs.getDate("regdate");
-				QNA dto=new QNA(qnaNum, memberNum, nickname, title, content, image, regdate);
+				String qnastate=rs.getString("qnastate");
+				QNA dto=new QNA(qnaNum, memberNum, nickname, title, content, image, regdate, qnastate);
 				return dto;
 			}
 			return null;
@@ -179,13 +182,14 @@ public class QNADao {
 		PreparedStatement pstmt=null;
 		try {
 			con=DBPool.getConnection();
-			String sql="insert into qna values(seq_qna.nextval,?,?,?,?,?,sysdate)";
+			String sql="insert into qna values(seq_qna.nextval,?,?,?,?,?,sysdate,?)";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, dto.getMemberNum());
 			pstmt.setString(2, dto.getNickname());
 			pstmt.setString(3, dto.getTitle());
 			pstmt.setString(4, dto.getContent());
 			pstmt.setString(5, dto.getImage());
+			pstmt.setString(6, dto.getQnastate());
 			int n=pstmt.executeUpdate();
 			return n;
 		}catch(SQLException se) {
@@ -248,6 +252,40 @@ public class QNADao {
 				return count;
 			}
 			return -1;
+		}catch(SQLException se) {
+			se.printStackTrace();
+			return -1;
+		}finally {
+			DBPool.close(con, pstmt);
+		}
+	}
+	public int isState(QNA dto) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=DBPool.getConnection();
+			String sql="UPDATE QNA SET QNASTATE='답변완료' WHERE QNA_NUM=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, dto.getQnaNum());
+			int n=pstmt.executeUpdate();
+			return n;
+		}catch(SQLException se) {
+			se.printStackTrace();
+			return -1;
+		}finally {
+			DBPool.close(con, pstmt);
+		}
+	}
+	public int noState(QNA dto) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=DBPool.getConnection();
+			String sql="UPDATE QNA SET QNASTATE='답변대기중' WHERE QNA_NUM=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, dto.getQnaNum());
+			int n=pstmt.executeUpdate();
+			return n;
 		}catch(SQLException se) {
 			se.printStackTrace();
 			return -1;

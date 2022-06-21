@@ -52,7 +52,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-12">
-					<h1>1:1문의</h1>
+					<h1 style="color: #35C5F0">1:1문의</h1>
 					<br>
 				</div>
 				<table class="table">
@@ -65,7 +65,14 @@
 						<tr>
 							<td colspan="2" style="width: 20%">${vo.nickname }</td>
 							<td colspan="2" style="width: 60%">${vo.regdate }</td>
-							<td colspan="2" style="width: 20%; color: #35C5F0" >${state }</td>
+								<c:choose>
+									<c:when test="${vo.qnastate==null}">
+										<td style="width: 10%" class="text-center">답변대기중</td>
+									</c:when>
+									<c:otherwise>
+										<td style="width: 10%" class="text-center">${vo.qnastate }</td>									
+									</c:otherwise>
+								</c:choose>
 						</tr>
 
 						<c:if test="${vo.image != null}">

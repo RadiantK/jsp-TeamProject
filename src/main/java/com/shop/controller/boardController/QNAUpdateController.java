@@ -45,7 +45,7 @@ public class QNAUpdateController extends HttpServlet {
 		String image=mr.getFilesystemName("image"); // 저장된 파일명
 		
 		// 업로드된 파일 정보를 qna테이블에 저장
-		QNA vo=new QNA(qnaNum, memberNum, nickname, title, content, image, null);
+		QNA vo=new QNA(qnaNum, memberNum, nickname, title, content, image, null,null);
 		QNADao dao=QNADao.getInstance();
 		int n=dao.QNAUpdate(vo);
 		if(n>0){

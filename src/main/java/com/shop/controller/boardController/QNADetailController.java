@@ -18,16 +18,17 @@ import com.shop.dto.QNAComment;
 public class QNADetailController extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		HttpSession session=req.getSession();
 		
 		int qnaNum=Integer.parseInt(req.getParameter("qnaNum"));
 		QNADao dao=QNADao.getInstance();
 		QNA vo=dao.QNADetail(qnaNum);
 		int n=dao.isComment(qnaNum);
 		if(n==0) {
-			session.setAttribute("state", "답변대기중");
+			QNA dto=new QNA(qnaNum, null, null, null, null, null, null, null);
+			int a=dao.noState(dto);
 		}else if(n>=1) {
-			session.setAttribute("state", "답변완료");
+			QNA dto=new QNA(qnaNum, null, null, null, null, null, null, null);
+			int a=dao.isState(dto);
 		}
 		
 		QNACommentDao cdao=QNACommentDao.getInstance();
