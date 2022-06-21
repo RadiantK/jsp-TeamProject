@@ -136,15 +136,51 @@
 		xhr.send();
   	}
   	
-  	/*
+  	
   	function addReview(){
-  		let reviewTxt = document.getElementById("review-txt").value;
-  		let score = document.getElementsByName("prd-point")[0].value;
-  		let image = document.getElementById("review-img").value;
+  		/*
+  		// 사진업로드 기능 - > X
+  		var file = documnet.getElementById("reviewImgFile");
+  		var filedata = new FormData();
   		
-  		String saveDir = "${cp}/upload";
-		out.print("업로드경로:"+saveDir+"<br>");
-		MultipartRequest mr = new MultipartRequest
+  		if(!file.value) return;
+  		
+  		filedata.append('addReview',file.files[0]);
+  		
+  		xhr = new XMLHttpRequest();
+  		xhr.open('post','/api/test_upload/',true);
+  		xhr.onload = function(event){
+  			if(xhr.status==200){
+  				alert('Uploaded');
+  			}else{
+  				alert('Error');
+  			}
+  		};
+  		xhr.send(filedata);
+  		*/
+  		
+  		/* 안됨........
+  		let image = document.getElementById("review-img").value;
+  		console.log("image:"+image); */
+		var id = '<%=(String)session.getAttribute("sessionId")%>';
+  		
+  		if(id=="null"){
+  			alert('로그인이 필요합니다.');
+  		}else{
+  			
+  		// 리뷰내용 가져오기
+  		let reviewTxt = document.getElementById("review-txt").value;
+  		console.log("reviewTxt:"+reviewTxt);
+  		
+  		// 별점 숫자로 가져오기
+  		let scoreNodeList = document.getElementsByName("prd-point");
+  		let score = null;
+  		scoreNodeList.forEach((node) => {
+  			if(node.checked){
+  				score = node.value;
+  			}
+  		})
+  		console.log("score:"+score);
   		
   		xhr = new XMLHttpRequest();
   		xhr.onreadystatechange = function(){
@@ -152,18 +188,28 @@
 				let data = xhr.responseText;
 				let json = JSON.parse(data);
 				if(json.code=='success'){
-					alert('리뷰 등록 성공');
+					alert('리뷰가 등록되었습니다.');
 					reviewList(1);
 				}else{
-					alert('리뷰 등록 실패');
+					alert('오류가 발생했습니다.');
 				}
 			}
 		};
 		xhr.open('post','${cp}/product/detail/review/insert',true);
 		xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-		let param = "pnum=" + ${pnum} + "&content=" + reviewTxt + "&score=" + score + "&image=" + image;
+		let param = "pnum=" + ${pnum} + "&content=" + reviewTxt + "&score=" + score;
 		xhr.send(param);
-  	} */
+  		}
+  	} 
+  	
+  	// 비회원 리뷰작성 불가능
+  	function loginCheck(){
+  		var id = '<%=(String)session.getAttribute("sessionId")%>';
+  		
+  		if(id=="null"){
+  			alert('로그인이 필요합니다.');
+  		}
+  	}
   
   </script>
 </head>
@@ -226,7 +272,7 @@
                 <div class="totPrice">
                   <p class="leftLabel">총 금액 </p>
                   <p class="rightLabel" id="tPrice">
-	                  	<fmt:formatNumber value="${prd.price - ( prd.price * prd.discount / 100 ) * qtyValue }" pattern="####"/>원
+	                  	<fmt:formatNumber value="${prd.price - ( prd.price * prd.discount / 100 ) }" pattern="####"/>원
                   </p>
                 </div>
                 <div class="botBtn">
@@ -253,46 +299,56 @@
                   <a href="#prd-desc-info"><p>배송/교환 및 반품안내</p></a>
               </div>
 
-              <form method="post" action="addReview()" id="reviewForm">
+              
                 <p class="reviewTitle">Product Reviews</p>
                 <div class="review-point">
                   <span>평가</span>
                   <ul>
                     <li>
-                      <input type="radio" name="prd-point" id="rating5" checked="checked">
+                      <input type="radio" name="prd-point" id="rating5" checked="checked" value="5">
                       <label for="rating5" >★★★★★</label>
                     </li>
                     <li>
-                      <input type="radio" name="prd-point" id="rating4">
+                      <input type="radio" name="prd-point" id="rating4" value="4">
                       <label for="rating4">★★★★☆</label>
                     </li>
                     <li>
-                      <input type="radio" name="prd-point" id="rating3">
+                      <input type="radio" name="prd-point" id="rating3" value="3">
                       <label for="rating3">★★★☆☆</label>
                     </li>
                     <li>
-                      <input type="radio" name="prd-point" id="rating2">
+                      <input type="radio" name="prd-point" id="rating2" value="2">
                       <label for="rating2">★★☆☆☆</label>
                     </li>
                     <li>
-                      <input type="radio" name="prd-point" id="rating1">
+                      <input type="radio" name="prd-point" id="rating1" value="1">
                       <label for="rating1">★☆☆☆☆</label>
                     </li>
                   </ul>
                 </div>
                 <div class="review-textarea">
-                    <textarea class="review-txt" id="review-txt"></textarea>
+                    <textarea class="review-txt" id="review-txt" name="review-txt" onclick="loginCheck()"></textarea>
                 </div>
+                
+                <form method="post" id="reviewForm">
+                	<input type="hidden" name="prd-point" value="">
+                	<input type="hidden" name="review-txt" value="">
                 <div class="review-btn">
-                  <label class="button btn--reverse" for="input-file">사진 첨부</label>
-                  <input type="file" name="review-img" id="input-file" style="display:none"/>
+                  <label class="button btn--reverse" for="reviewImgFile">사진 첨부(X)</label>
+                  <!-- <div class="img_wrap">
+                  	<img height="50" id="tempImg">
+                  </div>
+                  <input type="file" name="review-img" id="reviewImgFile" style="display:none" onchange="previewFile()"/> -->
                   <input type="button" value="후기작성" class="button" id="btn-review" onclick="addReview()">
                 </div>
-              </form>
+             	</form>
+             	
+              <div>
+              
+              </div>
               
 			  <!-- 리뷰 -->
               <div class="review-list" id="review-list">
-
               </div>
               
               <!-- 페이징 -->
