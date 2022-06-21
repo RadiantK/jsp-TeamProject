@@ -53,7 +53,7 @@ public class CategoryDao {
 		}
 	}
 	
-	/* 대분류 카테고리 번호로 카테고리명 조회 */
+	/* 대분류 카테고리 번호로 카테고리 객체 리턴 */
 	public Bcategory selectBcg(int bcategoryNum) {
 		Connection con = null;
 		PreparedStatement pstmt = null;

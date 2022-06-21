@@ -14,11 +14,11 @@
 .cg-banner{
 	/* background-color: #35C5F0; */
 	text-align: center;
+	width: 1000px;
 	height: 300px;
 	line-height: 300px;
 	font-weight: bold;
 	/* background-image: url('../images/banner01.jpg'); */
-	background: url('../images/product/banner_furniture.jpg') no-repeat 50% 0;
 }
 .cg-banner p{
 	font-size: 100px;

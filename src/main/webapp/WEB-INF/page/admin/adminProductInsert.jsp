@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -26,6 +28,17 @@
   <!-- 부트스트랩 js -->
   <script defer src="${cp}/resource/js/bootstrap.bundle.js"></script>
   <script defer src="${cp}/js/common.js"></script>
+  
+  <script type="text/javascript">
+  
+  // 대분류 셀렉트 변경되면 소분류 셀렉트 가능하도록
+  function changeBcg(){
+	  let bcgSelect = document.getElementById("bigCg");
+	  let bcgNum = bcgSelect.options[bcgSelect.selectedIndex].value;
+	  
+  }
+  
+  </script>
 </head>
 <body>
 
@@ -53,13 +66,11 @@
                     <tr>
                         <th>카테고리</th>
                         <td>
-                            <select name="category" id="bigCg">
+                            <select name="category" id="bigCg" onchange="">
                                 <option value="">=======대분류=======</option>
-                                <option value="">가구</option>
-                                <option value="">패브릭</option>
-                                <option value="">조명</option>
-                                <option value="">가전</option>
-                                <option value="">주방용품</option>
+                                <c:forEach var="bcg" items="${bcgList }">
+                                	<option value="${bcg.bcategoryNum }">${bcg.btype }</option>
+                                </c:forEach>                                
                             </select>
                         </td>
                         <td>

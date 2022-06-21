@@ -105,7 +105,7 @@
 					                    "<p class='nickname'>" + nickname + "</p>" +
 					                "</div>" +
 					                "<div class='rev-content'>" +
-					                    "<p class='revMat'>" + content + "</p>" +
+					                    "<p class='revMat'><pre>" + content + "</pre></p>" +
 					                    "<div class='revImg'>" +
 					                    	imgLine +
 					                    "</div>" +
