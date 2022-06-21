@@ -29,3 +29,16 @@ function cartAddHandler(){
 		return;
 	}
 }
+
+// 바로구매 
+document.getElementById('btn-buy').addEventListener('click', function() {
+	
+	if(confirm('상품을 구매하시겠습니까?')) {
+		let piece = document.getElementById('qty').value;
+		location.href= cpEl+'/orders/order?pnum='+pnumEl+'&piece='+piece;
+		
+	} else {
+		return;
+	}
+});
+

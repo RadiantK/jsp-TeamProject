@@ -59,7 +59,7 @@
 		var onum = <%=request.getParameter("orderNum")%>;
 		
 		if(confirm("주문을 취소하시겠습니까?")){
-			location.href='<%=request.getContextPath()%>/admin/orderCancle?orderNum='+ onum;
+			location.href='<%=request.getContextPath()%>/admin/orderCancleAdmin?orderNum='+ onum;
 			
 		} else return;
 	}

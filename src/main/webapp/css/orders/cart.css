@@ -21,13 +21,13 @@
     height:50px;
 }
 
-.cartTable .amountBtn{
+.cartTable .pieceBtn{
     width:30px;
     height:30px;
     border:0;
     font-size:20px;
 }
-.cartTable #amount{
+.cartTable #piece{
     width:50px;
     height:30px
 }

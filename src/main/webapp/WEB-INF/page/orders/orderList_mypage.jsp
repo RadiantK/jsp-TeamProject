@@ -55,14 +55,14 @@
   	<div class="cntDiv">
     <table class="cntTable">
       <tr>
-        <th class="cntTitle"> 입금대기 
-        <br> <span class="cnt"> 0 </span>
-        </th>
-        <td class="arrow"> > </td>
         
         <th class="cntTitle"> 결제완료 
         <br> <a href="${cp}/orders/orderlistMypage?orderState=결제완료" class="cnt"> ${paid} </a>
         </th>
+        <td class="arrow"> > </td>
+        
+        <th class="cntTitle"> 배송준비 
+   	    <br> <a href="${cp}/orders/orderlistMypage?orderState=배송준비" class="cnt"> ${prepare} </a>
         <td class="arrow"> > </td>
         
         <th class="cntTitle"> 배송중 

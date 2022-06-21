@@ -50,10 +50,11 @@ public class MemberCartAddService {
 		// 장바구니 상세정보에 상품정보를 넣음
 		int realPrice = 
 				(int) (p.getPrice() - (p.getPrice() * (p.getDiscount() / 100.0)));
+		System.out.println(realPrice);
 		CartDetail detail = new CartDetail(
 				0, cart.getCartNum(), p.getProductNum(), 
-				p.getPname(), p.getCnt(), 
-				p.getPrice() * realPrice);
+				p.getPname(), 1, 
+				realPrice);
 		
 		int n = cartDetailDao.insert(detail);
 		if(n < 1) {

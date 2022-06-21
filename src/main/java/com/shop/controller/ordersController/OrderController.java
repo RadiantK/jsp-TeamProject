@@ -38,6 +38,8 @@ public class OrderController extends HttpServlet{
 			itemNum = Integer.parseInt(req.getParameter("pnum"));
 			piece = Integer.parseInt(req.getParameter("piece"));
 		} else {
+			String[] pnums = req.getParameterValues("pnum");
+			String[] pieces = req.getParameterValues("piece"); 
 			cartCnt = cart.length;
 		}
 		
@@ -48,8 +50,8 @@ public class OrderController extends HttpServlet{
 			
 		for(int i=0; i<cartCnt; i++) {
 			if(cart!=null) {
-				itemNum = Integer.parseInt("cart[i].pnum");
-				piece = Integer.parseInt("cart[i].piece");
+				itemNum = Integer.parseInt("pnums[i]");
+				piece = Integer.parseInt("pieces[i]");
 			}
 				
 			ProductDao dao = ProductDao.getInstance();
