@@ -24,9 +24,34 @@ public class OrdersDao {
 		return OrdersDao;
 	}
 	
+	// 관리자 주문서 수정 
+	public int orderUpdate(Orders orders) {
+		String sql = "update orders set orderstate=?, name=?, phone=?, email=? where order_num=?";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = DBPool.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(5, orders.getOrderNum());
+			pstmt.setString(1, orders.getOrderState());
+			pstmt.setString(2, orders.getName());
+			pstmt.setString(3, orders.getPhone());
+			pstmt.setString(4, orders.getEmail());
+
+			return pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+			return -1;
+		}finally {
+			DBPool.close(con, pstmt);
+		}
+	}
+	
 	// 관리자페이지 주문내역 검색 결과수
 	public int adminSearchCnt(String col, String keyword) {
-		String sql = "select NVL(count(*),0) as cnt from orders where " + col + "=?";
+		String sql = "select NVL(count(*),0) as cnt from orders where "+col+" like ?";
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -35,7 +60,7 @@ public class OrdersDao {
 		try {
 			con = DBPool.getConnection();
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1,keyword);
+			pstmt.setString(1,"%"+keyword+"%");
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
@@ -84,7 +109,7 @@ public class OrdersDao {
 		
 		String sql = "select * from "
 				   + "(select o.*, ROWNUM rnum from "
-				   + "(select * from orders where " + col + "=? order by regdate desc, order_num desc) o)"
+				   + "(select * from orders where "+col+" like ? order by regdate desc, order_num desc) o)"
 				   + "where rnum>=? and rnum<=?";
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -94,7 +119,7 @@ public class OrdersDao {
 		try {
 			con = DBPool.getConnection();
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1,keyword);
+			pstmt.setString(1,"%"+keyword+"%");
 			pstmt.setInt(2, startRow);
 			pstmt.setInt(3, endRow);
 			rs = pstmt.executeQuery();

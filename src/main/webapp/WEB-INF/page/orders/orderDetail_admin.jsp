@@ -35,11 +35,11 @@
 
 <!-- 바디 메인 -->
 <div class="pageWrap">
-<form id="orderForm" name="orderForm" action="#" method="post">
+<form id="orderForm" name="orderForm" action="${cp}/admin/orderUpdateAdmin" method="post">
   <h2 class="orderTitle"> [ADMIN] 주문/결제 수정 </h2>
 
   <h3 class="title"> 주문 상세 </h3> <p> (주문일자: ${orders.regdate } | 주문번호 : ${orders.orderNum}) </p>
- 
+  <input type="hidden" value="${orders.orderNum}">
   <div class="orderDiv">
   <table class="itemTable" style="width:100%">
   <thead>
@@ -94,7 +94,7 @@
       </tr>
       <tr>
         <th class="orderLabels"> 이메일 </th>
-        <th> <input type="text" name="email1" value="${orders.email}" class="inputText">
+        <th> <input type="text" name="email" value="${orders.email}" class="inputText">
         </th>
       </tr>
     </table>
@@ -108,7 +108,11 @@
           <th> <input type="text" name="receiveName" value="${delivery.delName}" class="inputText"> </th>
         </tr>
         <tr>
-          <th class="orderLabels"> 주소 </th>
+          <th class="orderLabels"> 기존 주소 </th>
+          <th> <input type="text" name="orgAddr" value="${delivery.address}" class="inputText" readonly="readonly"> </th>
+        </tr>
+        <tr>
+          <th class="orderLabels"> 변경 주소 </th>
           <th> <input type="button" name="kakaoBtn" id="kakaoBtn" value="주소찾기">
                <input type="text" name="kakaoZonecode" value="" id="kakaoZonecode" readonly="readonly">
           </th> 
@@ -117,8 +121,8 @@
             <th> <input type="text" name="kakaoAddr" value="" id="kakaoAddr" readonly="readonly" style="width:300px"></th>
           </tr>
         <tr>
-          <th class="orderLabels"> 상세주소 </th>
-          <th> <input type="text" name="detailAddr" value="${delivery.address}" class="inputText"></th>
+          <th class="orderLabels"> 상세 주소 </th>
+          <th> <input type="text" name="detailAddr" value="" class="inputText"></th>
         </tr>
         <tr>
           <th class="orderLabels"> 전화번호 </th>
@@ -152,7 +156,7 @@
 
       <div class="btnDiv">
         <a href="javascript:history.back();" class="btnWhite"> 이전으로 </a> 
-        <a href="" class="btnBlue"> 수정하기 </a>
+        <input type="submit" value="수정하기" class="btnUpdate">
       </div>
 </form>
 </div>
