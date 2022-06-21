@@ -23,8 +23,8 @@ public class OrderUpdateAdminController extends HttpServlet{
 		
 		// 주문서테이블 수정 
 		String orderState = req.getParameter("orderState");
-		String orderStateChange = req.getParameter("orderStateChange");		
-		if(!orderState.equals(orderStateChange)) orderState = orderStateChange;
+		String change = req.getParameter("orderStateChange");
+		if(!orderState.equals(change)) orderState = change;
 		
 		String orderName = req.getParameter("orderName");
 		String orderPhone = req.getParameter("orderPhone");
@@ -33,10 +33,9 @@ public class OrderUpdateAdminController extends HttpServlet{
 		Orders orders = new Orders(orderNum,null,email,orderName,orderPhone,0,null,orderState,null);
 		OrdersDao odao = OrdersDao.getInstance();
 		int n = odao.orderUpdate(orders);
-		System.out.println(n);
 		
 		if(n<0) {
-			req.setAttribute("errorMsg", "fail");
+			req.setAttribute("msg", "주문정보 수정에 실패하였습니다. 다시 시도해주세요. ");
 			req.getRequestDispatcher("/WEB-INF/page/orders/orderDetail_admin.jsp").forward(req, resp);
 		}
 		
@@ -63,14 +62,13 @@ public class OrderUpdateAdminController extends HttpServlet{
 		DeliveryDao ddao = DeliveryDao.getInstance();
 		Delivery del = new Delivery(0,orderNum,delName,delPhone,address,delMsg,null);
 		int nn = ddao.deliveryUpdate(del);
-		System.out.println(nn);
 		
 		if(nn<0) {
-			req.setAttribute("errorMsg", "fail");
+			req.setAttribute("msg", "배송정보 수정에 실패하였습니다. 다시 시도해주세요. ");
 			req.getRequestDispatcher("/WEB-INF/page/orders/orderDetail_admin.jsp").forward(req, resp);
 			
-		} else {
-			req.getRequestDispatcher("/WEB-INF/page/orders/orderList_admin.jsp").forward(req, resp);
+		} else { // 수정성공하면 관리자 주문내역리스트로 이동
+			resp.sendRedirect(req.getContextPath()+"/admin/orderlistAdmin");
 		}
 
 	}
