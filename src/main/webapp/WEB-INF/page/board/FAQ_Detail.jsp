@@ -53,7 +53,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-12">
-					<h1>자주 묻는 질문</h1>
+					<h1 style="color: #35C5F0">자주 묻는 질문</h1>
 					<br>
 				</div>
 				<table class="table">

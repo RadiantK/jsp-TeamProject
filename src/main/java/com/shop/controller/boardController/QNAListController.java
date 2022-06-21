@@ -33,10 +33,10 @@ public class QNAListController extends HttpServlet{
 			int endRow=startRow+9;
 			QNADao dao=QNADao.getInstance();
 			ArrayList<QNA> list=dao.memberQNAList(startRow, endRow, email);
-			int count=dao.getCount(); // 전체 글의 갯수
-			int pageCount=(int)Math.ceil(count/10.0); // 전체 페이지 갯수
-			int startPage=((pageNum-1)/10*10)+1; // 시작 페이지 번호  // ex) (pagenum=10) -> 9/10 = 0 *10 = 0 +1 = 1
-			int endPage=startPage+9; // 끝 페이지 번호
+			int count=dao.getCount();
+			int pageCount=(int)Math.ceil(count/10.0); 
+			int startPage=((pageNum-1)/10*10)+1; 
+			int endPage=startPage+9; 
 			if(endPage>pageCount) {
 				endPage=pageCount;
 			}

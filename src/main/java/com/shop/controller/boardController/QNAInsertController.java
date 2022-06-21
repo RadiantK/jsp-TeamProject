@@ -41,7 +41,7 @@ public class QNAInsertController extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		ServletContext context = this.getServletContext();
 		String saveDir=context.getRealPath("/upload"); // 경로 담는 변수 
-		//1.파일 업로드
+		//파일 업로드
 		MultipartRequest mr=new MultipartRequest(
 				req, // request객체
 				saveDir, // 저장할 디렉토리
@@ -57,7 +57,7 @@ public class QNAInsertController extends HttpServlet{
 		String image=mr.getFilesystemName("image"); // 저장된 파일명
 		
 		// 업로드된 파일 정보를 qna테이블에 저장
-		QNA vo=new QNA(0, memberNum, nickname, title, content, image, null);
+		QNA vo=new QNA(0, memberNum, nickname, title, content, image, null, null);
 		QNADao dao=QNADao.getInstance();
 		int n=dao.insertQNA(vo);
 		if(n>0){

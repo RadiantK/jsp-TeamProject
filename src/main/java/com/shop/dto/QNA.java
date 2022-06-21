@@ -10,9 +10,10 @@ public class QNA {
 	private String content;
 	private String image;
 	private Date regdate;
-	public QNA() {}
-	public QNA(int qnaNum, String memberNum, String nickname, String title, String content, String image,
-			Date regdate) {
+	private String qnastate;
+	
+	public QNA(int qnaNum, String memberNum, String nickname, String title, String content, String image, Date regdate,
+			String qnastate) {
 		super();
 		this.qnaNum = qnaNum;
 		this.memberNum = memberNum;
@@ -21,7 +22,10 @@ public class QNA {
 		this.content = content;
 		this.image = image;
 		this.regdate = regdate;
+		this.qnastate = qnastate;
 	}
+	public QNA() {}
+	
 	public int getQnaNum() {
 		return qnaNum;
 	}
@@ -54,6 +58,12 @@ public class QNA {
 	}
 	public String getImage() {
 		return image;
+	}
+	public String getQnastate() {
+		return qnastate;
+	}
+	public void setQnastate(String qnastate) {
+		this.qnastate = qnastate;
 	}
 	public void setImage(String image) {
 		this.image = image;

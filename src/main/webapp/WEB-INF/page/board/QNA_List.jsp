@@ -82,7 +82,14 @@
 									<td style="width: 60%" class="text-center"><a
 										href="${cp }/board/QNA/Detail?qnaNum=${vo.qnaNum}">${vo.title }</a></td>
 									<td style="width: 10%" class="text-center">${vo.regdate }</td>
-									<td style="width: 10%" class="text-center"></td>
+									<c:choose>
+									<c:when test="${vo.qnastate==null}">
+									<td style="width: 10%" class="text-center">답변대기중</td>
+									</c:when>
+									<c:otherwise>
+									<td style="width: 10%" class="text-center">${vo.qnastate }</td>									
+									</c:otherwise>
+									</c:choose>
 								</tr>
 							</c:forEach>
 						</tbody>
