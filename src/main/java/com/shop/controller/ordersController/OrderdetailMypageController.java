@@ -25,8 +25,6 @@ public class OrderdetailMypageController extends HttpServlet{
 			throws ServletException, IOException {
 		
 		int orderNum = Integer.parseInt(req.getParameter("orderNum"));
-		String msg = req.getParameter("msg");
-		System.out.println(orderNum +","+ msg);
 		
 		// 주문서 정보 가져오기 
 		OrdersDao odao = OrdersDao.getInstance();
@@ -49,7 +47,6 @@ public class OrderdetailMypageController extends HttpServlet{
 		req.setAttribute("details", details);
 		req.setAttribute("delivery", delivery);
 		req.setAttribute("payment", payment);
-		req.setAttribute("msg", msg);
 		req.getRequestDispatcher("/WEB-INF/page/orders/orderDetail_mypage.jsp").forward(req, resp);
 
 	}

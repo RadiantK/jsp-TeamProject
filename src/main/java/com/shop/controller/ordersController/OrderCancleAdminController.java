@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.shop.dao.OrdersDao;
 
-@WebServlet("/orders/orderCancle")
-public class OrderCancleController extends HttpServlet {
+@WebServlet("/admin/orderCancleAdmin")
+public class OrderCancleAdminController extends HttpServlet {
 	
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -23,11 +23,11 @@ public class OrderCancleController extends HttpServlet {
 		
 		if(n<0) {
 			req.setAttribute("msg", "주문취소에 실패하였습니다. 다시 시도해주세요. ");
-			req.getRequestDispatcher("/WEB-INF/page/orders/orderDetail_mypage.jsp").forward(req, resp);
+			req.getRequestDispatcher("/WEB-INF/page/admin/orderDetail_admin.jsp").forward(req, resp);
 
 		} else {			
 			req.setAttribute("orderNum", orderNum);
-			req.getRequestDispatcher("/orders/orderdetailMypage").forward(req, resp);
+			req.getRequestDispatcher("/admin/orderdetailAdmin").forward(req, resp);
 		}
 	}
 }
