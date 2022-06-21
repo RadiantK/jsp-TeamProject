@@ -39,7 +39,7 @@
         <div class="cg-banner">
             <p>제품 관리</p>
             <p class="bn-desc">수정할 제품을 선택하세요.</p>
-            <input type="button" value="제품 등록" class="button">
+            <input type="button" value="제품 등록" class="button" onclick="location.href='${cp}/admin/product/insert'">
         </div>
         
         <!-- 제품목록박스 -->

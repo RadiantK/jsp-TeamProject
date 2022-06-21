@@ -95,11 +95,11 @@
                     </tr>
                     <tr>
                         <th>상세이미지</th>
-                        <td colspan="2"><input type="button" value="상세이미지 첨부" class="button descImg"><span class="fileName">파일명</span></td>
+                        <td colspan="2"><input type="button" value="상세이미지 첨부" class="button buttonTemp descImg"><span class="fileName">파일명</span></td>
                     </tr>
                 </table>
 
-                <input type="button" value="제품 등록하기" class="button insertBtn">
+                <input type="button" value="제품 등록하기" class="button buttonTemp insertBtn">
             </div>
         </div>
         
