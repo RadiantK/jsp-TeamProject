@@ -22,7 +22,7 @@ public class CartDao {
 	}
 	
 	// 회원번호와 일치하는 장바구니 출력
-	public Cart selectList(String reqMemberNum){
+	public Cart selectOne(String reqMemberNum){
 		String sql = "SELECT * FROM cart WHERE member_num = ?";
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -52,21 +52,26 @@ public class CartDao {
 	}
 	
 	// 장바구니 추가
-	public int insert(Connection con, String memberNum) {
+	public int insert(String memberNum) {
 		String sql = "INSERT INTO cart VALUES(seq_cart.nextval, ?)";
+		Connection con = null;
 		PreparedStatement pstmt = null;
 		
 		try {
+			con = DBPool.getConnection();
+			DBPool.setAutoCommitFalse(con);
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, memberNum);
 			
 			int n = pstmt.executeUpdate();
-			
+			if(n > 0) DBPool.commit(con);
 			return n;
 		}catch(SQLException e) {
 			e.printStackTrace();
+			DBPool.rollback(con);
 			return -1;
 		}finally {
+			DBPool.setAutoCommitTrue(con);
 			DBPool.close(pstmt);
 		}
 	}

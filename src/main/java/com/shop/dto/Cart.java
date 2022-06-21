@@ -27,5 +27,10 @@ public class Cart {
 	public void setMemberNum(int memberNum) {
 		this.memberNum = memberNum;
 	}
+
+	@Override
+	public String toString() {
+		return "Cart [cartNum=" + cartNum + ", memberNum=" + memberNum + "]";
+	}
 	
 }
