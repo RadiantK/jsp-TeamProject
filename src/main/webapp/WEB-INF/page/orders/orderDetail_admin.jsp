@@ -28,18 +28,53 @@
 <script defer src="${cp}/js/common.js"></script>
 </head>
 <body>
-    
+
+<!-- 카카오주소 api -->
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+
+	// 카카오 주소찾기 
+	document.getElementById("kakaoBtn").addEventListener("click", function(){
+    new daum.Postcode({
+        oncomplete: function(data) {
+            // 주소검색 결과를 클릭했을때 실행할 내용
+            document.getElementById("kakaoZonecode").value = data.zonecode
+            document.getElementById("kakaoAddr").value = data.address; // 주소넣기
+            document.querySelector("input[name=detailAddr]").focus(); // 상세주소 포커싱
+        }
+    }).open();
+	}); 
+</script>
+<script>
+	var msg = '<%=request.getParameter("msg")%>';
+			
+	if(!msg){
+		return;
+	} else {
+		alert(msg);
+	}
+</script>
+<script>
+	function orderCancle(){
+		var onum = <%=request.getParameter("orderNum")%>;
+		
+		if(confirm("주문을 취소하시겠습니까?")){
+			location.href='<%=request.getContextPath()%>/admin/orderCancle?orderNum='+ onum;
+			
+		} else return;
+	}
+</script>
 	<!-- HEADER -->
 	<jsp:include page="/WEB-INF/page/include/header.jsp" />
-
 
 <!-- 바디 메인 -->
 <div class="pageWrap">
 <form id="orderForm" name="orderForm" action="${cp}/admin/orderUpdateAdmin" method="post">
   <h2 class="orderTitle"> [ADMIN] 주문/결제 수정 </h2>
+	
 
-  <h3 class="title"> 주문 상세 </h3> <p> (주문일자: ${orders.regdate } | 주문번호 : ${orders.orderNum}) </p>
-  <input type="hidden" value="${orders.orderNum}">
+  <h3 class="title"> 주문 상세 </h3> <p> (주문일자: ${orders.regdate} | 주문번호 : ${orders.orderNum}) </p>
+  <input type="hidden" name="orderNum" value="${orders.orderNum}">
   <div class="orderDiv">
   <table class="itemTable" style="width:100%">
   <thead>
@@ -47,6 +82,7 @@
       <th style="width:70%"> 제품정보 </th>
       <th> 결제금액 </th>
       <th> 주문상태 </th>
+      <th> 주문취소 </th>
     </tr>
   </thead>
 
@@ -68,14 +104,20 @@
     </td>
     
     <td rowspan="${cnt}"> ${orders.amount} </td>
-    <td rowspan="${cnt}"> <input type="text" name="orderState" id="orderState" value="${orders.orderState}" style="width:60px" disabled><br>
+    <td rowspan="${cnt}"> <input type="text" name="orderState" id="orderState" value="${orders.orderState}" style="width:65px" readonly="readonly"><br>
     <select name="orderStateChange" id="orderStateChange">
-    	<option value="결제완료"> 결제완료 </option>
-        <option value="배송준비"> 배송준비 </option>
-        <option value="배송중"> 배송중 </option>
-        <option value="배송완료"> 배송완료 </option>
-    </select>
-    </td>
+    	<option value="결제완료"
+   			<c:if test="${orders.orderState=='결제완료'}">selected</c:if>> 결제완료 </option>
+        <option value="배송준비" 
+        	<c:if test="${orders.orderState=='배송준비'}">selected</c:if> > 배송준비 </option>
+        <option value="배송중"
+	        <c:if test="${orders.orderState=='배송중'}">selected</c:if>> 배송중 </option>
+        <option value="배송완료"
+	        <c:if test="${orders.orderState=='배송완료'}">selected</c:if>> 배송완료 </option>
+	    <option value="주문취소"
+	        <c:if test="${orders.orderState=='주문취소'}">selected</c:if>> 주문취소 </option>
+    </select></td>
+    <td rowspan="${cnt}"><input type="button" name="" value="주문취소" class="btnCancle" onclick="orderCancle()"></td>
   </tr>
 
   </table>
@@ -161,22 +203,7 @@
 </form>
 </div>
 
-<!-- 카카오주소 api -->
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script>
-  document.getElementById("kakaoBtn").addEventListener("click", function(){
-    new daum.Postcode({
-        oncomplete: function(data) {
-            // 주소검색 결과를 클릭했을때 실행할 내용
-            document.getElementById("kakaoZonecode").value = data.zonecode
-            document.getElementById("kakaoAddr").value = data.address; // 주소넣기
-            document.querySelector("input[name=detailAddr]").focus(); // 상세주소 포커싱
-        }
-    }).open();
-  }); 
-</script>
-
-
+    
    	<!-- FOOTER -->
 	<jsp:include page="/WEB-INF/page/include/footer.jsp" />
     

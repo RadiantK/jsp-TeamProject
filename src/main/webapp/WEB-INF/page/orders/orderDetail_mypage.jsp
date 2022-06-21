@@ -29,7 +29,7 @@
 <script defer src="${cp}/js/deleteMember.js"></script>
 </head>
 <body>
-    
+
 	<!-- HEADER -->
 	<jsp:include page="/WEB-INF/page/include/header.jsp" />
 
@@ -50,17 +50,15 @@
 
 <!-- 바디 메인 -->
 <script>
-	window.onload = function() {
-		var msg = <%=request.getAttribute("msg")%>;
-		
-		if(msg!=null && msg!=""){
-			alert("msg");
+	var msg = '<%=request.getParameter("msg")%>';
 			
-		} else {
-			return;
-		}
+	if(!msg){
+		return;
+	} else {
+		alert(msg);
 	}
-
+</script>
+<script>
 	function orderCancle(){
 		var onum = <%=request.getParameter("orderNum")%>;
 		
@@ -70,6 +68,7 @@
 		} else return;
 	}
 </script>
+
 <div class="pageWrap">
 
     <h3 class="title"> 주문 상세 </h3> <p> (주문일자: ${orders.regdate} | 주문번호 : ${orders.orderNum}) </p>
