@@ -95,7 +95,7 @@
 	                <c:forEach var="vo" items="${pList }">
 		                <div class="box cell">
 		                  <div class="img-box">
-		                    <a href="${cp }/product/detail?pnum=${vo.productNum }"><img src="../upload/product/thumbnail/${vo.image }" alt="${vo.pname }"></a>
+		                    <a href="${cp }/product/detail?pnum=${vo.productNum }"><img src="../upload/product/${vo.image }" alt="${vo.pname }"></a>
 		                  </div>
 		                  <div class="txt-box">
 		                    <a href="${cp }/product/detail?pnum=${vo.productNum }"> <!-- 상품 상세페이지 링크 -->

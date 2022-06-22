@@ -225,7 +225,7 @@
 <div id="wrap">
     <div class="product-detail">
         <div class="prd-box">
-            <div class="prd-box-img"><img src="../upload/product/thumbnail/${prd.image }" alt=""></div>
+            <div class="prd-box-img"><img src="../upload/product/${prd.image }" alt=""></div>
             <div class="prd-box-txt">
 
               <div class="txt-top">
@@ -294,7 +294,7 @@
                   <a href="#prd-desc-review"><p>제품후기</p></a>
                   <a href="#prd-desc-info"><p>배송/교환 및 반품안내</p></a>
                 </div>
-                <div class="prd-desc-img"><img src="./images/detail_sample.jpg" alt="상세이미지"></div>
+                <div class="prd-desc-img"><img src="../upload/product/${prd.descImg }" alt="상세이미지"></div>
             </div>
             <div class="prd-desc-review" id="prd-desc-review">
               <div class="prd-desc-navbar">
