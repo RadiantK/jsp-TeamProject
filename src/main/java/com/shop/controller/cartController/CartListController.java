@@ -43,6 +43,9 @@ public class CartListController extends HttpServlet {
 		ProductDao productDao = ProductDao.getInstance();
 		CartDao cartDao = CartDao.getInstance();
 		CartDetailDao cartDetailDao = CartDetailDao.getInstance();
+		
+		int cartCnt = 0;
+		int cartTotal = 0;
 
 		// JSON 배열 생성
 		JSONArray ja = new JSONArray();
@@ -76,6 +79,9 @@ public class CartListController extends HttpServlet {
 					jo.put("img", p.getImage());
 					
 					ja.put(jo);
+					
+					cartCnt++;
+					cartTotal += c.getPrice();
 				}
 			}
 			
@@ -98,6 +104,10 @@ public class CartListController extends HttpServlet {
 					jo.put("img", p.getImage());
 					
 					ja.put(jo);
+					
+					cartCnt++;
+					cartTotal += realPrice;
+				
 				}
 			}else {
 			}
@@ -105,6 +115,8 @@ public class CartListController extends HttpServlet {
 		
 		JSONObject jo = new JSONObject();
 		jo.put("cart", ja);
+		jo.put("cartCnt", cartCnt);
+		jo.put("cartTotal", cartTotal);
 		response.setContentType("text/plain; charset=utf-8");
 		PrintWriter pw = response.getWriter();
 		pw.print(jo);

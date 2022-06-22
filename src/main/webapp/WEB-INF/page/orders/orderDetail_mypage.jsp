@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<%@taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>  
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -27,6 +28,7 @@
 <script defer src="${cp}/resource/js/bootstrap.bundle.js"></script>
 <script defer src="${cp}/js/common.js"></script>
 <script defer src="${cp}/js/deleteMember.js"></script>
+<script defer src="${cp}/js/orders.js"></script>
 </head>
 <body>
 
@@ -49,26 +51,6 @@
   </section>
 
 <!-- 바디 메인 -->
-<script>
-	var msg = '<%=request.getParameter("msg")%>';
-			
-	if(!msg){
-		return;
-	} else {
-		alert(msg);
-	}
-</script>
-<script>
-	function orderCancle(){
-		var onum = <%=request.getParameter("orderNum")%>;
-		
-		if(confirm("주문을 취소하시겠습니까?")){
-			location.href='<%=request.getContextPath()%>/orders/orderCancle?orderNum='+ onum;
-			
-		} else return;
-	}
-</script>
-
 <div class="pageWrap">
 
     <h3 class="title"> 주문 상세 </h3> <p> (주문일자: ${orders.regdate} | 주문번호 : ${orders.orderNum}) </p>
@@ -92,17 +74,18 @@
             
 	        	<tr>
 	            <td>
-	            	<img src="${cp}/images/${i.image}" class="itemImg"> 
-          			<p class="itemName"><strong> ${i.pname} </strong><br> ${i.total}원 | ${i.piece}개 </p>
+	            	<img src="${cp}/upload/product/thumbnail/${i.image}" class="itemImg"> 
+          			<p class="itemName"><strong> ${i.pname} </strong>
+          			<br> <f:formatNumber value="${i.total}" pattern="#,###"/> 원 | ${i.piece}개 </p>
 	            </td>
 	           	</tr>
 	           	
 	        </c:forEach>   	
             </table>
             </td>
-           	<td rowspan="${cnt}"> ${orders.amount}원 </td>
-          	<td rowspan="${cnt}"> ${orders.orderState} </td>
-          	<td rowspan="2"> <input type="button" name="" value="주문취소" class="btnCancle" onclick="orderCancle()"></td>
+           	<td rowspan="${cnt}"> <f:formatNumber value="${orders.amount}" pattern="#,###"/> 원 </td>
+          	<td rowspan="${cnt}" id="orderState">${orders.orderState}</td>
+          	<td rowspan="2"> <input type="button" name="" value="주문취소" class="btnCancle" onclick="myCancle(${orders.orderNum});"></td>
          </tr>
         
     </table>
@@ -145,9 +128,13 @@
 
     <h3 class="title"> 결제 정보 </h3>
     <table class="detailTable">
-      <tr>
+       <tr>
         <th class="orderLabels"> 상품 합계금액 </th>
-        <td> ￦ ${orders.amount} </td>
+        <td> ￦ <f:formatNumber value="${orders.amount}" pattern="#,###"/> </td>
+      </tr>
+      <tr>
+        <th class="orderLabels"> 결제수단 </th>
+        <td style="color:gray"> ${payment.means } </td>
       </tr>
       <tr>
         <th class="orderLabels"> 배송비 </th>
@@ -155,7 +142,7 @@
       </tr>
       <tr>
         <th class="orderLabels"> 최종 결제금액 </th>
-        <td style="font-size: x-large;"> ￦ ${orders.amount} </td>
+        <td style="font-size: x-large;"> ￦ <f:formatNumber value="${orders.amount}" pattern="#,###"/> </td>
       </tr>
     </table>
 

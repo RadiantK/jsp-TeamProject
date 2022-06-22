@@ -57,9 +57,9 @@ public class OrderOKController extends HttpServlet{
 			String[] itemImg = req.getParameterValues("itemImg");
 			
 			for(int i=0; i<cartCnt; i++) {
-				int pnum = Integer.parseInt("itemNum[i]");
-				int piece = Integer.parseInt("itemPiece[i]");
-				int total = Integer.parseInt("itemTotal[i]");
+				int pnum = Integer.parseInt(itemNum[i]);
+				int piece = Integer.parseInt(itemPiece[i]);
+				int total = Integer.parseInt(itemTotal[i]);
 				
 				OrderDetail od = new OrderDetail(0,newOrderNum,pnum,itemName[i],piece,total,itemImg[i]);
 				newod = odDao.newOrderDetail(od);
@@ -110,7 +110,8 @@ public class OrderOKController extends HttpServlet{
 		}
 		
 		// 결제테이블 추가 
-		Payment pay = new Payment(0,newOrderNum,"card",amount,null);
+		String option = req.getParameter("payOption");
+		Payment pay = new Payment(0,newOrderNum,option,amount,null);
 		PaymentDao pDao = PaymentDao.getInstance();
 		int newpay = pDao.newPayment(pay);
 		System.out.println("payment: " + newpay);
