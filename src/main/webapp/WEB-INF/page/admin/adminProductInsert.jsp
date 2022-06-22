@@ -35,7 +35,97 @@
   function changeBcg(){
 	  let bcgSelect = document.getElementById("bigCg");
 	  let bcgNum = bcgSelect.options[bcgSelect.selectedIndex].value;
+	  console.log("bcgNum:"+bcgNum);
 	  
+	  let scgSelect = document.getElementById("smallCg");
+	  
+	  let scgOptions = {
+	  	furniture: ['침대','소파','식탁','의자'],
+	  	fabric: ['이불','베개','러그','쿠션'],
+	  	light: ['천장등','장스탠드','단스탠드','데스크스탠드'],
+	  	appliances: ['냉장고','TV','세탁기','에어컨'],
+	  	kitchen: ['그릇','냄비','프라이팬','주방잡화']
+	  }
+	  
+	  let scgOption = [];
+	  
+	  if(bcgNum != "off"){
+		  scgSelect.disabled = false;
+		  switch (bcgNum) {
+		case "1":
+			scgOption = scgOptions.furniture;
+			console.log("scgOption:"+scgOption);
+			break;
+		case "2":
+			scgOption = scgOptions.fabric;
+			console.log("scgOption:"+scgOption);
+			break;
+		case "3":
+			scgOption = scgOptions.light;
+			console.log("scgOption:"+scgOption);
+			break;
+		case "4":
+			scgOption = scgOptions.appliances;
+			console.log("scgOption:"+scgOption);
+			break;
+		case "5":
+			scgOption = scgOptions.kitchen;
+			console.log("scgOption:"+scgOption);
+			break;
+		}
+		console.log("scgOption.length:"+scgOption.length);
+		scgSelect.options.length = 1;
+		
+		for(var i=1;i<scgOption.length+1;i++){
+			var option = document.createElement('option');
+			option.innerText = scgOption[i-1];
+			option.value = scgOption[i-1];
+			scgSelect.append(option);
+		}
+		
+	  }else{
+		  scgSelect.options.length = 0;
+		  var option = document.createElement('option');
+		  option.innerText = "=======소분류=======";
+		  option.value = "off";
+		  scgSelect.append(option);
+		  scgSelect.disabled = true;
+	  }
+  }
+  
+  window.onload = function(){
+	  const thumImgBtn = document.getElementById("thumImgBtn"); // input button
+	  const thumImgFile = document.getElementById("thumImgFile"); // input file
+	  
+	  thumImgFile.addEventListener("change", e => {
+		  readImage(e.target);
+	  });
+	  
+  }
+
+  // button 클릭시 file 클릭 작동하도록
+  function clickThumImgBtn(){
+	  //thumImgBtn = document.getElementById("thumImgBtn");
+	  //thumImgFile = document.getElementById("thumImgFile"); // => 왜 바깥으로 빼면 작동을 안하는지? 윈도우온로드 처리
+	  thumImgFile.click();
+  }
+  
+  
+  // 썸네일 이미지 미리보기
+  function readImage(input){
+	  if(input.files && input.files[0]){
+		  // 이미지 파일인지 확장자명 검사하기(나중에)
+		  
+		  const reader = new FileReader();
+		  
+		  reader.onload = e => {
+			  const previewImage = document.getElementById("ThumImg");
+			  previewImage.src = e.target.result;
+			  console.log("previewImage.src : ",previewImage.src);
+		  }
+		  
+		  reader.readAsDataURL(input.files[0]);
+	  }
   }
   
   </script>
@@ -55,65 +145,69 @@
         </div>
         
         <!-- 제품정보입력폼 -->
+        <form action="${cp}/admin/product/insert" method="post" enctype="multipart/form-data">
+        
         <div class="cg-contents">
+        
             <div class="img-container">
-                <img src="./images/sample.jpeg" alt="">
-                <input type="button" value="썸네일 첨부" class="button">
+                <img id="ThumImg" style="">
+                <input type="file" id="thumImgFile" name="thumImgFile" required style="display: none"/>
+                <input type="button" id="thumImgBtn" value="썸네일 첨부" class="button buttonTemp" onclick="clickThumImgBtn()">
+            	<!-- <input type="button" value="썸네일 첨부" class="button buttonTemp" id="thumImgBtn" onclick="onclick=document.all.thumImgFile.click()"> -->
             </div>
+            
             <div class="txt-container">
-
                 <table>
                     <tr>
                         <th>카테고리</th>
                         <td>
-                            <select name="category" id="bigCg" onchange="">
-                                <option value="">=======대분류=======</option>
+                            <select name="category" id="bigCg" name="bigCg" onchange="changeBcg()">
+                                <option value="off">=======대분류=======</option>
                                 <c:forEach var="bcg" items="${bcgList }">
                                 	<option value="${bcg.bcategoryNum }">${bcg.btype }</option>
-                                </c:forEach>                                
+                                </c:forEach>
                             </select>
                         </td>
                         <td>
                             <!-- 대분류 선택시 활성화 + 해당하는 소분류 출력 -->
-                            <select name="category" id="smallCg" disabled>
-                                <option value="">=======소분류=======</option>
-                                <option value="">침대</option>
-                                <option value="">소파</option>
-                                <option value="">식탁</option>
-                                <option value="">의자</option>
+                            <select name="category" id="smallCg" name="smallCg" disabled="disabled">
+                                <option value="off">=======소분류=======</option>
+                                <!-- 대분류셀렉트 선택시 select에 option add -->
                             </select>
                         </td>
                     </tr>
                     <tr>
                         <th>상품명</th>
-                        <td colspan="2"><input type="text" id="prdName"></td>
+                        <td colspan="2"><input type="text" id="prdName" name="prdName"></td>
                     </tr>
                     <tr>
                         <th>상품설명</th>
-                        <td colspan="2"><input type="text" id="shotDesc"></td>
+                        <td colspan="2"><input type="text" id="shotDesc" name="shotDesc"></td>
                     </tr>
                     <tr>
                         <th>가격</th>
-                        <td colspan="2"><input type="text" id="price"> 원</td>
+                        <td colspan="2"><input type="text" id="price" name="price"> 원</td>
                     </tr>
                     <tr>
                         <th>할인율</th>
-                        <td colspan="2"><input type="text" id="priceOff"> %</td>
+                        <td colspan="2"><input type="text" id="priceOff" name="priceOff"> %</td>
                     </tr>
                     <tr>
                         <th>재고</th>
-                        <td colspan="2"><input type="text" id="qty"> 개</td>
+                        <td colspan="2"><input type="text" id="qty" name="qty"> 개</td>
                     </tr>
                     <tr>
                         <th>상세이미지</th>
-                        <td colspan="2"><input type="button" value="상세이미지 첨부" class="button buttonTemp descImg"><span class="fileName">파일명</span></td>
+                        <!-- <td colspan="2"><input type="button" value="상세이미지 첨부" class="button buttonTemp descImg"><span class="fileName">파일명</span></td> -->
+                        <td colspan="2"><input type="file" id="descImg" name="descImg" required></td>
                     </tr>
                 </table>
-
-                <input type="button" value="제품 등록하기" class="button buttonTemp insertBtn">
+                <input type="submit" value="제품 등록하기" class="button buttonTemp insertBtn">
             </div>
+            
         </div>
         
+        </form>
     </div>
 </div>
 
