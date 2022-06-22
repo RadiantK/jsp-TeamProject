@@ -91,8 +91,10 @@ public class AdminProductListController extends HttpServlet {
 		int endRow = startRow+9; // 마지막 글번호
 		
 		int pageNumBox = 10; // 하단에 페이지 10개씩 나열
-		int count = 0; // 등록된 전체글 개수
-		if(scnum == 0) {
+		int count = 0; // 등록된 전체상품 개수
+		if(bcnum == 0 && scnum == 0) {
+			count = totCnt;
+		}else if(scnum == 0) {
 			count = bcgCnt; // 소분류 미선택시 대분류카운트 리턴
 		}else {
 			count = scgCnt; // 소분류 선택시 소분류카운트 리턴
