@@ -44,6 +44,68 @@
 <script defer src="${cp}/resource/js/bootstrap.bundle.js"></script>
 <script defer src="${cp}/js/common.js"></script>
 <script defer src="${cp}/js/main.js"></script>
+
+<script type="text/javascript">
+	window.onload=function(){
+		noticeList(1); // 메소드 호출할때마다 보여질 페이지 == 1
+}
+	function noticeList(pageNum){
+		let xhr=new XMLHttpRequest();
+		xhr=new XMLHttpRequest();
+		xhr.onreadystatechange=function(){
+			if(xhr.readyState==4 && xhr.status==200){
+				let noticeList=document.getElementById("noticeList");
+				// 기존 공지 삭제
+				let child=noticeList.childNodes;
+				for(let i=child.length-1;i>=0;i--){
+					let c=child.item(i);
+					noticeList.removeChild(c);
+				}
+				let result=xhr.responseText;
+				let data=JSON.parse(result);
+				let notice=data.list;
+				for(var i=0;i<notice.length;i++){
+					var noticeNum=notice[i].noticeNum;
+					var memberNum=notice[i].memberNum;
+					var nickname=notice[i].nickname;
+					var title=notice[i].title;
+					var content=notice[i].content;
+					var regdate=notice[i].regdate;
+					var hit=notice[i].hit;
+					var tr=document.createElement("tr");
+					tr.innerHTML=				"<td style='width: 10%' class='text-center'>"+noticeNum+"</td>" +
+												"<td style='width: 60%' class='text-center'><a href='${cp}/board/Notice/Detail?noticeNum="+noticeNum+"'>"+title+"</a></td>" +
+												"<td style='width: 20%' class='text-center'>"+ regdate +"</td>" +
+												"<td style='width: 10%' class='text-center'>"+ hit + "</td>" 
+							noticeList.appendChild(tr);
+										
+				}
+				let startPage = data.startPage;
+  				let endPage = data.endPage;
+  				let pageCount = data.pageCount;
+  				let pageHTML = "";
+  				if(startPage>10){
+  					pageHTML += "<a href='javascript:noticeList("+ (startPage-1) +")'>이전</a>";
+  				}
+  				for(let i=startPage;i<=endPage;i++){
+  					if(i==pageNum){
+  						pageHTML +="<a href='javascript:noticeList("+ i +")'><span style='color:#35C5F0'><u> "+ i +"</u></span></a>";
+					}else{
+						pageHTML +="<a href='javascript:noticeList("+ i +")'><span style='color:gray'> "+ i +"</span></a>";
+					}
+  				}
+  				if(endPage<pageCount){
+  					pageHTML +="<a href='javascript:noticeList("+ (endPage+1) +")'>다음</a>";
+				}
+				var page = document.getElementById("paging");
+				page.innerHTML = pageHTML;
+			}
+		};
+		xhr.open('get','${cp}/board/Notice/List?pageNum='+ pageNum,true);
+		xhr.send();
+	}
+</script>
+
 </head>
 <body>
 	<jsp:include page="/WEB-INF/page/include/header.jsp" />
@@ -56,7 +118,7 @@
 					<h1>고객센터</h1>
 					<br>
 					<div id="boardCategory">
-						<a href="${cp }/board/Notice/List">공지사항</a>&nbsp;&nbsp;&nbsp;&nbsp;<span>|</span>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="${cp }/board/Notice/Listmove">공지사항</a>&nbsp;&nbsp;&nbsp;&nbsp;<span>|</span>&nbsp;&nbsp;&nbsp;&nbsp;
 						<a href="${cp }/board/QNA/List">1:1문의</a>&nbsp;&nbsp;&nbsp;&nbsp;<span>|</span>&nbsp;&nbsp;&nbsp;&nbsp;
 						<a href="${cp }/board/FAQ/List">자주묻는질문</a>
 					</div>
@@ -64,6 +126,7 @@
 				</div>
 			</div>
 
+			
 			<div class="row">
 				<div class="col-md-12">
 					<table class="table table-hover">
@@ -75,8 +138,9 @@
 								<th scope="col" class="text-center">조회수</th>
 							</tr>
 						</thead>
-
-						<tbody>
+						
+						<tbody id="noticeList">
+						<%-- JSON 처리로 변경
 							<c:forEach var="vo" items="${list }">
 								<tr>
 									<td style="width: 10%" class="text-center">${vo.noticeNum }</td>
@@ -86,11 +150,12 @@
 									<td style="width: 10%" class="text-center">${vo.hit }</td>
 								</tr>
 							</c:forEach>
-						</tbody>
-
+						--%>	
+						</tbody>						
 					</table>
 				</div>
 			</div>
+			
 
 			<div class="row">
 				<div class="col-xs-12">
@@ -105,6 +170,7 @@
 
 			<!-- 목록 페이징 처리 -->
 			<div id="paging" style="text-align: center; font-size: large;">
+			<%--  JSON 처리로 변경
 				<c:if test="${startPage>10 }">
 					<a href="${cp }/board/Notice/List?pageNum=${startPage-1}">이전</a>
 				</c:if>
@@ -123,6 +189,7 @@
 				<c:if test="${endPage<pageCount }">
 					<a href="${cp }/board/Notice/List?pageNum=${endPage+1}">다음</a>
 				</c:if>
+			--%>
 			</div>
 
 		</div>
