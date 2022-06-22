@@ -67,7 +67,7 @@
          
 	<tr>
 	<td>
-		<img src="${cp}/upload/product/thumbnail/${i.image}" class="itemImg"> 
+		<img src="${cp}/upload/product/${i.image}" class="itemImg"> 
         <p class="itemName"><strong> ${i.pname} </strong>
         <br><f:formatNumber value="${i.total}" pattern="#,###"/> 원 | ${i.piece}개 </p>
 	</td>
@@ -128,7 +128,7 @@
         </tr>
         <tr>
           <th class="orderLabels"> 변경 주소 </th>
-          <th> <input type="button" name="kakaoBtn" id="kakaoBtn" value="주소찾기">
+          <th> <input type="button" name="kakaoBtn" id="kakaoBtn" value="주소찾기"  onclick="kakaoAddress()">
                <input type="text" name="kakaoZonecode" value="" id="kakaoZonecode" readonly="readonly">
           </th> 
           <tr>
