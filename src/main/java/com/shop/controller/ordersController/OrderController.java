@@ -22,36 +22,37 @@ public class OrderController extends HttpServlet{
 
 	@SuppressWarnings("unused")
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+	protected void service(HttpServletRequest req, HttpServletResponse resp)
 										throws ServletException, IOException {
 		
 		// 장바구니에서 주문할 때는 품목수 파라미터로 전달받고 
 		// 상세페이지에서 바로 주문하면 한개  
-		String[] cart = req.getParameterValues("cart");
+		
+		String[] pnums = req.getParameterValues("pnum");
+		String[] pieces = req.getParameterValues("piece"); 
+		
 		int cartCnt = 1;
 		int itemNum = 0; // 제품번호 
 		int piece = 0; // 구매수량 
 		int totalCnt = 0; // 전체 구매수량
 		int total = 0; // 전체 구매금액 
 		
-		if(cart==null) { // 바로 구매할 때 
+		if(pnums==null) { // 바로 구매할 때 
 			itemNum = Integer.parseInt(req.getParameter("pnum"));
 			piece = Integer.parseInt(req.getParameter("piece"));
+			
 		} else {
-			String[] pnums = req.getParameterValues("pnum");
-			String[] pieces = req.getParameterValues("piece"); 
-			cartCnt = cart.length;
+			cartCnt = pnums.length;
 		}
-		
 		System.out.println(cartCnt);
 		
 		// 제품 정보 가져오기 
 		ArrayList<OrderCommand> orderList = new ArrayList<OrderCommand>();
 			
 		for(int i=0; i<cartCnt; i++) {
-			if(cart!=null) {
-				itemNum = Integer.parseInt("pnums[i]");
-				piece = Integer.parseInt("pieces[i]");
+			if(pnums!=null) {
+				itemNum = Integer.parseInt(pnums[i]);
+				piece = Integer.parseInt(pieces[i]);
 			}
 				
 			ProductDao dao = ProductDao.getInstance();
