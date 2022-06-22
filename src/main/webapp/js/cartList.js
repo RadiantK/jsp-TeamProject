@@ -1,48 +1,5 @@
 const cpEl = document.getElementById('cp').value;
 
-// 구매하기
-function orders(form){
-	
-	var chks = form.elements['chk[]'].length;
-	console.log(chks);
-	
-	if (typeof(chks)=='0') {
-		alert ("주문할 상품을 선택해주세요.");
-		return false;
-	} else {
-		for (i=0; i<chks; i++){
-			if(form.elements['chk[]'].checked==false){
-				form.elements['pnum[]'][i].disabled=true;
-				form.elements['piece[]'][i].disabled=true;
-			}
-		}
-	}
-	form.action = cpEl+'/orders/order';
-    form.method = 'post';
-    form.submit();
-}
-
-// 수량 설정 
-function pieceCal(me, n){
-	if(n==1){
-    	let piece = me.nextElementSibling;
-        piece.value = parseInt(piece.value) + 1;
-    } else if (n==2){
-    	let piece = me.previousElementSibling;
-        if (piece.value=='1') return;
-        piece.value = parseInt(piece.value) - 1;
-    }
-}
-
-// 합계금액 변경
-
-
-// 전체 체크 
-function selectAll(cartAll){
-	var boxes = document.getElementsByName('chk[]');
-    boxes.forEach((checkbox) => {checkbox.checked=cartAll.checked});
-}
-
 // 장바구니리스트
 window.onload = function(){
 	cartList();
@@ -75,20 +32,24 @@ function cartList(){
 					for(let i = 0; i < cart.length; i++){
 						let trEl = document.createElement('tr');
 						trEl.innerHTML = 
-						  "<td><input type='checkbox' name='chk[]' />" +
-						  "<input type='hidden' name='pnum[]' value='"+cart[i].productNum+"'></td>" +
-						  "<td><img src='"+cpEl+"/images/"+cart[i].img+"' class='itemImg' alt='상품이미지'/>"
+						  "<td><input type='hidden' name='pnum' value='"+cart[i].productNum+"'>" +
+						  "<img src='"+cpEl+"/upload/product/thumbnail/"+cart[i].img+"' class='itemImg' alt='상품이미지'/>"+
 						  "<p class='itemName'>"+cart[i].pname+"</p></td>" +
 						  "<td>"+cart[i].price+"</td>" + 
 						  "<td><input type='button' name='plus' class='pieceBtn' value=' + ' onclick='pieceCal(this,1)' />" +
-						  "<input type='text' name='piece[]' id='piece' value='1' />" + 
+						  "<input type='text' name='piece' id='piece' value='1' />" + 
 						  "<input type='button' name='minus' class='pieceBtn' value=' - ' onclick='pieceCal(this,2)' /></td>" + 
-						  "<td class='sumPrice'>합계</td>" + 
+						  "<td class='sumPrice'>"+cart[i].price+"</td>" + 
 						  "<td> 착불 </td>" + 
 						  "<td><input type='button' value='삭제' class='cartDelete' onclick='deleteCart("+cart[i].cartDetailNum+")' /></td>";
 						  
 						 tbodyEl.appendChild(trEl);
 					}
+					
+					// 전체 합계
+					document.getElementById("cartPrice").innerHTML=
+					"총 "+json.cartCnt+"개의 상품금액  ￦ "+json.cartTotal+" + 배송비  착불  = <span class='totalPrice'> ￦ "+json.cartTotal+" </span>";
+
 				}else {
 					let tbodyChildsEl = tbodyEl.childNodes;
 					for(let i = tbodyChildsEl.length-1; i >= 0; i--) {
@@ -131,20 +92,24 @@ function cartList(){
 					for(let i = 0; i < cart.length; i++){
 						let trEl = document.createElement('tr');
 						trEl.innerHTML = 
-						  "<td><input type='checkbox' name='chk[]' />" +
-						  "<input type='hidden' name='pnum[]' value='"+cart[i].productNum+"'></td>" +
-						  "<td><img src='"+cpEl+"/images/"+cart[i].img+"' class='itemImg' alt='상품이미지'/>" +
+						  "<td><input type='hidden' name='pnum' value='"+cart[i].productNum+"'>" +
+						  "<img src='"+cpEl+"/upload/product/thumbnail/"+cart[i].img+"' class='itemImg' alt='상품이미지'/>"+
 						  "<p class='itemName'>"+cart[i].pname+"</p></td>" +
 						  "<td>"+cart[i].price+"</td>" + 
 						  "<td><input type='button' name='plus' class='pieceBtn' value=' + ' onclick='pieceCal(this,1)' />" +
-						  "<input type='text' name='piece[]' id='piece' value='1' />" + 
+						  "<input type='text' name='piece' id='piece' value='1' />" + 
 						  "<input type='button' name='minus' class='pieceBtn' value=' - ' onclick='pieceCal(this,2)' /></td>" + 
-						  "<td class='sumPrice'>합계</td>" + 
+						  "<td class='sumPrice'>"+cart[i].price+"</td>" + 
 						  "<td> 착불 </td>" + 
 						  "<td><input type='button' value='삭제' class='cartDelete' onclick='deleteCart("+cart[i].index+")' /></td>";
 						  
 						 tbodyEl.appendChild(trEl);
 					}
+					
+					// 전체 합계
+					document.getElementById("cartPrice").innerHTML=
+					"총 "+json.cartCnt+"개의 상품금액  ￦ "+json.cartTotal+" + 배송비  착불  = <span class='totalPrice'> ￦ "+json.cartTotal+" </span>";
+
 				}else {
 					let tbodyChildsEl = tbodyEl.childNodes;
 					for(let i = tbodyChildsEl.length-1; i >= 0; i--) {
@@ -166,6 +131,63 @@ function cartList(){
 	
 }
 
+// 수량 설정
+function pieceCal(me, n){
+	
+	var thisRow = me.parentNode.parentNode;
+	var price = thisRow.getElementsByTagName("td")[1].innerHTML;
+	var item = thisRow.getElementsByTagName("td")[3];
+	
+	if(n==1){
+    	let piece = me.nextElementSibling;
+        piece.value = parseInt(piece.value) + 1;
+        
+        // 품목 합계 변경
+        itemCal(price, piece.value, item);
+        
+    } else if (n==2){
+    	let piece = me.previousElementSibling;
+        if (piece.value=='1') return;
+        piece.value = parseInt(piece.value) - 1;
+        
+        itemCal(price, piece.value, item);
+    }
+}
+
+// 품목 합계 변경
+function itemCal(price, piece, item){
+	xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function () {
+		if(xhr.readyState==4 && xhr.status==200){
+			let data = xhr.responseText;
+			let json = JSON.parse(data);
+			item.innerHTML = json.itemCal;
+			
+			totalCal();
+		}
+	};
+	xhr.open('get',cpEl+'/user/cart/itemCal?price='+price+'&piece='+piece, true);
+	xhr.send();
+}
+
+// 전체 합계 변경
+function totalCal(){
+	var table = document.getElementById("cartTable");
+	let cnt = 0;
+	let total = 0;
+	
+	for(let i=1; i<table.rows.length; i++){
+		cnt += parseInt(table.rows[i].cells[2].childNodes[1].value);
+		total += parseInt(table.rows[i].cells[3].innerHTML);
+		console.log(cnt, total);
+	}
+	
+	document.getElementById("cartPrice").innerHTML=
+	"총 "+cnt+"개의 상품금액  ￦ "+total+" + 배송비  착불  = <span class='totalPrice'> ￦ "+total+" </span>";
+}
+
+
+// 장바구니 삭제 
 function deleteCart(cdNum){
 	let confirmMsg = confirm('장바구니 목록에서 제거하시겠습니까?');
 	if(confirmMsg){

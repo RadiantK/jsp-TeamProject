@@ -46,13 +46,11 @@
  			<input type="hidden" id="sessionValue" value="nonMember" />
  		</c:if>
     
-    <form name="cartForm" onsubmit="return false()">
+    <form name="cartForm" action="${cp}/orders/order" method="post">
     
-    <table class="cartTable">
+    <table class="cartTable" id="cartTable">
 			<thead>
 				<tr>
-					<th> <input type="checkbox" name="chkAll" onclick="selectAll(this)">
-					</th>
 					<th style="width:400px"> 제품정보 </th>
 					<th> 금액 </th>
 					<th> 수량 </th>
@@ -63,16 +61,13 @@
 			</thead>
 			<tbody>
 <!-- 				<tr>
-					<td> <input type="checkbox" name="chk[]">
-					<input type="hidden" name="pnum[]" value="cart[i].productNum"></td>
-					<td>				
+						<td><input type="hidden" name="pnum" value="cart[i].productNum">			
 						<img src="./images/orderTest.png" class="itemImg"> 
-						<p class="itemName"> 두닷 콰트로 에어데스크 1000 </p>
-					</td>
+						<p class="itemName"> 두닷 콰트로 에어데스크 1000 </p></td>
 					<td> 10,000 </td>
 					<td>
 						<input type="button" name="plus" id="plus" class="pieceBtn" value=" + " onclick="pieceCal(this,1)">
-						<input type="text" name="piece[]" id="piece" value="1">
+						<input type="text" name="piece" id="piece" value="1">
 						<input type="button" name="minus" id="minus" class="pieceBtn" value=" － " onclick="pieceCal(this,2)">
 					</td>
 					<td class="sumPrice"> 10,000 </td>
@@ -83,17 +78,16 @@
     </table>
       
 
-      <div class="cartPrice">
-        총 3개의 상품금액  ￦ 40,000  +  배송비  착불  = <span class="totalPrice"> ￦ 45,000 </span>
+      <div class="cartPrice" id="cartPrice">
+        총 0개의 상품금액  ￦ 0 +  배송비 0 = <span class="totalPrice"> ￦ 0 </span>
       </div>
-      </form>
     
       <div class="btnDiv">
         <a href="javascript:history.back();" class="btnWhite"> 이전으로 </a> 
-        <input type="submit" id="orderBtn" value="구매하기" onclick="orders(this)" class="btnUpdate">
+        <input type="submit" id="orderBtn" value="구매하기" class="btnUpdate">
       </div>
-    
-	</div> 
+      </form>
+  	</div> 
     
     
    	<!-- FOOTER -->
