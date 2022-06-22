@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.shop.dao.QNADao;
 import com.shop.dto.QNA;
 
+// 관리자용 문의 목록페이지로 이동하는 컨트롤러
 @WebServlet("/admin/QNA/List")
 public class adminQNAListController extends HttpServlet {
 	@Override

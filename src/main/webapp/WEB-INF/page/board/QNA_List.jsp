@@ -83,6 +83,7 @@
 										href="${cp }/board/QNA/Detail?qnaNum=${vo.qnaNum}">${vo.title }</a></td>
 									<td style="width: 10%" class="text-center">${vo.regdate }</td>
 									<c:choose>
+									<%-- DB상 qnastate가 null일 경우 답변 대기중으로 변경, null 이 아닐 경우 해당 qnastate 값으로 변경 --%>
 									<c:when test="${vo.qnastate==null}">
 									<td style="width: 10%" class="text-center">답변대기중</td>
 									</c:when>

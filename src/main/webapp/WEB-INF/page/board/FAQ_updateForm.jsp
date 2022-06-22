@@ -41,7 +41,7 @@
 <main>
 	
 	<div class="container">
-		<h1>1:1문의 수정(관리자용)</h1>
+		<h1>자주묻는 질문 수정하기</h1>
 		<form action="${cp }/board/FAQ/Update?faqNum=${m.faqNum}" method="post">
 			<div class="form-group">
 				<label for="title">제목</label><br> <input type="text"

@@ -66,7 +66,7 @@ public class QNADao {
 		}
 	}
 	
-	public ArrayList<QNA> QNAList(int startRow,int endRow){ // 전체 1:1문의 목록 불러오는 DAO + 페이징 처리
+	public ArrayList<QNA> QNAList(int startRow,int endRow){ // 전체 1:1문의 목록 불러오는 DAO (관리자, 비회원 전용)
 		String sql="select * from "
 				+ "( "
 				+ "	select aa.*,rownum rnum from "
@@ -105,7 +105,7 @@ public class QNADao {
 			DBPool.close(con, pstmt, rs);
 		}
 	}
-	public ArrayList<QNA> memberQNAList(int startRow,int endRow,String nickname){ // 회원별 1:1문의 목록 불러오는 DAO + 페이징 처리
+	public ArrayList<QNA> memberQNAList(int startRow,int endRow,String nickname){ // 1:1문의 목록 불러오는 DAO + 페이징 처리 - 자신의 글 목록만 보이도록 설정
 		String sql="select * from "
 				+ "( "
 				+ "	select aa.*,rownum rnum from "
@@ -146,7 +146,7 @@ public class QNADao {
 		}
 	}
 	
-	public QNA QNADetail(int qnaNum) { // 상세내용 보기 + QNA번호로 하나의 전체컬럼 보기(다용도목적)
+	public QNA QNADetail(int qnaNum) { // 상세내용 보기 + QNA번호로 하나의 전체컬럼 보기(다용도 목적)
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -237,7 +237,7 @@ public class QNADao {
 			DBPool.close(con, pstmt);
 		}
 	}
-	public int isComment(int qnaNum) {
+	public int isComment(int qnaNum) { // 문의상태 확인을 위한 DAO - 해당 문의번호에 해당하는 답변이 있을경우 count >=1, 없을 경우 count = 0 임을 이용
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -259,7 +259,7 @@ public class QNADao {
 			DBPool.close(con, pstmt);
 		}
 	}
-	public int isState(QNA dto) {
+	public int isState(QNA dto) { // 트랜젝션 처리 - 답변 있을 경우 qnastate -> 답변완료로 변경
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		try {
@@ -276,7 +276,7 @@ public class QNADao {
 			DBPool.close(con, pstmt);
 		}
 	}
-	public int noState(QNA dto) {
+	public int noState(QNA dto) { // 트랜젝션 처리 - 답변 없을 경우 qnastate -> 답변대기중으로 변경
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		try {

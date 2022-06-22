@@ -23,10 +23,10 @@ public class QNADetailController extends HttpServlet {
 		QNADao dao=QNADao.getInstance();
 		QNA vo=dao.QNADetail(qnaNum);
 		int n=dao.isComment(qnaNum);
-		if(n==0) {
+		if(n==0) { // 해당 qnaNum 에 대한 qnacomment가 없는 경우 (즉, 답변 없음)
 			QNA dto=new QNA(qnaNum, null, null, null, null, null, null, null);
 			int a=dao.noState(dto);
-		}else if(n>=1) {
+		}else if(n>=1) { // 해당 qnaNum 에 대한 qnacomment가 있는 경우 (즉, 답변 있음)
 			QNA dto=new QNA(qnaNum, null, null, null, null, null, null, null);
 			int a=dao.isState(dto);
 		}

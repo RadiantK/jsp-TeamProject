@@ -20,7 +20,7 @@ public class QNAListController extends HttpServlet{
 		HttpSession session=req.getSession();
 		String email=(String)session.getAttribute("sessionId");
 		
-		if(email==null || email.equals("")) {
+		if(email==null || email.equals("")) { // 세션에 저장된 이메일이 없을 경우 = 비로그인상태(비회원)은 1:1 문의 목록에 아무것도 보이지 않도록 설정.
 			String spageNum=req.getParameter("pageNum");
 			int pageNum=1;
 			if(spageNum!=null) {
@@ -47,7 +47,7 @@ public class QNAListController extends HttpServlet{
 			req.getRequestDispatcher("/WEB-INF/page/board/QNA_List.jsp").forward(req, resp);
 		}
 		
-		else if(email.equals("admin")) {
+		else if(email.equals("admin")) { // 세션에 저장된 이메일이 관리자일 경우 모든 QNA 목록이 보이도록 설정
 			String spageNum=req.getParameter("pageNum");
 			int pageNum=1;
 			if(spageNum!=null) {
@@ -72,7 +72,7 @@ public class QNAListController extends HttpServlet{
 			
 			
 			req.getRequestDispatcher("/WEB-INF/page/admin/adminQNAList.jsp").forward(req, resp);
-		}else if(email != null) {
+		}else if(email != null) { // 세션에 저장된 아이디가 null이 아니며 관리자가 아닐경우 (회원) - 세션아이디를 통해 자신의 글만 보이도록 설정
 		String spageNum=req.getParameter("pageNum");
 		int pageNum=1;
 		if(spageNum!=null) {

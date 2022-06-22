@@ -72,6 +72,7 @@
 					var content=notice[i].content;
 					var regdate=notice[i].regdate;
 					var hit=notice[i].hit;
+					// 테이블에서 tbody 중 tr 부분안에 td 넣기.
 					var tr=document.createElement("tr");
 					tr.innerHTML=				"<td style='width: 10%' class='text-center'>"+noticeNum+"</td>" +
 												"<td style='width: 60%' class='text-center'><a href='${cp}/board/Notice/Detail?noticeNum="+noticeNum+"'>"+title+"</a></td>" +

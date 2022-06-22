@@ -39,7 +39,7 @@
 <jsp:include page="/WEB-INF/page/include/header.jsp" />
 
 	<div class="container">
-		<h1>1:1문의(사용자용)</h1>
+		<h1>1:1문의 등록하기</h1>
 		
 		<c:set var="m" value="${requestScope.dto }"/>
 		

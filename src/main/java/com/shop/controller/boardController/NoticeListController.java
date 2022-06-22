@@ -19,6 +19,7 @@ import com.shop.dto.Notice;
 
 @WebServlet("/board/Notice/List")
 public class NoticeListController extends HttpServlet {
+	// JSON 처리 방식 사용
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String spageNum=req.getParameter("pageNum");
