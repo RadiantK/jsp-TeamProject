@@ -511,4 +511,41 @@ public class ProductDao {
 			DBPool.close(con, pstmt, rs);
 		}
 	}
+	
+	// 상품 등록
+	public int insert(ProductCommand prdComm) {
+		Connection con = null;
+		PreparedStatement pstmt1 = null;
+		PreparedStatement pstmt2 = null;
+		try {
+			String sql1 = "INSERT INTO product "
+					+ "VALUES(seq_product.nextval, ?, ?, ?, ?, ?, ?, sysdate, ?)";
+			con = DBPool.getConnection();
+			pstmt1 = con.prepareStatement(sql1);
+			pstmt1.setInt(1, prdComm.getScategoryNum());
+			pstmt1.setString(2, prdComm.getPname());
+			pstmt1.setString(3, prdComm.getPdesc());
+			pstmt1.setInt(4, prdComm.getPrice());
+			pstmt1.setInt(5, prdComm.getDiscount());
+			pstmt1.setInt(6, prdComm.getCnt());
+			pstmt1.setString(7, prdComm.getImage());
+			int n1 = pstmt1.executeUpdate();
+			int n2 = 0;
+			if(n1>0) {
+				String sql2 = "INSERT INTO productdetail "
+						+ "VALUES(seq_productdetail.nextval, seq_product.currval, ?)";
+				pstmt2 = con.prepareStatement(sql2);
+				pstmt2.setString(1, prdComm.getDescImg());
+				n2 = pstmt2.executeUpdate();
+			}
+			return n2;
+		}catch (SQLException s) {
+			s.printStackTrace();
+			return -1;
+		}finally {
+			DBPool.close(pstmt2);
+			DBPool.close(pstmt1);
+			DBPool.close(con);
+		}
+	}
 }
