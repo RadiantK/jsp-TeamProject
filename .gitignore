@@ -8,3 +8,4 @@ upload/
 package-lock.json
 *.jar
 kakaoLogin.js
+upload/
