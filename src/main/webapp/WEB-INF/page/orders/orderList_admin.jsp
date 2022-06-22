@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>  
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -34,12 +35,13 @@
 
 <!-- 바디 메인 -->
 <div class="pageWrap">
-    <h2 class="orderTitle"> [ADMIN] 전체 주문/결제내역 </h2>
+    <h2 class="orderTitle"> 전체 주문/결제내역 </h2>
     <table id="adminTable">
         <thead>
         <tr>
             <th> 주문일자 </th>
             <th> 주문번호 </th>
+            <th> 회원번호 </th>
             <th> 주문아이디(이메일) </th>
             <th> 주문자명 </th>
             <th> 결제금액 </th>
@@ -52,9 +54,10 @@
         <tr>
             <td> ${i.regdate } </td>
             <td><a href="${cp}/admin/orderdetailAdmin?orderNum=${i.orderNum}">${i.orderNum } </a></td>
+            <td> ${i.memberNum}</td>
             <td> ${i.email } </td>
             <td> ${i.name } </td>
-            <td> ${i.amount } </td>
+            <td> <f:formatNumber value="${i.amount}" pattern="#,###"/> </td>
             <td> ${i.orderState } </td>
             <td><a href="${cp}/admin/orderdetailAdmin?orderNum=${i.orderNum}" style="color:darkgray"> 상세보기 </a></td>
         </tr> 

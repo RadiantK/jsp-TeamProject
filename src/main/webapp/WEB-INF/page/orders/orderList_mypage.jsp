@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -102,9 +103,9 @@
 		        <c:set var="cnt" value="${cnt+1}"/>
 	                <tr>
 	                <td>
-	                <img src="${cp}/images/${j.image}" class="itemImg"><br>
+	                <img src="${cp}/upload/product/thumbnail/${j.image}" class="itemImg"><br>
 	                <span class="itemName"><a href="${cp}/orders/orderdetailMypage?orderNum=${j.orderNum}"> ${j.pname} </a><br>
-	                <span class="itemPay"> ￦ ${j.total} </span></span>
+	                <span class="itemPay"> ￦ <f:formatNumber value="${j.total}" pattern="#,###"/> </span></span>
 	                </td>
 	                </tr>
 	            </c:if>
