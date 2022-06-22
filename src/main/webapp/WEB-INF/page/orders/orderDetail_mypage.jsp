@@ -74,7 +74,7 @@
             
 	        	<tr>
 	            <td>
-	            	<img src="${cp}/upload/product/thumbnail/${i.image}" class="itemImg"> 
+	            	<img src="${cp}/upload/product/${i.image}" class="itemImg"> 
           			<p class="itemName"><strong> ${i.pname} </strong>
           			<br> <f:formatNumber value="${i.total}" pattern="#,###"/> 원 | ${i.piece}개 </p>
 	            </td>
