@@ -54,7 +54,7 @@
 					<h1>고객센터</h1>
 					<br>
 					<div id="boardCategory">
-						<a href="${cp }/board/Notice/List">공지사항</a>&nbsp;&nbsp;&nbsp;&nbsp;<span>|</span>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="${cp }/board/Notice/Listmove">공지사항</a>&nbsp;&nbsp;&nbsp;&nbsp;<span>|</span>&nbsp;&nbsp;&nbsp;&nbsp;
 						<a href="${cp }/admin/QNA/List">1:1문의</a>&nbsp;&nbsp;&nbsp;&nbsp;<span>|</span>&nbsp;&nbsp;&nbsp;&nbsp;
 						<a href="${cp }/board/FAQ/List">자주묻는질문</a>
 					</div>

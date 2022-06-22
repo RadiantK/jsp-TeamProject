@@ -13,9 +13,6 @@ import javax.servlet.http.HttpSession;
 import com.shop.dao.QNADao;
 import com.shop.dto.QNA;
 
-
-
-
 @WebServlet("/board/QNA/List")
 public class QNAListController extends HttpServlet{
 	@Override

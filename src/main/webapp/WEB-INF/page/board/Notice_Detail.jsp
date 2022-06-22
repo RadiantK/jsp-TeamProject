@@ -82,7 +82,7 @@
 					</tbody>
 				</table>
 				<div class="btn-group">
-					<a href="${cp }/board/Notice/List" class="button btn--reverse">목록</a>&nbsp;&nbsp;
+					<a href="${cp }/board/Notice/Listmove" class="button btn--reverse">목록</a>&nbsp;&nbsp;
 					<!-- 세션에 담긴 Id가 관리자인 경우에만 공지내용 수정 및 삭제가능. -->
 					<c:if test="${sessionId=='admin' }">
 						<a href="${cp }/board/Notice/Update?noticeNum=${vo.noticeNum}"

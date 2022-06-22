@@ -61,7 +61,7 @@
           <div class="item__name"><a href="${cp}/user/mypage/profile">마이페이지</a></div>
         </li>
         <li class="item">
-          <div class="item__name"><a href="${cp }/board/Notice/List">고객센터</a></div>
+          <div class="item__name"><a href="${cp }/board/Notice/Listmove">고객센터</a></div>
         </li>
       </ul>
 
