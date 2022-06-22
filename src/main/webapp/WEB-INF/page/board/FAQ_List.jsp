@@ -44,6 +44,68 @@
 <script defer src="${cp}/resource/js/bootstrap.bundle.js"></script>
 <script defer src="${cp}/js/common.js"></script>
 <script defer src="${cp}/js/main.js"></script>
+<style>
+details {
+	margin: 5px 0 10px;
+}
+
+details>summary {
+	width: 900px;
+	margin: auto;
+	background: #FFFFFF;
+	color: black; padding : 10px;
+	outline: 0;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: background 0.5s;
+	text-align: left;
+	padding: 10px; outline : 0; border-radius : 5px; cursor : pointer;
+	transition : background 0.5s; text-align : left;
+	box-shadow: 1px 1px 1px gray;
+}
+
+details>summary::-webkit-details-marker {
+	background: #FFFFFF;
+	color: black;
+	background-size: contain;
+	transform: rotate3d(0, 0, 1, 90deg);
+	transition: transform 0.25s;
+}
+
+details[open]>summary::-webkit-details-marker {
+	transform: rotate3d(0, 0, 1, 180deg);
+}
+
+details[open]>summary {
+	background: #FFFFFF;
+	font-weight: bold;
+}
+
+details[open]>summary ~ * {
+	animation: reveal 0.5s;
+}
+
+.tpt {
+	background: rgb(247, 249, 250);
+	color: black;
+	margin: 5px 0 10px;
+	padding: 5px 10px;
+	line-height: 25px;
+	border-radius: 5px;
+	box-shadow: 1px 1px 2px gray;
+}
+
+@
+keyframes reveal {from { opacity:0;
+	transform: translate3d(0, -30px, 0);
+}
+
+to {
+	opacity: 1;
+	transform: translate3d(0, 0, 0);
+}
+}
+</style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/page/include/header.jsp" />
@@ -57,7 +119,7 @@
 					<h1>고객센터</h1>
 					<br>
 					<div id="boardCategory">
-						<a href="${cp }/board/Notice/List">공지사항</a>&nbsp;&nbsp;&nbsp;&nbsp;<span>|</span>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="${cp }/board/Notice/Listmove">공지사항</a>&nbsp;&nbsp;&nbsp;&nbsp;<span>|</span>&nbsp;&nbsp;&nbsp;&nbsp;
 						<a href="${cp }/board/QNA/List">1:1문의</a>&nbsp;&nbsp;&nbsp;&nbsp;<span>|</span>&nbsp;&nbsp;&nbsp;&nbsp;
 						<a href="${cp }/board/FAQ/List">자주묻는질문</a>
 					</div>
@@ -76,51 +138,36 @@
 									<c:if test="${field =='title' }">selected</c:if>>제목</option>
 								<option value="content"
 									<c:if test="${field =='content' }">selected</c:if>>내용</option>
-							</select> <input type="text" class="form-control-row rounded-pill"
-								style="width: 450px; height:40px; text-align: center"
+							</select> &nbsp;
+							<input type="text" class="form-control-row rounded-pill"
+								style="width: 450px; height: 40px; text-align: center;"
 								placeholder="자주묻는 질문 검색" aria-describedby="button-addon2"
-								name="keyword" value=${keyword }> 					
+								name="keyword" value=${keyword }>
 						</div>
 					</form>
 				</div>
 			</div>
 			<br>
-			<div class="row">
-				<div class="col-md-12">
-					<table class="table table-hover">
-						<thead>
-							<tr>
-								<th scope="col" class="text-center">글번호</th>
-								<th scope="col" class="text-center">제목</th>
-								<th scope="col" class="text-center">작성일</th>
 
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach var="vo" items="${list }">
-								<tr>
-									<td style="width: 10%" class="text-center">${vo.faqNum }</td>
-									<td style="width: 70%" class="text-center"><a
-										href="${cp }/board/FAQ/Detail?faqNum=${vo.faqNum}">${vo.title }</a></td>
-									<td style="width: 20%" class="text-center">${vo.regdate }</td>
-								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
-				</div>
-			</div>
+			<c:forEach var="vo" items="${list }">
+				<details>
+					<summary>${vo.title }</summary>
+					<div class="tpt"
+						style="width: 900px; margin: auto; margin-top: 10px;">
+						<pre>${vo.content }</pre>
+					</div>
+					<br>
 
-			<div class="row">
-				<div class="col-xs-12">
-					<!-- 아이디가 admin일때만 보이도록 설정하기-->
-					<c:if test="${sessionId =='admin' }">
-						<a href="${cp }/board/FAQ/insert" class="button btn--reverse"
-							style="float: right">FAQ 등록</a>
+					<c:if test="${sessionId=='admin' }">
+						<a href="${cp }/board/FAQ/Update?faqNum=${vo.faqNum}"
+							class="button btn--reverse" style="display: inline-block; margin-left: 205px;">수정</a> &nbsp;&nbsp;
+						<a onclick="return confirm('삭제하시겠습니까?')"
+							href="${cp }/board/FAQ/Delete?faqNum=${vo.faqNum}"
+							class="button btn--reverse" style="display: inline-block;">삭제</a>
 					</c:if>
-				</div>
-			</div>
 
-
+				</details>
+			</c:forEach>
 
 			<div id="paging" style="text-align: center; font-size: large;">
 				<c:if test="${startPage>10 }">
@@ -145,7 +192,11 @@
 				</c:if>
 			</div>
 			<div>
-				<a href="${cp }/board/FAQ/List" class="button btn--reverse">전체글보기</a>
+				<a href="${cp }/board/FAQ/List" class="button btn--reverse"
+					style="margin-left: 205px; display: inline-block;">전체 보기</a> &nbsp;&nbsp;
+				<c:if test="${sessionId =='admin' }">
+					<a href="${cp }/board/FAQ/insert" class="button btn--reverse" style="display: inline-block;">FAQ 등록</a>
+				</c:if>
 			</div>
 
 		</div>
