@@ -26,22 +26,37 @@ public class NoticeListController extends HttpServlet {
 		if(spageNum!=null) {
 			pageNum=Integer.parseInt(spageNum);
 		}
-		int startRow=(pageNum-1)*10+1;
-		int endRow=startRow+9;
 		NoticeDao dao=NoticeDao.getInstance();
+		int startRow = (pageNum-1)*10+1;
+		int endRow = startRow+9;
 		ArrayList<Notice> list=dao.NoticeList(startRow, endRow);
-		int count=dao.getCount(); 
-		int pageCount=(int)Math.ceil(count/10.0); 
-		int startPage=((pageNum-1)/10*10)+1; 
-		int endPage=startPage+9; 
+		int pageCount=(int)Math.ceil(dao.getCount()/10.0);
+		int startPage=(pageNum-1)/10*10+1;
+		int endPage=startPage+9;
 		if(endPage>pageCount) {
 			endPage=pageCount;
 		}
-		req.setAttribute("list", list);
-		req.setAttribute("pageCount", pageCount);
-		req.setAttribute("startPage", startPage);
-		req.setAttribute("endPage", endPage);
-		req.setAttribute("pageNum", pageNum);
-		req.getRequestDispatcher("/WEB-INF/page/board/Notice_List.jsp").forward(req, resp);
+		resp.setContentType("text/plain;charset=utf-8");
+		PrintWriter pw=resp.getWriter();
+		JSONObject data=new JSONObject();
+		JSONArray jarr=new JSONArray();
+		for(Notice vo:list){
+			JSONObject obj=new JSONObject();
+			obj.put("noticeNum", vo.getNoticeNum());
+			obj.put("memberNum", vo.getMemberNum());
+			obj.put("nickname", vo.getNickname());
+			obj.put("title", vo.getTitle());
+			obj.put("content", vo.getContent());
+			obj.put("regdate", vo.getRegdate());
+			obj.put("hit", vo.getHit());
+			jarr.put(obj);
+		}
+		data.put("list", jarr);
+		data.put("pageCount", pageCount);
+		data.put("startPage", startPage);
+		data.put("endPage", endPage);
+		data.put("pageNum", pageNum);
+		
+		pw.print(data);
 	}
 }
