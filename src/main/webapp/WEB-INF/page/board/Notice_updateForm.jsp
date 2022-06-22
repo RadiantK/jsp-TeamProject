@@ -61,7 +61,7 @@
 
 			<br>
 			<button type="submit" class="button btn--reverse"style="display: inline-block;" >수정</button>
-			<a href="${cp }/board/Notice/List" class="button btn--reverse" style="display: inline-block;">취소</a>
+			<a href="${cp }/board/Notice/Listmove" class="button btn--reverse" style="display: inline-block;">취소</a>
 		</form>
 	</div>
 </main>

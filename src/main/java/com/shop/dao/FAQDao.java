@@ -29,7 +29,7 @@ public class FAQDao {
 		try {
 			con=DBPool.getConnection();
 			String sql=null;
-			if(field ==null || field.equals("")) {
+			if(field ==null || field.equals("")) { // 검색 없는 경우
 				sql="select * from "
 						+ "( "
 						+ "	select aa.*,rownum rnum from "
@@ -38,7 +38,7 @@ public class FAQDao {
 						+ "	order by faq_num desc "
 						+ "	)aa "
 						+ ")where rnum between ? and ?";
-			}else {
+			}else { // 검색 있는 경우
 				sql="select * from"
 						+ "( "
 						+ "select aa.*,rownum rnum from"

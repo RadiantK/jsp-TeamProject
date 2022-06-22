@@ -148,17 +148,19 @@ to {
 				</div>
 			</div>
 			<br>
+			<br>
 
 			<c:forEach var="vo" items="${list }">
-				<details>
-					<summary>${vo.title }</summary>
+				<details> <!-- 디테일즈 태그 사용 ( 접었다 폈다 하는 기능 ) -->
+					<summary>${vo.title }</summary> <!-- 표면적으로 보이는 부분(제목으로 처리) -->
 					<div class="tpt"
 						style="width: 900px; margin: auto; margin-top: 10px;">
-						<pre>${vo.content }</pre>
+						<pre>${vo.content }</pre> <!-- pre 태그 사용해서 공백 인식하도록 설정 - 제목 클릭시 내용 보이도록 함. -->
 					</div>
 					<br>
+					
 
-					<c:if test="${sessionId=='admin' }">
+					<c:if test="${sessionId=='admin' }"> <!-- 관리자로 접속중일 때 FAQ 수정 및 삭제 가능하도록 설정 -->
 						<a href="${cp }/board/FAQ/Update?faqNum=${vo.faqNum}"
 							class="button btn--reverse" style="display: inline-block; margin-left: 205px;">수정</a> &nbsp;&nbsp;
 						<a onclick="return confirm('삭제하시겠습니까?')"
@@ -168,7 +170,7 @@ to {
 
 				</details>
 			</c:forEach>
-
+	<!-- 페이징 처리 -->
 			<div id="paging" style="text-align: center; font-size: large;">
 				<c:if test="${startPage>10 }">
 					<a href="${cp }/board/FAQ/List?pageNum=${startPage-1}">이전</a>

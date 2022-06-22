@@ -24,6 +24,7 @@ public class QNAInsertController extends HttpServlet{
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+			// 세션에 저장된 email을 통해 멤버 dao 사용하여 member_num 받아오기.
 			HttpSession session=req.getSession();
 			String email=(String)session.getAttribute("sessionId");
 			if(email==null || email.equals("")) {

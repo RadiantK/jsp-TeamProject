@@ -46,6 +46,8 @@
 <script defer src="${cp}/js/main.js"></script>
 </head>
 <body>
+<%-- FAQ LIST 페이지 CSS처리로 내용 보기로 변경으로 인해 미사용.
+
 	<jsp:include page="/WEB-INF/page/include/header.jsp" />
 
 
@@ -90,5 +92,6 @@
 	</main>
 
 	<jsp:include page="/WEB-INF/page/include/footer.jsp" />
+--%>
 </body>
 </html>

@@ -66,6 +66,7 @@
 							<td colspan="2" style="width: 20%">${vo.nickname }</td>
 							<td colspan="2" style="width: 60%">${vo.regdate }</td>
 								<c:choose>
+								<%-- 문의상태에 대한 값이 null 일때 답변대기중 표시 null 이 아니면 DB에 저장된 qnastate 값 표시하기 --%>
 									<c:when test="${vo.qnastate==null}">
 										<td style="width: 10%" class="text-center">답변대기중</td>
 									</c:when>
@@ -125,10 +126,11 @@
 						href="${cp }/board/QNA/Comment/Delete?qnaNum=${vo.qnaNum}"
 						class="button btn--reverse">삭제</a>
 				</c:if>
+				
 				<!-- 세션에 담긴 Id가 관리자인 경우 답글을 달 수 있도록 설정 -->
 				<c:if test="${sessionId =='admin' }">
 					<div class="container" style="margin-top: 20px;">
-						<h1>1:1문의(관리자용)</h1>
+						<h1>1:1문의 답변등록</h1>
 						<form action="${cp }/board/QNA/Comment/insert?qnaNum=${vo.qnaNum}"
 							method="post">
 							<div class="form-group">
@@ -152,6 +154,7 @@
 							<button type="submit" class="button btn--reverse">답변등록</button>
 						</form>
 					</div>
+					
 					<!-- 세션에 담긴 Id가 관리자가 아닐 경우 자신의 글 수정 삭제 가능. -->
 				</c:if>
 				<c:if test="${sessionId !='admin' }">
