@@ -72,7 +72,7 @@
  
       <tr>
         <th>
-          <img src="${cp}/upload/product/thumbnail/${i.itemImg}" class="itemImg">
+          <img src="${cp}/upload/product/${i.itemImg}" class="itemImg">
           <p class="itemName"> ${i.itemName} </p>
         </th>
         <td> ${i.piece} </td>
@@ -154,7 +154,7 @@
         </tr>
         <tr>
           <th class="orderLabels"> 주소<p style="color:red; float:left;">*</p> </th>
-          <td> <input type="button" name="kakaoBtn" id="kakaoBtn" value="주소찾기">
+          <td> <input type="button" name="kakaoBtn" id="kakaoBtn" value="주소찾기" onclick="kakaoAddress()">
                <input type="text" name="kakaoZonecode" value="" id="kakaoZonecode" notNull="true" readonly="readonly">
           </td> 
         </tr>

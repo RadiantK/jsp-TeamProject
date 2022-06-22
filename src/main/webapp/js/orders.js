@@ -2,7 +2,7 @@ const cpEl = document.getElementById('cp').value;
 
 // 마이페이지(회원) 주문취소
 function myCancle(onum){
-	let myOs = document.getElementById("orderState").innerHTML;
+	let myOs = document.getElementById("orderState");
 
 	if(confirm("주문을 취소하시겠습니까?")){
 		let xhr = new XMLHttpRequest();
@@ -13,7 +13,7 @@ function myCancle(onum){
 				
 				if(json.code == true){
 					alert(json.msg);
-					myOs = '주문취소';
+					myOs.innerHTML = '주문취소';
 					
 				}else if(json.code == false){
 					alert(json.msg);
@@ -22,7 +22,7 @@ function myCancle(onum){
 				}
 			}
 		}
-		xhr.open('get', cpEl+'/orders/cancle?orderNum=' + onum + '&orderState=' + myOs, true);
+		xhr.open('get', cpEl+'/orders/cancle?orderNum=' + onum + '&orderState=' + myOs.innerHTML, true);
 		xhr.send();
 	}else return;
 }
@@ -30,7 +30,7 @@ function myCancle(onum){
 
 // 관리자 주문취소
 function adminCancle(onum){
-	let adminOs = document.getElementById("orderState").value;
+	let adminOs = document.getElementById("orderState");
 	console.log(onum, adminOs);
 			
 	if(confirm("주문을 취소하시겠습니까?")){
@@ -42,7 +42,7 @@ function adminCancle(onum){
 				
 				if(json.code == true){
 					alert(json.msg);
-					adminOs = '주문취소';
+					adminOs.value = '주문취소';
 						
 				}else if(json.code == false){
 					alert(json.msg);
@@ -52,14 +52,14 @@ function adminCancle(onum){
 				}
 			}
 		}
-		xhr.open('get', cpEl+'/orders/cancle?orderNum=' + onum + '&orderState=' + adminOs, true);
+		xhr.open('get', cpEl+'/orders/cancle?orderNum=' + onum + '&orderState=' + adminOs.value, true);
 		xhr.send();
 		
 		}else return;
 }
 
 // 카카오 주소찾기 
-document.getElementById("kakaoBtn").addEventListener("click", function(){
+function kakaoAddress(){
 	new daum.Postcode({
     	oncomplete: function(data) {
             // 주소검색 결과를 클릭했을때 실행할 내용
@@ -68,7 +68,7 @@ document.getElementById("kakaoBtn").addEventListener("click", function(){
             document.querySelector("input[name=detailAddr]").focus(); // 상세주소 포커싱
    		}
 	}).open();
-}); 
+}
 
 
 //아임포트	

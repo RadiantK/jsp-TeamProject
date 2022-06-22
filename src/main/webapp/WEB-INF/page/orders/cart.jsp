@@ -56,7 +56,7 @@
 					<th> 수량 </th>
 					<th> 합계 </th>
 					<th> 배송비 </th>
-					<th> <input type="button" value="전체삭제" class="cartDelete" onclick=""> </th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -79,12 +79,12 @@
       
 
       <div class="cartPrice" id="cartPrice">
-        총 0개의 상품금액  ￦ 0 +  배송비 0 = <span class="totalPrice"> ￦ 0 </span>
+		<!-- 총 0개의 상품금액  ￦ 0 +  배송비 0 = <span class="totalPrice"> ￦ 0 </span> -->
       </div>
     
       <div class="btnDiv">
         <a href="javascript:history.back();" class="btnWhite"> 이전으로 </a> 
-        <input type="submit" id="orderBtn" value="구매하기" class="btnUpdate">
+        <input type="button" id="orderBtn" value="구매하기" class="btnUpdate" onclick="confirmVal()">
       </div>
       </form>
   	</div> 

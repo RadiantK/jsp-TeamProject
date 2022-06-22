@@ -103,9 +103,9 @@
 		        <c:set var="cnt" value="${cnt+1}"/>
 	                <tr>
 	                <td>
-	                <img src="${cp}/upload/product/thumbnail/${j.image}" class="itemImg"><br>
-	                <span class="itemName"><a href="${cp}/orders/orderdetailMypage?orderNum=${j.orderNum}"> ${j.pname} </a><br>
-	                <span class="itemPay"> ￦ <f:formatNumber value="${j.total}" pattern="#,###"/> </span></span>
+	                <img src="${cp}/upload/product/${j.image}" class="itemImg"><br>
+	                <span class="itemName"><br><a href="${cp}/orders/orderdetailMypage?orderNum=${j.orderNum}">${j.pname}</a></span><br>
+	                <span class="itemPay"> ￦ <f:formatNumber value="${j.total}" pattern="#,###"/> </span>
 	                </td>
 	                </tr>
 	            </c:if>

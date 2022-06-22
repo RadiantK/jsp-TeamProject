@@ -33,7 +33,7 @@ function cartList(){
 						let trEl = document.createElement('tr');
 						trEl.innerHTML = 
 						  "<td><input type='hidden' name='pnum' value='"+cart[i].productNum+"'>" +
-						  "<img src='"+cpEl+"/upload/product/thumbnail/"+cart[i].img+"' class='itemImg' alt='상품이미지'/>"+
+						  "<img src='"+cpEl+"/upload/product/"+cart[i].img+"' class='itemImg' alt='상품이미지'/>"+
 						  "<p class='itemName'>"+cart[i].pname+"</p></td>" +
 						  "<td>"+cart[i].price+"</td>" + 
 						  "<td><input type='button' name='plus' class='pieceBtn' value=' + ' onclick='pieceCal(this,1)' />" +
@@ -43,12 +43,14 @@ function cartList(){
 						  "<td> 착불 </td>" + 
 						  "<td><input type='button' value='삭제' class='cartDelete' onclick='deleteCart("+cart[i].cartDetailNum+")' /></td>";
 						  
-						 tbodyEl.appendChild(trEl);
+						 tbodyEl.appendChild(trEl)
 					}
 					
+					// 원 단위 표시
+					let fmTotal = numberWithCommas(json.cartTotal);					
 					// 전체 합계
 					document.getElementById("cartPrice").innerHTML=
-					"총 "+json.cartCnt+"개의 상품금액  ￦ "+json.cartTotal+" + 배송비  착불  = <span class='totalPrice'> ￦ "+json.cartTotal+" </span>";
+					"총 "+json.cartCnt+"개의 상품금액  ￦ " + fmTotal + " + 배송비  착불  = <span class='totalPrice'> ￦ " + fmTotal + " </span>";
 
 				}else {
 					let tbodyChildsEl = tbodyEl.childNodes;
@@ -62,6 +64,11 @@ function cartList(){
 					  "<td style='text-align: center; height: 50px;' colspan='7'>목록이 존재하지 않습니다.</td>";
 					  
 					 tbodyEl.appendChild(trEl);
+					 
+					 // 합계목록 초기화 
+					 document.getElementById("cartPrice").innerHTML=
+					"총 0개의 상품금액  ￦ 0 + 배송비  0  = <span class='totalPrice'> ￦ 0 </span>";
+
 				}
 				
 			}
@@ -93,7 +100,7 @@ function cartList(){
 						let trEl = document.createElement('tr');
 						trEl.innerHTML = 
 						  "<td><input type='hidden' name='pnum' value='"+cart[i].productNum+"'>" +
-						  "<img src='"+cpEl+"/upload/product/thumbnail/"+cart[i].img+"' class='itemImg' alt='상품이미지'/>"+
+						  "<img src='"+cpEl+"/upload/product/"+cart[i].img+"' class='itemImg' alt='상품이미지'/>"+
 						  "<p class='itemName'>"+cart[i].pname+"</p></td>" +
 						  "<td>"+cart[i].price+"</td>" + 
 						  "<td><input type='button' name='plus' class='pieceBtn' value=' + ' onclick='pieceCal(this,1)' />" +
@@ -106,9 +113,11 @@ function cartList(){
 						 tbodyEl.appendChild(trEl);
 					}
 					
+					// 원 단위 표시
+					let fmTotal = numberWithCommas(json.cartTotal);					
 					// 전체 합계
 					document.getElementById("cartPrice").innerHTML=
-					"총 "+json.cartCnt+"개의 상품금액  ￦ "+json.cartTotal+" + 배송비  착불  = <span class='totalPrice'> ￦ "+json.cartTotal+" </span>";
+					"총 "+json.cartCnt+"개의 상품금액  ￦ " + fmTotal + " + 배송비  착불  = <span class='totalPrice'> ￦ " + fmTotal + " </span>";
 
 				}else {
 					let tbodyChildsEl = tbodyEl.childNodes;
@@ -122,6 +131,10 @@ function cartList(){
 						"<td style='text-align: center; height: 50px;' colspan='7'>목록이 존재하지 않습니다.</td>";
 					  
 					 tbodyEl.appendChild(trEl);
+					 
+					// 합계목록 초기화 
+					 document.getElementById("cartPrice").innerHTML=
+					"총 0개의 상품금액  ￦ 0 + 배송비  0  = <span class='totalPrice'> ￦ 0 </span>";
 				}
 			}
 		}
@@ -182,8 +195,12 @@ function totalCal(){
 		console.log(cnt, total);
 	}
 	
+	// 원 단위 표시
+	let format = numberWithCommas(total);					
+	// 전체 합계
 	document.getElementById("cartPrice").innerHTML=
-	"총 "+cnt+"개의 상품금액  ￦ "+total+" + 배송비  착불  = <span class='totalPrice'> ￦ "+total+" </span>";
+	"총 " + cnt + "개의 상품금액  ￦ " + format + " + 배송비  착불  = <span class='totalPrice'> ￦ " + format + " </span>";
+
 }
 
 
@@ -200,6 +217,8 @@ function deleteCart(cdNum){
 				if(json.code == true){
 					alert('장바구니에서 제거되었습니다.');
 					cartList();
+					totalCal();
+					
 				}else {
 					alert('목록에서 제거에 실패했습니다.');
 				}
@@ -213,3 +232,19 @@ function deleteCart(cdNum){
 	}
 }
 
+// 장바구니 목록 없을 때
+function confirmVal(){
+	var p = document.cartForm.pnum;
+	console.log(p);
+	
+	if(p==undefined){
+		alert('장바구니에 담긴 상품이 없습니다.');
+		return;
+	}
+	document.cartForm.submit();
+}
+
+// 원 단위 표시
+function numberWithCommas(x) {
+	    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
