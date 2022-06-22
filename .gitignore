@@ -3,6 +3,7 @@ bin/
 build/
 images/
 resource/
+upload/
 .DS_Store
 package-lock.json
 *.jar
