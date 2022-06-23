@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>1:1문의 글쓰기 양식</title>
+<title>1:1문의 등록하기</title>
   <!-- material-icon -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   <!-- 부트스트랩css -->
@@ -44,7 +44,7 @@
 		<c:set var="m" value="${requestScope.dto }"/>
 		
 		<form action="${cp }/board/QNA/insert" method="post" enctype="multipart/form-data">
-			<input type="hidden" name="memberNum" value="${m.memberNum }">
+			<input type="hidden" name="memberNum" value="${m.memberNum }"> <%-- 회원 번호 파라미터로 넘기기 --%>
 			<div class="form-group">
 				<label for="title">제목</label><br> <input type="text"
 					class="form-control" id="title" placeholder="제목 입력" name="title">

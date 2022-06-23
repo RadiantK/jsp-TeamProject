@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>${vo.title }</title>
 <!-- material-icon -->
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -135,7 +135,7 @@
 							method="post">
 							<div class="form-group">
 								<label for="title">제목</label><br> <input type="text"
-									class="form-control" id="title" value="[re]${vo.title }"
+									class="form-control" id="title" value="[re]${vo.title }에 관한 답변"
 									name="title"><br>
 							</div>
 

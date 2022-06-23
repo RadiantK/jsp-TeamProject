@@ -5,6 +5,7 @@
 <html>
 <head>
 <!-- material-icon -->
+<title>1:1문의</title>
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <!-- 부트스트랩css -->
