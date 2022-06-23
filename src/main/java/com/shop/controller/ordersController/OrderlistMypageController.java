@@ -24,7 +24,7 @@ public class OrderlistMypageController extends HttpServlet{
 		String email = req.getParameter("email");
 		String orderPwd = "0";
 		
-		if(email!=null && email!="") { // request에 id가 있으면(비회원인 경우)
+		if(email!=null && !email.equals("")) { // request에 id가 있으면(비회원인 경우)
 			orderPwd = req.getParameter("pwd"); // 주문비밀번호 가져오기 
 			
 		} else { // request에 id가 없으면 (회원인 경우) 세션에서 아이디 가져오기
@@ -84,6 +84,9 @@ public class OrderlistMypageController extends HttpServlet{
 		req.setAttribute("inTransit", inTransit);
 		req.setAttribute("delivered", delivered );
 		req.setAttribute("cancle", cancle);
+		req.setAttribute("email", email);
+		req.setAttribute("pwd", orderPwd);
+		
 		req.getRequestDispatcher("/WEB-INF/page/orders/orderList_mypage.jsp").forward(req, resp);
 
 	}
