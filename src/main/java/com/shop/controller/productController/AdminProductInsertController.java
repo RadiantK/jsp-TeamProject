@@ -35,23 +35,6 @@ public class AdminProductInsertController extends HttpServlet {
 		List<Scategory> scgList = new ArrayList<Scategory>();
 		request.setAttribute("scgList", scgList);
 		
-		// 이미지 업로드(폴더 나눌 방법 X...)
-		String path = request.getContextPath()+"/upload/product";
-		MultipartRequest mr = new MultipartRequest(request, path, 1024*1024*5, "UTF-8", new DefaultFileRenamePolicy());
-		String thumImgName = mr.getFilesystemName("thumImgFile");
-		String descImgName = mr.getFilesystemName("descImg");
-		
-		// 그외 데이터 받아오기
-		String smallCg = mr.getParameter("smallCg");
-		String prdName = mr.getParameter("prdName");
-		String shotDesc = mr.getParameter("shotDesc");
-		String price = mr.getParameter("price");
-		String priceOff = mr.getParameter("priceOff");
-		String qty = mr.getParameter("qty");
-		
-		ProductDao pdao = ProductDao.getInstance();
-		ProductCommand prdComm = new ProductCommand(0, 0, prdName, shotDesc, 0, 0, 0, null, qty, 0, descImgName);
-		
 		request.getRequestDispatcher("/WEB-INF/page/admin/adminProductInsert.jsp")
 		.forward(request, response);
 	}

@@ -145,7 +145,7 @@
         </div>
         
         <!-- 제품정보입력폼 -->
-        <form action="${cp}/admin/product/insert" method="post" enctype="multipart/form-data">
+        <form action="${cp}/admin/product/insertok" method="post" enctype="multipart/form-data">
         
         <div class="cg-contents">
         
@@ -160,21 +160,25 @@
                 <table>
                     <tr>
                         <th>카테고리</th>
+                        <td><input type="text" id="bigCg" name="bigCg" placeholder="대분류 카테고리 입력"></td>
+                        <td><input type="text" id="smallCg" name="smallCg" placeholder="소분류 카테고리 입력"></td>
+                        <!-- 
                         <td>
                             <select name="category" id="bigCg" name="bigCg" onchange="changeBcg()">
-                                <option value="off">=======대분류=======</option>
+                                <option value="off" selected>=======대분류=======</option>
                                 <c:forEach var="bcg" items="${bcgList }">
                                 	<option value="${bcg.bcategoryNum }">${bcg.btype }</option>
                                 </c:forEach>
                             </select>
                         </td>
                         <td>
-                            <!-- 대분류 선택시 활성화 + 해당하는 소분류 출력 -->
+                            대분류 선택시 활성화 + 해당하는 소분류 출력 
                             <select name="category" id="smallCg" name="smallCg" disabled="disabled">
-                                <option value="off">=======소분류=======</option>
-                                <!-- 대분류셀렉트 선택시 select에 option add -->
+                                <option value="off" selected>=======소분류=======</option>
+                                대분류셀렉트 선택시 select에 option add 
                             </select>
                         </td>
+                         -->
                     </tr>
                     <tr>
                         <th>상품명</th>
