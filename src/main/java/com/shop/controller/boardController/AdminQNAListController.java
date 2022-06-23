@@ -14,7 +14,7 @@ import com.shop.dto.QNA;
 
 // 관리자용 문의 목록페이지로 이동하는 컨트롤러
 @WebServlet("/admin/QNA/List")
-public class adminQNAListController extends HttpServlet {
+public class AdminQNAListController extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String spageNum=req.getParameter("pageNum");
