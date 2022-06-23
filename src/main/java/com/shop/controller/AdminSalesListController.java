@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.shop.command.ChartCommand;
 import com.shop.command.SalesCommand;
-import com.shop.dao.TempOrdersDao;
+import com.shop.dao.OrdersDao;
 
 @SuppressWarnings("serial")
 @WebServlet("/admin/sales/list")
@@ -61,7 +61,7 @@ public class AdminSalesListController extends HttpServlet {
 //		System.out.println(date1);
 //		System.out.println(date2);
 		
-		TempOrdersDao ordersDao = TempOrdersDao.getInstance();
+		OrdersDao ordersDao = OrdersDao.getInstance();
 		List<SalesCommand> list = ordersDao.selectList(page, date1, date2);
 		int count = ordersDao.getCount(date1, date2);
 		
