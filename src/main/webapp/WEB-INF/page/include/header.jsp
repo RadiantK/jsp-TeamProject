@@ -67,9 +67,9 @@
 
 
       <div class="sub-menu">
-        <form action="login.html">
+        <form action="${cp}/search/product/list" id="totalFormTag">
           <div class="search">
-            <input type="text" id="search" name="search" />
+            <input type="text" id="search" name="word" />
             <input type="button" class="material-symbols-outlined" value="search" />
           </div>
         </form>
