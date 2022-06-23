@@ -113,7 +113,7 @@
 	            
                </table>
             </th>
-        	<th rowspan="${cnt}"><p class="orderState">${i.orderState}</p> </th>
+        	<th rowspan="${cnt}"><a href="${cp}/orders/orderdetailMypage?orderNum=${i.orderNum}"><p class="orderState">${i.orderState}</p></a></th>
         </tr>
         
     </table>
