@@ -27,6 +27,8 @@
 
 <script defer src="${cp}/resource/js/bootstrap.bundle.js"></script>
 <script defer src="${cp}/js/common.js"></script>
+<script defer src="${cp}/js/adminOrderlist.js"></script>
+
 </head>
 <body>
     
@@ -35,7 +37,41 @@
 
 <!-- 바디 메인 -->
 <div class="pageWrap">
-    <h2 class="orderTitle"> 전체 주문/결제내역 </h2>
+    <h2 class="orderTitle"> 
+     <a href="${cp }/admin/orderlistAdmin">전체 주문결제 조회 </a></h2>
+
+    
+    <!-- 검색창 -->
+    <div class="searchDiv">
+    
+		<form action="${cp}/admin/orderlistAdmin" method="post">
+	 	<select class="selectDiv" name="col">
+		    <option value="order_num"
+		    	<c:if test="${param.col=='order_num'}">selected</c:if>> 주문번호 </option>
+		    <option value="email"
+	        	<c:if test="${param.col=='email'}">selected</c:if>> 주문아이디 </option>
+		    <option value="name"
+		       	<c:if test="${param.col=='name'}">selected</c:if>> 주문자명 </option>
+		    <option value="orderstate"
+		        <c:if test="${param.col=='orderstate'}">selected</c:if>> 주문상태 </option>
+	  	</select>
+	  	<input type="text" value="${param.keyword}" name="keyword" class="searchText">
+	  	<input type="submit" value="검색" class="searchBtn">
+	  	</form>
+	</div>
+	
+	
+	<select class="selectDiv" name="sort" onchange="sortTable(this.value)">
+    	<option value=""> = 정렬기준 = </option>
+	    <option value="0"> 주문일자 순 </option>
+	    <option value="1"> 주문번호 순 </option>
+		<option value="2"> 회원번호 순  </option>
+		<option value="4"> 주문자명 순 </option>
+		<option value="5"> 결제금액 순  </option>
+		<option value="6"> 주문상태 순 </option>
+	</select>
+
+	<!-- 주문내역 리스트 -->
     <table id="adminTable">
         <thead>
         <tr>
@@ -50,6 +86,7 @@
         </tr>
         </thead>
         
+        <tbody>
         <c:forEach var="i" items="${orderList}">
         <tr>
             <td> ${i.regdate } </td>
@@ -62,6 +99,7 @@
             <td><a href="${cp}/admin/orderdetailAdmin?orderNum=${i.orderNum}" style="color:darkgray"> 상세보기 </a></td>
         </tr> 
  		</c:forEach>
+ 		</tbody>
     </table>
 
  <!-- 하단 페이지 목록 -->
@@ -91,25 +129,6 @@
 	<a class="nextBtn"> > </a>
 	</c:if>	
 </div>
-
-
-<div class="searchDiv">
-	<form action="${cp}/admin/orderlistAdmin" method="post">
- 	<select class="selectDiv" name="col">
-	    <option value="order_num"
-	    	<c:if test="${param.col=='order_num'}">selected</c:if>> 주문번호 </option>
-	    <option value="email"
-        	<c:if test="${param.col=='email'}">selected</c:if>> 주문아이디 </option>
-	    <option value="name"
-	       	<c:if test="${param.col=='name'}">selected</c:if>> 주문자명 </option>
-	    <option value="orderstate"
-	        <c:if test="${param.col=='orderstate'}">selected</c:if>> 주문상태 </option>
-  	</select>
-  	<input type="text" value="${param.keyword}" name="keyword" class="searchText">
-  	<input type="submit" value="검색" class="searchBtn">
-  </form>
-</div>
-
 
 </div>
 

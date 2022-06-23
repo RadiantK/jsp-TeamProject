@@ -133,7 +133,7 @@
           </th> 
           <tr>
             <th> </th>
-            <th> <input type="text" name="kakaoAddr" value="" id="kakaoAddr" readonly="readonly" style="width:300px"></th>
+            <th> <input type="text" name="kakaoAddr" value="" id="kakaoAddr" readonly="readonly"></th>
           </tr>
         <tr>
           <th class="orderLabels"> 상세 주소 </th>

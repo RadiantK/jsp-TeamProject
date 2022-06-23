@@ -31,6 +31,11 @@
     font-weight: bold;
 }
 
+.cntDiv .cntTable .cnt:hover{
+    text-decoration: underline;
+    font-size:130%;
+}
+
 .listDiv {
     display:flex;
     justify-content: center;
@@ -86,5 +91,11 @@
     border-radius:3px;
     color:#35C5F0;
     background-color: ghostwhite;
-    margin:3px;
+    margin:45px;
 }
+
+.listDiv .listTable .orderState:hover {
+    color:ghostwhite;
+    background-color: #35C5F0;
+}
+
