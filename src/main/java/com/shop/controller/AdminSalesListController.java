@@ -43,7 +43,7 @@ public class AdminSalesListController extends HttpServlet {
 		String date2 = "";
 		if(year.equals("all")) {
 			date1 = "20170101";
-			date2 = "20250101";
+			date2 = "20230101";
 		}else if(!year.equals("all") && month.equals("")) {
 			date1 = year + "0101";
 			date2 = (Integer.parseInt(year)+1) + "0101";
@@ -76,12 +76,14 @@ public class AdminSalesListController extends HttpServlet {
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
 		
-		List<ChartCommand> chart = ordersDao.selectList(year);
+		List<ChartCommand> yearChart = ordersDao.yearList(year);
+		List<ChartCommand> monthChart = ordersDao.monthList(date1, date2);
 		int cancelPayment = ordersDao.cancelPayment(date1, date2);
 		int completePayment = ordersDao.completedPayment(date1, date2);
 		int totalSales = ordersDao.totalSales(date1, date2);
 		
-		request.setAttribute("chart", chart);
+		request.setAttribute("yearChart", yearChart);
+		request.setAttribute("monthChart", monthChart);
 		request.setAttribute("cancelPayment", cancelPayment);
 		request.setAttribute("completePayment", completePayment);
 		request.setAttribute("totalSales", totalSales);
