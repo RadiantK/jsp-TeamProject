@@ -57,13 +57,14 @@
 }
 
 .searchDiv{
-    display:flex;
-    justify-content: center;
-    align-items: center;
+	width:500px;
+    text-align:right;
+   	float:right;
+   	margin-bottom:20px;
 }
 
 .selectDiv{
-    width:100px;
+    width:120px;
     height:35px;
     border: 1px solid lightgray;
 }
@@ -71,7 +72,7 @@
 .searchText{
     height:35px;
     border: 1px solid lightgray; 
-    margin:3px; 
+    margin:2px; 
 }
 
 .searchBtn{
