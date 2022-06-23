@@ -776,4 +776,94 @@ public class ProductDao {
 			DBPool.close(con);
 		}
 	}
+	
+	// 헤더 상품 검색
+	public List<Product> productList(int page, String word, String sort){
+		String sql = "SELECT * FROM ( "
+				+ "SELECT ROWNUM RN, P.* FROM ( "
+				+ "SELECT * FROM product WHERE pname LIKE ? ORDER BY "+sort+") P ) "
+				+ "WHERE RN BETWEEN ? AND ?";
+		if(sort.equals("regdate")) {
+			sql = "SELECT * FROM ( "
+				+ "SELECT ROWNUM RN, P.* FROM ( "
+				+ "SELECT * FROM product WHERE pname LIKE ? ORDER BY "+sort+" DESC) P ) "
+				+ "WHERE RN BETWEEN ? AND ?";
+		}else if(sort.startsWith("asc")) {
+			sort = sort.substring(3);
+			sql = "SELECT * FROM ( "
+				+ "SELECT ROWNUM RN, P.* FROM ( "
+				+ "SELECT * FROM product WHERE pname LIKE ? ORDER BY "+sort+") P ) "
+				+ "WHERE RN BETWEEN ? AND ?";
+		}else if(sort.startsWith("desc")) {
+			sort = sort.substring(4);
+			sql = "SELECT * FROM ( "
+				+ "SELECT ROWNUM RN, P.* FROM ( "
+				+ "SELECT * FROM product WHERE pname LIKE ? ORDER BY "+sort+" DESC) P ) "
+				+ "WHERE RN BETWEEN ? AND ?";
+		}
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Product> list = new ArrayList<>();
+		
+		try {
+			con = DBPool.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, "%"+word+"%");
+			pstmt.setInt(2, 1 + (page-1) * 8);
+			pstmt.setInt(3, page * 8);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				int productNum = rs.getInt("product_num");
+				int categoryNum = rs.getInt("category_num");
+				String pname = rs.getString("pname");
+				String pDesc = rs.getString("pdesc");
+				int price = rs.getInt("price");
+				int discount = rs.getInt("discount");
+				int cnt = rs.getInt("cnt");
+				Date date = rs.getDate("regdate");
+				String img = rs.getString("image");
+				
+				Product p = new Product(productNum, categoryNum, pname, pDesc, price, discount, cnt, date, img, 0);
+				list.add(p);
+			}
+			
+			return list;
+		}catch(SQLException e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			DBPool.close(con, pstmt, rs);
+		}
+	}
+	
+	// 헤더 상품검색 (상품 카운트)
+	public int productCount(String word){
+		String sql = "SELECT NVL(COUNT(product_num), 0) cnt "
+				+ "FROM product WHERE pname LIKE ?";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int count = 0;
+		
+		try {
+			con = DBPool.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, "%"+word+"%");
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				count = rs.getInt("cnt");
+			}
+			
+			return count;
+		}catch(SQLException e) {
+			e.printStackTrace();
+			return -1;
+		}finally {
+			DBPool.close(con, pstmt, rs);
+		}
+	}
 }
