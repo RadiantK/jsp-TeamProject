@@ -51,6 +51,9 @@
 
   <!-- 마이페이지 주문/결제정보 -->
   <div class="pageWrap">
+  	<input type="hidden" id="email" value="${email}" />
+  	<input type="hidden" id="pwd" value="${pwd}" />
+  
 
 	<!-- 주문상태별 조회 -->
   	<div class="cntDiv">
@@ -58,26 +61,26 @@
       <tr>
         
         <th class="cntTitle"> 결제완료 
-        <br> <a href="${cp}/orders/orderlistMypage?orderState=결제완료" class="cnt"> ${paid} </a>
+        <br> <a href="${cp}/orders/orderlistMypage?orderState=결제완료&email=${email}&pwd=${pwd}" class="cnt"> ${paid} </a>
         </th>
         <td class="arrow"> > </td>
         
         <th class="cntTitle"> 배송준비 
-   	    <br> <a href="${cp}/orders/orderlistMypage?orderState=배송준비" class="cnt"> ${prepare} </a>
+   	    <br> <a href="${cp}/orders/orderlistMypage?orderState=배송준비&email=${email}&pwd=${pwd}" class="cnt"> ${prepare} </a>
         <td class="arrow"> > </td>
         
         <th class="cntTitle"> 배송중 
-        <br> <a href="${cp}/orders/orderlistMypage?orderState=배송중" class="cnt"> ${inTransit} </a>
+        <br> <a href="${cp}/orders/orderlistMypage?orderState=배송중&email=${email}&pwd=${pwd}" class="cnt"> ${inTransit} </a>
           </th>
           <td class="arrow"> > </td>
           
         <th class="cntTitle"> 배송완료 
-        <br> <a href="${cp}/orders/orderlistMypage?orderState=배송완료" class="cnt"> ${delivered} </a>
+        <br> <a href="${cp}/orders/orderlistMypage?orderState=배송완료&email=${email}&pwd=${pwd}" class="cnt"> ${delivered} </a>
         </th>
         <td class="arrow"> > </td>
 
         <th class="cntTitle"> 주문취소
-        <br> <a href="${cp}/orders/orderlistMypage?orderState=주문취소" class="cnt"> ${cancle} </a>
+        <br> <a href="${cp}/orders/orderlistMypage?orderState=주문취소&email=${email}&pwd=${pwd}" class="cnt"> ${cancle} </a>
         </th>
       </tr>
     </table>
@@ -123,7 +126,7 @@
  <!-- 하단 페이지 목록 -->
  <div class="nullDiv">
  	<c:if test="${startPage>5}">
-	<a href="${cp}/orders/orderlistMypage?pageNum=${pageNum-1}&orderState=${orderState}" class="preBtn"> < </a>
+	<a href="${cp}/orders/orderlistMypage?pageNum=${pageNum-1}&orderState=${orderState}&email=${email}&pwd=${pwd}" class="preBtn"> < </a>
 	</c:if>
 	<c:if test="${startPage<5}">
 	<a class="preBtn"> < </a>
@@ -132,16 +135,16 @@
 	<c:forEach var="i" begin="${startPage}" end="${endPage}">
 	<c:choose>
 	<c:when test="${pageNum==i}">
-	  <a href="${cp}/orders/orderlistMypage?pageNum=${i}&orderState=${orderState}" class="curPage"> ${i} </a>
+	  <a href="${cp}/orders/orderlistMypage?pageNum=${i}&orderState=${orderState}&email=${email}&pwd=${pwd}" class="curPage"> ${i} </a>
 	</c:when>
 	<c:otherwise>
-	  <a href="${cp}/orders/orderlistMypage?pageNum=${i}&orderState=${orderState}" class="otherPage"> ${i} </a>
+	  <a href="${cp}/orders/orderlistMypage?pageNum=${i}&orderState=${orderState}&email=${email}&pwd=${pwd}" class="otherPage"> ${i} </a>
 	</c:otherwise>
 	</c:choose>
 	</c:forEach>
 
 	<c:if test="${endPage<pageCnt}">
-	<a href="${cp}/orders/orderlistMypage?pageNum=${endPage+1}&orderState=${orderState}" class="nextBtn"> > </a>
+	<a href="${cp}/orders/orderlistMypage?pageNum=${endPage+1}&orderState=${orderState}&email=${email}&pwd=${pwd}" class="nextBtn"> > </a>
 	</c:if>
 	<c:if test="${endPage>=pageCnt}">
 	<a class="nextBtn"> > </a>
