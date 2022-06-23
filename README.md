@@ -40,13 +40,13 @@ GRANT CONNECT, RESOURCE, DBA TO jsp;
 
 ## 자바스크립트 사용 라이브러리
 **Swiper**
-[Swiper](https://swiperjs.com/)는 슬라이드 처리 라이브러리입니다.
-[Getting Started With Swiper](https://swiperjs.com/get-started)
+- [Swiper](https://swiperjs.com/)는 슬라이드 처리 라이브러리입니다.
+- [Getting Started With Swiper](https://swiperjs.com/get-started)
 <br/>
 
 **Chart.js**
-[Chart](https://www.chartjs.org/)는 차트를 제어할 수 있도록 도와주는 라이브러리 입니다.
-[Getting Started With Chart.js](https://www.chartjs.org/docs/latest/getting-started/)
+- [Chart](https://www.chartjs.org/)는 차트를 제어할 수 있도록 도와주는 라이브러리 입니다.
+- [Getting Started With Chart.js](https://www.chartjs.org/docs/latest/getting-started/)
 <br/>
 <br/>
 
