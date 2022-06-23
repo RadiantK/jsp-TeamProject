@@ -15,8 +15,44 @@ public class ProductCommand {
 	private int productdetailNum;
 	private String descImg;
 	
+	private String btype;
+	private String stype;
+	
 	public ProductCommand() {}
 	
+	public ProductCommand(int productNum, int scategoryNum, String pname, String pdesc, int price, int discount,
+			int cnt, Date regdate, String image, int productdetailNum, String descImg, String btype, String stype) {
+		this.productNum = productNum;
+		this.scategoryNum = scategoryNum;
+		this.pname = pname;
+		this.pdesc = pdesc;
+		this.price = price;
+		this.discount = discount;
+		this.cnt = cnt;
+		this.regdate = regdate;
+		this.image = image;
+		this.productdetailNum = productdetailNum;
+		this.descImg = descImg;
+		this.btype = btype;
+		this.stype = stype;
+	}
+
+	public String getBtype() {
+		return btype;
+	}
+
+	public void setBtype(String btype) {
+		this.btype = btype;
+	}
+
+	public String getStype() {
+		return stype;
+	}
+
+	public void setStype(String stype) {
+		this.stype = stype;
+	}
+
 	public ProductCommand(int productNum, int scategoryNum, String pname, String pdesc, int price, int discount,
 			int cnt, Date regdate, String image, int productdetailNum, String descImg) {
 		this.productNum = productNum;

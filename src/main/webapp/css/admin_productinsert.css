@@ -66,15 +66,15 @@
     padding-left: 20px;
     text-align: center;
 }
-.txt-container > form table tr th,td{
+.txt-container > table tr th,td{
     text-align: left;
     /* border: 1px solid gray; */
 }
-.txt-container > form table th{
+.txt-container > table th{
     width: 100px;
     height: 50px;
 }
-.txt-container > form table td select{
+.txt-container > table td select{
     width: 200px;
     height: 30px;
     margin-right: 10px;
