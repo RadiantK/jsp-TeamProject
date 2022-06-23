@@ -38,7 +38,7 @@
         <h2>매출관리</h2>
       </div>
 
-      <form class="search-form" id="formTag" action="">
+      <form class="search-form" id="formTag" action="${cp}/admin/sales/list">
 
           <select id="year" name="year">
             <option ${(empty pamam.year || param.year == "all") ? "selected" : "" }value="all">all</option>
@@ -149,25 +149,24 @@
           </span>
         </a>
       </div>
-
-			<c:forEach var="c" items="${chart}">
-			<div>
-				<input type="hidden" class="day" name="day" value="${c.day}">
-				<input type="hidden" class="price" name="price" value="${c.price}">
-			</div>
-			</c:forEach>	
 			
       <div class="box">
-        <canvas id="chart"></canvas>
+        <canvas id="monthChart"></canvas>
+      </div>
+
+      <div class="box">
+        <canvas id="yearChart"></canvas>
       </div>
 
     </div>
   </section>
 
+	<jsp:include page="/WEB-INF/page/include/footer.jsp" />
+	
   <script>
     const formEl = document.getElementById('formTag');
-    const selectEl = document.getElementById('year');
     const submitEl = document.querySelector('.smt');
+    const selectEl = document.getElementById('year');
     const monthEl = document.getElementById('month');
 
     monthEl.addEventListener('keypress', function(e){
@@ -175,8 +174,8 @@
         searchHandler();
         e.preventDefault();
       }
-    })
-
+    });
+    
     selectEl.addEventListener('change', function(){
       formEl.submit();
     });
@@ -202,20 +201,65 @@
       formEl.submit();
     }
 
-    const dayEl = document.getElementsByClassName('day');
-    const priceEl = document.getElementsByClassName('price');
+    // 월별 차트
+    const labels2 = [];
+    const temp2 = [];
+
+    <c:forEach var="c" items="${monthChart}" varStatus="status">
+			labels2[${status.index}] = ${c.day};
+			temp2[${status.index}] = ${c.price};
+		</c:forEach>	
+    
+    const data2 = {
+      labels: labels2,
+      datasets: [{
+        label: '',
+        backgroundColor: '#6A5ACD',
+        borderColor: '#A390EE',
+        data: temp2,
+      }]
+    };
+
+    const config2 = {
+      type: 'line',
+      data: data2,
+      options: {
+        plugins: {
+           legend: {
+               display: false,
+           },
+           title: {
+               display: true,
+               text: '${param.year} ${param.month} 매출 현황',
+               font: {
+                 size: 30
+               },
+               padding: {
+                 top: 10,
+                 bottom: 10
+               }
+           }
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+    	}
+    };
+    
+    const myChart2 = new Chart(
+      document.getElementById('monthChart'),
+      config2
+    );
+    
+    // 년도별 차트
+    // Chart.defaults.font.size = 10; // 차트 글자 기본크기
     
     const labels = [];
-    
-    for(let i = 0; i < dayEl.length; i++){
-      labels[i] = dayEl[i].value;
-    }
-
     const temp = [];
-
-    for(let i = 0; i < priceEl.length; i++){
-      temp[i] = priceEl[i].value;
-    }
+    
+    <c:forEach var="c" items="${yearChart}" varStatus="status">
+			labels[${status.index}] = ${c.day};
+			temp[${status.index}] = ${c.price};
+		</c:forEach>	
 
     const data = {
       labels: labels,
@@ -247,17 +291,17 @@
                 }
             }
         },
-    }
+        // 차트 크기 조절을 위한 설정
+        responsive: true,
+        maintainAspectRatio: false,
+    	}
     };
-    Chart.defaults.font.size = 14
     
     const myChart = new Chart(
-      document.getElementById('chart'),
+      document.getElementById('yearChart'),
       config
     );
   </script>
-
-	<jsp:include page="/WEB-INF/page/include/footer.jsp" />
 
 </body>
 </html>

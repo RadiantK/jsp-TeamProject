@@ -25,6 +25,7 @@ public class TempOrdersDao {
 		return tempOrdersDao;
 	}
 	
+	// 결제내역 리스트
 	public List<SalesCommand> selectList(int page, String date1, String date2){
 		String sql = "SELECT * FROM ( "
 				+ "SELECT ROWNUM RN, OD.* FROM ( "
@@ -38,8 +39,6 @@ public class TempOrdersDao {
 		List<SalesCommand> list = new ArrayList<>();
 		
 		try {
-			
-			
 			con = DBPool.getConnection();
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, date1);
@@ -71,6 +70,7 @@ public class TempOrdersDao {
 		}
 	}
 	
+	// 페이징 처리를 위한 리스트 카운트
 	public int getCount(String date1, String date2){
 		String sql = "SELECT NVL(count(*), 0) cnt "
 				+ "FROM orders O JOIN orderdetail D ON O.order_num = D.order_num "
@@ -100,7 +100,7 @@ public class TempOrdersDao {
 	}
 	
 	// 년도별 매출 얻기
-	public List<ChartCommand> selectList(String year){
+	public List<ChartCommand> yearList(String year){
 		String sql = "SELECT TO_CHAR(regdate, 'YYYYMM') as day, sum(amount) as price "
 				+ "FROM (SELECT * FROM orders WHERE orderstate = '결제완료') "
 				+ "WHERE regdate >= ? and regdate < ? "
@@ -116,11 +116,47 @@ public class TempOrdersDao {
 			pstmt = con.prepareStatement(sql);
 			if(year.equals("all")) {
 				pstmt.setString(1, "20170101");
-				pstmt.setString(2, "20250101");
+				pstmt.setString(2, "20230101");
 			}else {
+				// ex) 2020년도가 들어오면 20200101 ~ 20210101로 만들어줌
 				pstmt.setString(1, year+"0101");
 				pstmt.setString(2, (Integer.parseInt(year)+1)+"0101");
 			}
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				String day = rs.getString("day");
+				int price = rs.getInt("price");
+				
+				ChartCommand command = new ChartCommand(day, price);
+				list.add(command);
+			}
+			return list;
+		}catch(SQLException e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			DBPool.close(con, pstmt, rs);
+		}
+	}
+	
+	// 월별 매출 얻기
+	public List<ChartCommand> monthList(String date1, String date2){
+		String sql = "SELECT TO_CHAR(regdate, 'YYYYMMDD') as day, sum(amount) as price "
+				+ "FROM (SELECT * FROM orders WHERE orderstate = '결제완료') "
+				+ "WHERE regdate >= ? and regdate < ? "
+				+ "GROUP BY to_char(regdate, 'YYYYMMDD') "
+				+ "ORDER BY to_char(regdate, 'YYYYMMDD')";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<ChartCommand> list = new ArrayList<>();
+		
+		try {
+			con = DBPool.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, date1);
+			pstmt.setString(2, date2);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -195,7 +231,7 @@ public class TempOrdersDao {
 		}
 	}
 	
-	// 결제완료된 금액
+	// 전체금액
 	public int totalSales(String date1, String date2){
 		String sql = "SELECT NVL(SUM(amount), 0) amount FROM orders "
 				+ "WHERE regdate >= ? AND regdate < ? ";
