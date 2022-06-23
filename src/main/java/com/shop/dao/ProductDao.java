@@ -548,4 +548,232 @@ public class ProductDao {
 			DBPool.close(con);
 		}
 	}
+	
+	// 개별 상품 정보 + 상품 상세정보 동시 조회 + 대분류명,소분류명
+	public ProductCommand selectDescPlus(int productNum) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ProductCommand prd = null;
+		
+		try {
+			String sql = "SELECT * "
+					+ "FROM product p "
+					+ "JOIN productdetail d "
+					+ "ON p.product_num = d.product_num "
+					+ "JOIN scategory s "
+					+ "ON p.category_num = s.scategory_num "
+					+ "AND p.product_num = ?";
+			con = DBPool.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, productNum);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				int scategoryNum = rs.getInt("category_num");
+				String pname = rs.getString("pname");
+				String pdesc = rs.getString("pdesc");
+				int price = rs.getInt("price");
+				int discount = rs.getInt("discount");
+				int cnt = rs.getInt("cnt");
+				Date regdate = rs.getDate("regdate");
+				String image = rs.getString("image");
+				int pdescNum = rs.getInt("productdetail_num");
+				String descImg = rs.getString("images");
+				String btype = rs.getString("btype");
+				String stype = rs.getString("stype");
+				
+				prd = new ProductCommand(productNum, scategoryNum, pname, pdesc, price, discount, cnt, regdate, image, pdescNum, descImg, btype, stype);
+			}
+			return prd;
+			
+		}catch (SQLException s) {
+			s.printStackTrace();
+			return null;
+		}finally {
+			DBPool.close(con, pstmt, rs);
+		}
+	}
+	
+	// 상품 update
+	public int update(int pnum, ProductCommand prdComm) {
+		Connection con = null;
+		PreparedStatement pstmt1 = null;
+		PreparedStatement pstmt2 = null;
+		try {
+			String sql1 = "UPDATE product "
+					+ "SET category_num=?,pname=?,pdesc=?,price=?,discount=?,cnt=?,image=? "
+					+ "WHERE product_num = ?";
+			con = DBPool.getConnection();
+			pstmt1 = con.prepareStatement(sql1);
+			pstmt1.setInt(1, prdComm.getScategoryNum());
+			pstmt1.setString(2, prdComm.getPname());
+			pstmt1.setString(3, prdComm.getPdesc());
+			pstmt1.setInt(4, prdComm.getPrice());
+			pstmt1.setInt(5, prdComm.getDiscount());
+			pstmt1.setInt(6, prdComm.getCnt());
+			pstmt1.setString(7, prdComm.getImage());
+			pstmt1.setInt(8, pnum);
+			int n1 = pstmt1.executeUpdate();
+			int n2 = 0;
+			if(n1>0) {
+				String sql2 = "UPDATE productdetail "
+						+ "SET images=? "
+						+ "WHERE product_num = ?";
+				pstmt2 = con.prepareStatement(sql2);
+				pstmt2.setString(1, prdComm.getDescImg());
+				pstmt2.setInt(2, pnum);
+				n2 = pstmt2.executeUpdate();
+			}
+			return n2;
+		}catch (SQLException s) {
+			s.printStackTrace();
+			return -1;
+		}finally {
+			DBPool.close(pstmt2);
+			DBPool.close(pstmt1);
+			DBPool.close(con);
+		}
+	}
+	
+	// 상품 update (-썸네일이미지)
+	public int updateNoThum(int pnum, ProductCommand prdComm) {
+		Connection con = null;
+		PreparedStatement pstmt1 = null;
+		PreparedStatement pstmt2 = null;
+		try {
+			String sql1 = "UPDATE product "
+					+ "SET category_num=?,pname=?,pdesc=?,price=?,discount=?,cnt=? "
+					+ "WHERE product_num = ?";
+			con = DBPool.getConnection();
+			pstmt1 = con.prepareStatement(sql1);
+			pstmt1.setInt(1, prdComm.getScategoryNum());
+			pstmt1.setString(2, prdComm.getPname());
+			pstmt1.setString(3, prdComm.getPdesc());
+			pstmt1.setInt(4, prdComm.getPrice());
+			pstmt1.setInt(5, prdComm.getDiscount());
+			pstmt1.setInt(6, prdComm.getCnt());
+			pstmt1.setInt(7, pnum);
+			int n1 = pstmt1.executeUpdate();
+			int n2 = 0;
+			if(n1>0) {
+				String sql2 = "UPDATE productdetail "
+						+ "SET images=? "
+						+ "WHERE product_num = ?";
+				pstmt2 = con.prepareStatement(sql2);
+				pstmt2.setString(1, prdComm.getDescImg());
+				pstmt2.setInt(2, pnum);
+				n2 = pstmt2.executeUpdate();
+			}
+			return n2;
+		}catch (SQLException s) {
+			s.printStackTrace();
+			return -1;
+		}finally {
+			DBPool.close(pstmt2);
+			DBPool.close(pstmt1);
+			DBPool.close(con);
+		}
+	}
+	
+	// 상품 update (-상세이미지)
+	public int updateNoDescImg(int pnum, ProductCommand prdComm) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			String sql = "UPDATE product "
+					+ "SET category_num=?,pname=?,pdesc=?,price=?,discount=?,cnt=?,image=? "
+					+ "WHERE product_num = ?";
+			con = DBPool.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, prdComm.getScategoryNum());
+			pstmt.setString(2, prdComm.getPname());
+			pstmt.setString(3, prdComm.getPdesc());
+			pstmt.setInt(4, prdComm.getPrice());
+			pstmt.setInt(5, prdComm.getDiscount());
+			pstmt.setInt(6, prdComm.getCnt());
+			pstmt.setString(7, prdComm.getImage());
+			pstmt.setInt(8, pnum);
+			int n = pstmt.executeUpdate();
+			return n;
+		}catch (SQLException s) {
+			s.printStackTrace();
+			return -1;
+		}finally {
+			DBPool.close(pstmt);
+			DBPool.close(con);
+		}
+	}
+	
+	// 상품 update (-썸네일,상세이미지)
+	public int updateNoImg(int pnum, ProductCommand prdComm) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			String sql = "UPDATE product "
+					+ "SET category_num=?,pname=?,pdesc=?,price=?,discount=?,cnt=? "
+					+ "WHERE product_num = ?";
+			con = DBPool.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, prdComm.getScategoryNum());
+			pstmt.setString(2, prdComm.getPname());
+			pstmt.setString(3, prdComm.getPdesc());
+			pstmt.setInt(4, prdComm.getPrice());
+			pstmt.setInt(5, prdComm.getDiscount());
+			pstmt.setInt(6, prdComm.getCnt());
+			pstmt.setInt(7, pnum);
+			int n = pstmt.executeUpdate();
+			return n;
+		}catch (SQLException s) {
+			s.printStackTrace();
+			return -1;
+		}finally {
+			DBPool.close(pstmt);
+			DBPool.close(con);
+		}
+	}
+	
+	// 상품 delete (product, productdetail, review
+	public int delete(int pnum) {
+		Connection con = null;
+		PreparedStatement pstmt1 = null;
+		PreparedStatement pstmt2 = null;
+		PreparedStatement pstmt3 = null;
+		String sql1 = "";
+		String sql2 = "";
+		String sql3 = "";
+		int n1 = 0;
+		int n2 = 0;
+		int n3 = 0;
+		try {
+			sql1 = "DELETE FROM review WHERE product_num = ?";
+			con = DBPool.getConnection();
+			pstmt1 = con.prepareStatement(sql1);
+			pstmt1.setInt(1, pnum);
+			n1 = pstmt1.executeUpdate();
+			System.out.println("삭제 리뷰 개수:"+n1);
+			
+				sql2 = "DELETE FROM productdetail WHERE product_num = ?";
+				pstmt2 = con.prepareStatement(sql2);
+				pstmt2.setInt(1, pnum);
+				n2 = pstmt2.executeUpdate();
+				System.out.println("삭제 상세페이지 개수:"+n2);
+				
+					sql3 = "DELETE FROM product WHERE product_num = ?";
+					pstmt3 = con.prepareStatement(sql3);
+					pstmt3.setInt(1, pnum);
+					n3 = pstmt3.executeUpdate();
+					System.out.println("삭제 상품 개수:"+n3);
+
+			return n3;
+		}catch (SQLException s) {
+			s.printStackTrace();
+			return -1;
+		}finally {
+			DBPool.close(pstmt3);
+			DBPool.close(pstmt2);
+			DBPool.close(pstmt1);
+			DBPool.close(con);
+		}
+	}
 }
