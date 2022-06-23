@@ -115,6 +115,7 @@
           <option value="hanmail.net"> hanmail.net </option>
           <option value="9"> 직접입력 </option>
         </select>
+        <br><span style="color:darkgray"> 이메일 주소는 주문내역 조회 시 사용됩니다. <br> 회원인 경우 회원정보와 동일한 이메일 주소를 입력해주세요. </span>
         </td>
       </tr>
 
@@ -124,7 +125,7 @@
 		    <input type="hidden" name="mnum" value="A100">
 		    
 		    <tr>
-		    	<th class="orderLabels"> 주문비밀번호 <p style="color:red; float:left;">*</p> </th>
+		    	<th class="orderLabels"> 주문비밀번호 <p style="color:red; float:left;">*</p><br>(비회원) </th>
 		    	<td><input type="password" name="orderPwd" id="orderPwd" value="" notNull="true" class="inputText" placeholder="영문/숫자 4자리 이상(대소문자 구분없음)"></td>
 		    </tr>
 			</c:when>
@@ -160,7 +161,7 @@
         </tr>
         <tr>
             <th></th>
-            <td><input type="text" name="kakaoAddr" value="" id="kakaoAddr" readonly="readonly" style="width:300px"></td>
+            <td><input type="text" name="kakaoAddr" value="" id="kakaoAddr" readonly="readonly"></td>
         </tr>
         <tr>
           <th class="orderLabels"> 상세주소 </th>
