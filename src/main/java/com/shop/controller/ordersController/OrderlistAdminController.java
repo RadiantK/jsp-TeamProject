@@ -24,7 +24,7 @@ public class OrderlistAdminController extends HttpServlet{
 		String keyword = req.getParameter("keyword");
 		
 		int pageNum = 1;
-		if(getPageNum!=null && getPageNum!="") pageNum = Integer.parseInt(getPageNum);
+		if(getPageNum!=null && !getPageNum.equals("")) pageNum = Integer.parseInt(getPageNum);
 		int endRow = pageNum*10;
 		int startRow = endRow-9;
 		

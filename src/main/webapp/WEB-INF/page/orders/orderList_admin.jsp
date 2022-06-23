@@ -105,7 +105,7 @@
  <!-- 하단 페이지 목록 -->
  <div class="nullDiv">
  	<c:if test="${startPage>5}">
-	<a href="${cp}/orders/orderlistAdmin?pageNum=${pageNum-1}&orderState=${orderState}" class="preBtn"> < </a>
+	<a href="${cp}/admin/orderlistAdmin?pageNum=${pageNum-1}" class="preBtn"> < </a>
 	</c:if>
 	<c:if test="${startPage<5}">
 	<a class="preBtn"> < </a>
@@ -114,16 +114,16 @@
 	<c:forEach var="i" begin="${startPage}" end="${endPage}">
 	<c:choose>
 	<c:when test="${pageNum==i}">
-	  <a href="${cp}/orders/orderlistAdmin?pageNum=${i}&orderState=${orderState}" class="curPage"> ${i} </a>
+	  <a href="${cp}/admin/orderlistAdmin?pageNum=${i}" class="curPage"> ${i} </a>
 	</c:when>
 	<c:otherwise>
-	  <a href="${cp}/orders/orderlistAdmin?pageNum=${i}&orderState=${orderState}" class="otherPage"> ${i} </a>
+	  <a href="${cp}/admin/orderlistAdmin?pageNum=${i}" class="otherPage"> ${i} </a>
 	</c:otherwise>
 	</c:choose>
 	</c:forEach>
 
 	<c:if test="${endPage<pageCnt}">
-	<a href="${cp}/orders/orderlistAdmin?pageNum=${endPage+1}&orderState=${orderState}" class="nextBtn"> > </a>
+	<a href="${cp}/admin/orderlistAdmin?pageNum=${endPage+1}" class="nextBtn"> > </a>
 	</c:if>
 	<c:if test="${endPage>=pageCnt}">
 	<a class="nextBtn"> > </a>
