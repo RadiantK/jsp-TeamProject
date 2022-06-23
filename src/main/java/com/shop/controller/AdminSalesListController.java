@@ -36,8 +36,8 @@ public class AdminSalesListController extends HttpServlet {
 		}else if(month_ != null && !month_.equals("")){
 			month = month_;
 		}
-		System.out.println(year);
-		System.out.println(month);
+//		System.out.println(year);
+//		System.out.println(month);
 		
 		String date1 = "";
 		String date2 = "";
@@ -58,8 +58,8 @@ public class AdminSalesListController extends HttpServlet {
 				date2 = (Integer.parseInt(year)+1) + "0101";
 			}
 		}
-		System.out.println(date1);
-		System.out.println(date2);
+//		System.out.println(date1);
+//		System.out.println(date2);
 		
 		TempOrdersDao ordersDao = TempOrdersDao.getInstance();
 		List<SalesCommand> list = ordersDao.selectList(page, date1, date2);
