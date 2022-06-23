@@ -107,7 +107,6 @@
   align-items: center;
 }
 .board .board-page span {
-	font-size: 28px;
 	cursor: pointer;
   padding: 10px;
   margin-right: 10px;
@@ -123,5 +122,5 @@
 }
 .board .board-page a span {
   display: block;
-  font-size: 28px;
+  font-size: 20px;
 }
