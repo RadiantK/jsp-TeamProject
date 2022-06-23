@@ -29,7 +29,6 @@ public class OrderlistAdminController extends HttpServlet{
 		int startRow = endRow-9;
 		
 		OrdersDao dao = OrdersDao.getInstance();
-		OrderDetailDao oddao = OrderDetailDao.getInstance();
 		ArrayList<Orders> orderList = null;
 		
 		int cnt = 0;
