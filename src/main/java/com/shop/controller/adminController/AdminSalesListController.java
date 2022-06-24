@@ -1,4 +1,4 @@
-package com.shop.controller;
+package com.shop.controller.adminController;
 
 import java.io.IOException;
 import java.util.List;
