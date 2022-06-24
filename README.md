@@ -53,11 +53,11 @@ GRANT CONNECT, RESOURCE, DBA TO jsp;
 
 ## 사용 외부 라이브러리
 - OJDBC 8 (오라클 Connect)
-- [JSTL](https://tomcat.apache.org/download-taglibs.cgi) JSP Standard Tag Libaray
-- [cos.jar](http://www.servlets.com/) 파일 전송 라이브러리
-- [JSON.jar](https://github.com/stleary/JSON-java) AJAX의 JSON처리를 편리하게 도와주는 라이브러리
+- [JSTL](https://tomcat.apache.org/download-taglibs.cgi) : JSP Standard Tag Libaray
+- [cos.jar](http://www.servlets.com/) : 파일 전송 라이브러리
+- [JSON.jar](https://github.com/stleary/JSON-java) : AJAX의 JSON처리를 편리하게 도와주는 라이브러리
 
 ## 사용 API
-- [KAKAO API](https://developers.kakao.com/) 카카오 로그인 처리를 위한 API사용
-- [다음(KAKAO) 주소 API)](https://postcode.map.daum.net/guide) 우편번호 서비스
-- [아임포트](https://www.iamport.kr/) 결제 처리
+- [KAKAO API](https://developers.kakao.com/) : 카카오 로그인 처리를 위한 API사용
+- [다음(KAKAO) 주소 API)](https://postcode.map.daum.net/guide) : 우편번호 서비스
+- [아임포트](https://www.iamport.kr/) : 결제 처리
