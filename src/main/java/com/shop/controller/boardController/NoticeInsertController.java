@@ -29,7 +29,7 @@ public class NoticeInsertController extends HttpServlet {
 		int n=dao.insertNotice(dto);
 
 		if(n>0) {
-			resp.sendRedirect(req.getContextPath()+"/board/Notice/List");
+			resp.sendRedirect(req.getContextPath()+"/board/Notice/Listmove");
 		}else {
 			System.out.println("공지등록 실패");
 		}
