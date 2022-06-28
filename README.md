@@ -61,3 +61,7 @@ GRANT CONNECT, RESOURCE, DBA TO jsp;
 - [KAKAO API](https://developers.kakao.com/) : 카카오 로그인 처리를 위한 API사용
 - [다음(KAKAO) 주소 API)](https://postcode.map.daum.net/guide) : 우편번호 서비스
 - [아임포트](https://www.iamport.kr/) : 결제 처리
+
+## 코드 유의사항
+- js폴더의 kakaoLogin.txt파일을 자신의 카카오 자바스크립트 앱키를 사용하여 kakaoLogin.js 폴더로 변환해서 사용할 것
+- js폴더의 orders.js폴더의 i'm port 앱 키를 자신의 앱 키를 사용할 
